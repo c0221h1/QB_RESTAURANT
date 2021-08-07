@@ -1,1 +1,1 @@
-Code chuc nang client 
+Code chuc nang client Table
