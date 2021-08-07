@@ -3,7 +3,7 @@ var voucher  = voucher || {};
 
 voucher.voucherList = function(){
     $.ajax({
-        url:'/promotions/all',
+        url:'/vouchers/all',
         method:'GET',
         success: function(response){
             $('.table-voucher tbody').empty();
@@ -13,8 +13,8 @@ voucher.voucherList = function(){
             $.each(response, function(index, item){
                 $('.table-voucher tbody').append(`
                     <tr>     
-                        <td>${item.promotionId}</td>
-                        <td>${item.promotionName}</td>
+                        <td>${item.voucherId}</td>
+                        <td>${item.voucherName}</td>
                         <td class='text-right'>${item.percent}</td>
                         <td class='text-right'>${item.beginDate}</td>
                         <td class='text-right'>${item.endDate}</td>
@@ -26,15 +26,15 @@ voucher.voucherList = function(){
                         <td>
                             <a href='javascript:;' class='btn btn-success btn-sm'
                                 title='Modify voucher'
-                                onclick="voucher.getVoucher(${item.id})">
+                                onclick="voucher.getVoucher(${item.voucherId})">
                                 <i class='fa fa-pencil-alt'></i>
                             </a>
-                            <a href='javascript:;' onclick="voucher.confirmChangeStatus(${item.promotionId}, ${item.status})" 
+                            <a href='javascript:;' onclick="voucher.confirmChangeStatus(${item.voucherId}, ${item.status})" 
                                 class='btn ${item.status ? "btn-warning" : "btn-secondary"} btn-sm'
                                     title='${item.status ? "Inactive voucher" : "Active voucher"}'>
                                     <i class='fa ${item.status ? "fa-lock-open" : "fa-lock"}'></i></a>
                             <a href='javascript:;' class='btn btn-danger btn-sm' title='Remove voucher'
-                                onclick="voucher.removeVoucher(${item.promotionId})">
+                                onclick="voucher.removeVoucher(${item.voucherId})">
                                 <i class='fa fa-trash'></i>
                             </a>
                         </td>
@@ -54,17 +54,17 @@ voucher.voucherList = function(){
 
 voucher.save = function (){
     if( $('#voucherForm').valid()){
-        let promotionId = parseInt($('input[name=promotionId]').val());
-        if( promotionId == 0) {
+        let voucherId = parseInt($('input[name=voucherId]').val());
+        if( voucherId == 0) {
             let createObj = {};
-            createObj.promotionName = $('input[name = promotionName]').val();
+            createObj.voucherName = $('input[name = voucherName]').val();
             createObj.percent = $('input[name = percent]').val();
             createObj.beginDate = $('input[name = beginDate]').val();
             createObj.endDate = $('input[name = endDate]').val();
             createObj.status = $('input[name = "Active"]').is(":checked");
 
             $.ajax({
-                url: '/promotions',
+                url: '/vouchers',
                 method: "POST",
                 contentType:"application/json",
                 dataType:"json",
@@ -81,15 +81,15 @@ voucher.save = function (){
             })
         }else{
             let modifiObj = {};
-            modifiObj.promotionName = $('input[name = promotionName]').val();
+            modifiObj.voucherName = $('input[name = voucherName]').val();
             modifiObj.percent = $('input[name = percent]').val();
             modifiObj.beginDate = $('input[name = beginDate]').val();
             modifiObj.endDate = $('input[name = endDate]').val();
             modifiObj.status = $('input[name = "Active"]').is(":checked");
-            modifiObj.id = promotionId;
+            modifiObj.voucherId = voucherId;
 
             $.ajax({
-                url: '/promotions/${promotionId}',
+                url: '/vouchers/${voucherId}',
                 method: "PUT",
                 contentType: "application/json",
                 dataType: "json",
@@ -110,10 +110,10 @@ voucher.save = function (){
 
 voucher.getVoucher = function (promotionId){
     $.ajax({
-        url:'/promotions/${promotionId}',
+        url:'/vouchers/${voucherId}',
         method:"GET",
         success: function (resp){
-            $('input[name = promotionName]').val(resp.promotionName);
+            $('input[name = voucherName]').val(resp.voucherName);
             $('input[name = percent]').val(resp.percent);
             $('input[name = beginDate]').val(resp.beginDate);
             $('input[name = endDate]').val(resp.endDate);
