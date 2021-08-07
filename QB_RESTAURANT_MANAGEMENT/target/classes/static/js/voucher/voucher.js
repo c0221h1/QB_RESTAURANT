@@ -23,7 +23,7 @@ voucher.voucherList = function(){
                     '<span class="badge bg-primary">Active</span>' :
                     '<span class="badge bg-danger">Inactive</span>'}
                         </td>
-                        <td>
+                        <td class='text-center'>
                             <a href='javascript:;' class='btn btn-success btn-sm'
                                 title='Modify voucher'
                                 onclick="voucher.getVoucher(${item.voucherId})">
@@ -123,11 +123,52 @@ voucher.getVoucher = function (promotionId){
             $('#voucherModal').modal('show');
         }
     })
+};
+
+voucher.confirmChangeStatus = function(voucherId, status){
+    bootbox.confirm({
+        title: "Change product status?",
+        message: `Do you want to ${status ? 'inactive' : 'active'} the voucher now?`,
+        buttons: {
+            cancel: {
+                label: '<i class="fa fa-times"></i> Cancel'
+            },
+            confirm: {
+                label: '<i class="fa fa-check"></i> Confirm'
+            }
+        },
+        callback: function (result) {
+            if(result){
+                voucher.changeStatus(voucherId, status);
+            }
+        }
+    });
+};
+
+voucher.changeStatus = function(voucherId, status){
+    let updateStatusObj = {};
+    updateStatusObj.status = !status;
+
+    $.ajax({
+        url:'/vouchers/${voucherId}',
+        method: "PUT",
+        contentType:"application/json",
+        datatype :"json",
+        data: JSON.stringify(updateStatusObj),
+        success: function(result){
+            if(result){
+                voucher.voucherList();
+                $.notify("Trạng thái khuyến mãi đã thay đổi", "success");
+            }
+            else{
+                $.notify("xuất hiện lỗi, thử lại", "error");
+            }
+        }
+    })
 }
 
 voucher.showModal = function() {
-    voucher.reset();
-    $('#voucherModal').modal('show')
+    $('#voucherModal').modal('show');
 };
 
 voucher.reset = function(){

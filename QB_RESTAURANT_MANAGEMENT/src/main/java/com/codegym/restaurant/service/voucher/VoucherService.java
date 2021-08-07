@@ -11,24 +11,24 @@ import java.util.Optional;
 public class VoucherService implements IVoucherService {
 
     @Autowired
-    private IVoucherRepository promotionRepository;
+    private IVoucherRepository voucherRepository;
     @Override
     public Iterable<Voucher> findAll() {
-        return promotionRepository.findAll();
+        return voucherRepository.findAll();
     }
 
     @Override
     public Optional<Voucher> findById(Long id) {
-        return promotionRepository.findById(id);
+        return voucherRepository.findById(id);
     }
 
     @Override
-    public void save(Voucher voucher) {
-        promotionRepository.save(voucher);
+    public Voucher save(Voucher voucher) {
+         return voucherRepository.save(voucher);
     }
 
     @Override
     public void remove(Long id) {
-        promotionRepository.deleteById(id);
+        voucherRepository.deleteById(id);
     }
 }
