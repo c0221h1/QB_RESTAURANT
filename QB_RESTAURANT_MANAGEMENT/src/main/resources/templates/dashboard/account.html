@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout/head::header"></head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!--    Navbar start-->
+  <th:block th:replace="/layout/nav :: navbar"></th:block>
+  <!--    Navbar end-->
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Quản lý tài khoản</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Quản lý tài khoản</li>
+            </ol>
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <section class="content">
+          <div class="container-fluid">
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+              <div class="w-100 mb-2">
+                <div class="float-right">
+                  <a href="javascript:;" onclick="showAccountModal()" class="btn btn-primary">
+                    <i class="fa fa-plus"></i> Thêm nhân viên
+                  </a>
+                </div>
+              </div>
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover table-bordered text-nowrap">
+                  <thead class="thead-dark text-center">
+                  <tr>
+                    <th>ID</th>
+                    <th>Tên</th>
+                    <th>Ảnh</th>
+                    <th>Số điện thoại</th>
+                    <th>Chức vụ</th>
+                    <th>Chỉnh sửa</th>
+                    <th>Xóa</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+              <!-- ./col -->
+            </div>
+          </div>
+          <!-- /.container-fluid -->
+        </section>
+        <!--Start Account Modal -->
+        <div class="modal" id="accountModal">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content col-8">
+
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Thêm nhân viên</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body">
+                <form id="productForm">
+                  <div class="form-group">
+                    <label>Tên nhân viên</label>
+                    <input type="text" name="username" id="username" class="form-control" data-rule-required="true" data-msg-required="The product name is required.">
+                    <input type="hidden" name="userID" value="0">
+                  </div>
+                  <div class="form-group">
+                    <label>Số điện thoại</label>
+                    <input type="number" name="phoneNumber" id="phoneNumber" class="form-control" data-rule-required="true" data-msg-required="The manufactory is required.">
+                  </div>
+                  <div class="form-group">
+                    <label for="role">Chức vụ</label>
+                    <select id="role" class="form-control custom-select">
+                      <option selected disabled>Chọn một</option>
+                      <option>Quản lý</option>
+                      <option>Nhân viên</option>
+                      <option>Thu ngân</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-6">
+                    <label>Ảnh</label>
+                    <input type="file" name="image" id="image" data-rule-required="true" data-msg-required="The manufactory is required.">
+                  </div>
+                </form>
+              </div>
+
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                <a href='javascript:;' class="btn btn-primary" onclick="product.save()">Save</a>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <!--End Account Modal -->
+      </div>
+    </div>
+  </div>
+  <aside class="control-sidebar control-sidebar-dark">
+  </aside>
+</div>
+<script>
+  function showAccountModal() {
+    $('#accountModal').modal('show')
+  }
+</script>
+<script src="/plugins/jquery/jquery.min.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/dist/js/adminlte.js"></script>
+</body>
+
+</html>

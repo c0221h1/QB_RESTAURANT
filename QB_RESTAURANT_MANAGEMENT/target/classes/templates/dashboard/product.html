@@ -1,0 +1,164 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout/head::header"></head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!--    Navbar start-->
+  <th:block th:replace="/layout/nav :: navbar"></th:block>
+  <!--    Navbar end-->
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Sản phẩm</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Quản lý sản phẩm</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.content-header -->
+
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="d-flex flex-row-reverse bd-highlight">
+            <div class="p-2 bd-highlight">
+              <a onclick="showModal()" class="btn btn-primary">
+                <i class="fa fa-plus"></i> Thêm sản phẩm
+              </a>
+            </div>
+            <div class="p-2 bd-highlight">
+              <a href="javascript:;" onclick="showModalCategory()" class="btn btn-primary">
+                <i class="fa fa-plus"></i> Thêm danh mục
+              </a>
+            </div>
+          </div>
+          <div class="card-body table-responsive p-0">
+            <table class="table table-hover table-bordered text-nowrap table-product" id="productList">
+              <thead class="thead-dark text-center">
+              <tr>
+                <th>Tên sản phẩm</th>
+                <th>Ảnh</th>
+                <th>Giá</th>
+                <th>Thuộc danh mục</th>
+                <th>Tình trạng</th>
+                <th class="text-center"></th>
+              </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Start Add Modal product -->
+    <div class="modal" id="productModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content col-8">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Thêm sản phẩm</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <form id="productForm">
+              <div class="form-group">
+                <label>Tên sản phẩm</label>
+                <input type="text" name="product_name" id="product_name" class="form-control" data-rule-required="true" data-msg-required="The product name is required.">
+                <input type="hidden" name="productId" value="0">
+              </div>
+              <div class="form-group">
+                <label>Giá</label>
+                <input type="number" name="price" id="price" class="form-control" data-rule-required="true" data-msg-required="The manufactory is required.">
+              </div>
+              <div class="form-group">
+                <label>Mô tả</label>
+                <textarea name="description" id="description" class="form-control" data-rule-required="true" data-msg-required="Mô tả không để trống.."></textarea>
+              </div>
+              <div class="form-group">
+                <label for="inputStatus">Danh mục</label>
+                <select id="inputStatus" class="form-control custom-select">
+                  <option selected disabled>Chọn một</option>
+                  <option>Món ăn</option>
+                  <option>Nước uống</option>
+                  <option>Khác</option>
+                </select>
+              </div>
+              <div class="form-group col-6">
+                <label>Ảnh</label>
+                <input type="file" name="image" id="image" data-rule-required="true" data-msg-required="The manufactory is required.">
+              </div>
+            </form>
+          </div>
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <a href='javascript:;' class="btn btn-primary" onclick="product.save()">Save</a>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- End Modal product -->
+
+    <!--Start Category Modal -->
+    <div class="modal" id="categoryModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content col-8">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Thêm danh mục</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <!-- Modal body -->
+          <div class="modal-body">
+            <form id="categoryForm">
+              <div class="form-group">
+                <label>Tên danh mục</label>
+                <input type="text" name="categoryname" class="form-control" data-rule-required="true" data-msg-required="The product name is required.">
+                <input type="hidden" name="catogoryId" value="0">
+              </div>
+            </form>
+          </div>
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <a href='javascript:;' class="btn btn-primary" onclick="category.save()">Save</a>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--End Category Modal -->
+  </div>
+  <!-- Control Sidebar -->
+</div>
+<script>
+  function showModal() {
+    $('#productModal').modal('show')
+  }
+
+  function showModalCategory() {
+    $('#categoryModal').modal('show')
+  }
+</script>
+<script src="/plugins/jquery/jquery.min.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/dist/js/adminlte.js"></script>
+<script src="/js/manager/listProduct.js"></script>
+</body>
+</html>
