@@ -39,10 +39,8 @@ public class VoucherController {
     }
     
     @PostMapping("/add")
-    public ResponseEntity<Optional<Voucher>> addVoucher(@RequestBody Voucher voucher){
+    public ResponseEntity<Voucher> addVoucher(@RequestBody Voucher voucher){
         return new ResponseEntity<>(voucherService.save(voucher), HttpStatus.CREATED);
     }
     
-
-
 }

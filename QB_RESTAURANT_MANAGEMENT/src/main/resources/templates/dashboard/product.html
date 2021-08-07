@@ -39,7 +39,7 @@
               </a>
             </div>
             <div class="p-2 bd-highlight">
-              <a href="javascript:;" onclick="showModalCategory()" class="btn btn-primary">
+              <a onclick="showModalCategory()" class="btn btn-primary">
                 <i class="fa fa-plus"></i> Thêm danh mục
               </a>
             </div>
@@ -52,7 +52,6 @@
                 <th>Ảnh</th>
                 <th>Giá</th>
                 <th>Thuộc danh mục</th>
-                <th>Tình trạng</th>
                 <th class="text-center"></th>
               </tr>
               </thead>
@@ -76,11 +75,11 @@
 
           <!-- Modal body -->
           <div class="modal-body">
-            <form id="productForm">
+            <form id="create-form">
               <div class="form-group">
                 <label>Tên sản phẩm</label>
                 <input type="text" name="product_name" id="product_name" class="form-control" data-rule-required="true" data-msg-required="The product name is required.">
-                <input type="hidden" name="productId" value="0">
+                <input type="hidden" name="productId" id="productId" value="0">
               </div>
               <div class="form-group">
                 <label>Giá</label>
@@ -91,26 +90,27 @@
                 <textarea name="description" id="description" class="form-control" data-rule-required="true" data-msg-required="Mô tả không để trống.."></textarea>
               </div>
               <div class="form-group">
-                <label for="inputStatus">Danh mục</label>
-                <select id="inputStatus" class="form-control custom-select">
-                  <option selected disabled>Chọn một</option>
-                  <option>Món ăn</option>
-                  <option>Nước uống</option>
-                  <option>Khác</option>
+                <label for="category">Danh mục</label>
+                <select id="category" class="form-control custom-select">
                 </select>
               </div>
-              <div class="form-group col-6">
-                <label>Ảnh</label>
-                <input type="file" name="image" id="image" data-rule-required="true" data-msg-required="The manufactory is required.">
+              <div class="form-group col-md-6">
+                <form id="singleUploadForm" name="singleUploadForm">
+                  <label>
+                    Chọn ảnh:
+                    <input id="singleFileUploadInput" type="file" name="file" class="file-input">
+                  </label>
+                  <input type="submit" class="upload" hidden>
+                </form>
+                <input hidden type="text" id="imageName" value="">
               </div>
             </form>
           </div>
           <!-- Modal footer -->
           <div class="modal-footer">
-            <a href='javascript:;' class="btn btn-primary" onclick="product.save()">Save</a>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="create-button" >Lưu</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
           </div>
-
         </div>
       </div>
     </div>
@@ -147,18 +147,13 @@
   </div>
   <!-- Control Sidebar -->
 </div>
-<script>
-  function showModal() {
-    $('#productModal').modal('show')
-  }
-
-  function showModalCategory() {
-    $('#categoryModal').modal('show')
-  }
-</script>
-<script src="/plugins/jquery/jquery.min.js"></script>
+<script src="/js/jquery-3.6.0.min.js"></script>
 <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/dist/js/adminlte.js"></script>
-<script src="/js/manager/listProduct.js"></script>
+<script src="/js/product/list.js"></script>
+<script src="/js/app.js"></script>
+<script src="/js/sweetalert2.min.js"></script>
+<script src="/js/jquery.validate-1.19.3.min.js"></script>
+<script src="/js/validator.js"></script>
 </body>
 </html>

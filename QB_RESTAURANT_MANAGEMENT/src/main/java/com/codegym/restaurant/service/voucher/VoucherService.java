@@ -23,8 +23,8 @@ public class VoucherService implements IVoucherService {
     }
 
     @Override
-    public void save(Voucher voucher) {
-        voucherRepository.save(voucher);
+    public Voucher save(Voucher voucher) {
+         return voucherRepository.save(voucher);
     }
 
     @Override
