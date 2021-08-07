@@ -15,16 +15,16 @@ import java.sql.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name= "promotions")
-public class Promotion {
+@Table(name= "vouchers")
+public class Voucher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long promotionId;
+    private Long voucherId;
 
     @Column(nullable = false)
     @Size(min = 3, max = 255)
-    private String promotionName;
+    private String voucherName;
 
     @Min (1)
     @Max(100)
