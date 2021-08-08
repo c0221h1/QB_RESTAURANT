@@ -3,9 +3,11 @@ package com.codegym.restaurant.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Data
@@ -22,6 +24,14 @@ public class Desk {
     @Size(min = 1, max = 50)
     private String tableName;
 
-    @Column(nullable = false)
-    private boolean status;
+    @Column(columnDefinition = "boolean default false")
+    private boolean custom;
+    @Column(columnDefinition = "boolean default false")
+    private boolean book;
+    @Column(columnDefinition = "boolean default false")
+    private boolean hidden;
+
+    @JsonIgnore
+    @OneToMany(targetEntity = Order.class)
+    private List<Order> orders;
 }

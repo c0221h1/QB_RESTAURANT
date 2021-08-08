@@ -23,7 +23,7 @@ public class Order {
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
     private Date orderTime;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "table_Id")
     private Desk desk;
 
