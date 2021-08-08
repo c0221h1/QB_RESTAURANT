@@ -3,13 +3,9 @@ package com.codegym.restaurant.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
-import java.sql.Date;
+import javax.validation.constraints.*;
+import java.util.Date;
 
 @Entity
 @Data
@@ -29,9 +25,9 @@ public class Voucher {
     @Min (1)
     @Max(100)
     private int percent;
-
-    @Column(nullable = false)
-    @DateTimeFormat
+    
+    @Temporal(TemporalType.DATE)
+    @FutureOrPresent
     private Date beginDate;
 
     @Column(nullable = false)
@@ -39,8 +35,8 @@ public class Voucher {
 
 
     private String note;
-
-    @Column(nullable = false)
-    @DateTimeFormat
+    
+    @Temporal(TemporalType.DATE)
+    @Future
     private Date endDate;
 }

@@ -27,8 +27,8 @@ public class VoucherController {
     }
     
     @GetMapping("/all")
-    public ResponseEntity<Iterable<Voucher>> listAllPromotion(){
-        return new ResponseEntity<>(voucherService.findAll(), HttpStatus.OK);
+    public ResponseEntity<Iterable<Voucher>> listVoucher(){
+        return new ResponseEntity<>(voucherService.findAllByEndDateDesc(), HttpStatus.OK);
     }
     
     @GetMapping("/add")
@@ -42,5 +42,48 @@ public class VoucherController {
     public ResponseEntity<Voucher> addVoucher(@RequestBody Voucher voucher){
         return new ResponseEntity<>(voucherService.save(voucher), HttpStatus.CREATED);
     }
+    
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<Voucher> editVoucher(@RequestBody Voucher voucher, @PathVariable Long id){
+        Optional <Voucher> voucherOptional = voucherService.findById(id);
+        if (!voucherOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(voucherService.save(voucher),HttpStatus.OK);
+    }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<Voucher> voucherResponseEntity(@PathVariable Long id){
+        Voucher voucherOptional = voucherService.findById(id).get();
+        return new ResponseEntity<>(voucherOptional,HttpStatus.OK);
+    }
+    
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Voucher> deleteVoucher(@PathVariable Long id) {
+        Optional <Voucher> voucherOptional = voucherService.findById(id);
+        if (!voucherOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        voucherService.remove(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    
+//    @PostMapping("/{id}")
+//    public ResponseEntity<Voucher> restoreVoucher(@PathVariable Long id) {
+//        Optional<Voucher> voucherOptional = voucherService.findById(id);
+//        if (!voucherOptional.isPresent()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        voucherService.restoreVoucherById(id);
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//    }
+//
+//
+//    @GetMapping("/hiddenVoucher")
+//    public ModelAndView getAllVoucherHiddenPage() {
+//        ModelAndView modelAndView = new ModelAndView("/dashboard/voucher/hiddenVoucher");
+//        modelAndView.addObject("hiddenVouchers",voucherService.findAllVoucher_idDesc());
+//        return modelAndView;
+//    }
     
 }

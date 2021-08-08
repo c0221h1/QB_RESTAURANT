@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("")
 public class ProductController {
     
     @Autowired

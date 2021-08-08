@@ -101,7 +101,7 @@
             App.showSuccessAlert("Đăng nhập thành công!");
             console.log(user);
             if  (user.roles[0].authority === "ADMIN"){
-                window.location.href = "/admin";
+                window.location.href = "/dashboard";
             } else if (user.roles[0].authority === "PROJECTION"){
                 window.location.href = "/projection";
             }
