@@ -61,10 +61,10 @@ public class HomeController {
         return new ModelAndView("/register");
     }
 
-    @GetMapping("/admin")
+    @GetMapping("/dashboard")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ModelAndView admin(HttpServletRequest request) {
-        ModelAndView modelAndView = new ModelAndView("/admin");
+        ModelAndView modelAndView = new ModelAndView("/dashboard/index");
         modelAndView.addObject("userInfo", getPrincipal());
         return modelAndView;
     }

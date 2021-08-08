@@ -1,7 +1,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="navbar">
   <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+    <img class="animation__shake" src="/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
   </div>
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -136,7 +136,7 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a th:href="@{/dashboard}" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Doanh số
@@ -144,7 +144,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a th:href="@{/products/listProduct}" class="nav-link">
+            <a th:href="@{/listProduct}" class="nav-link">
               <i class="fas fa-hamburger"></i>
               <p>
                 Sản phẩm
@@ -160,7 +160,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a th:href="@{/vouchers}" class="nav-link">
               <i class="fas fa-tags"></i>
               <p>
                 Khuyến mãi

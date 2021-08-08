@@ -17,44 +17,44 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
+    
     @Autowired
-    private IEmployeeService IEmployeeService;
-
+    private IEmployeeService employeeService;
+    
     @Autowired
-    private com.codegym.restaurant.security.JwtRequestFilter jwtRequestFilter;
-
+    private JwtRequestFilter jwtRequestFilter;
+    
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(10);
     }
-
+    
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(IEmployeeService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(employeeService).passwordEncoder(passwordEncoder());
     }
-
+    
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers( ",","/login", "/api/login", "/css/**", "/js/**", "/api/register","/dashboard/**", "/register").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginProcessingUrl("/login")
-                .loginPage("/login")
-                .usernameParameter("username")
-                .passwordParameter("password")
-                .defaultSuccessUrl("/admin")
-                .and().exceptionHandling().accessDeniedPage("/error-403")
-                .and().csrf().disable();
+                  .antMatchers( ",","/login", "/api/login", "/css/**","/product/**","/js/**", "/api/register","/dashboard/**", "/register").permitAll()
+                  .anyRequest().authenticated()
+                  .and()
+                  .formLogin()
+                  .loginProcessingUrl("/login")
+                  .loginPage("/login")
+                  .usernameParameter("username")
+                  .passwordParameter("password")
+                  .defaultSuccessUrl("/dashboard")
+                  .and().exceptionHandling().accessDeniedPage("/error-403")
+                  .and().csrf().disable();
         http.logout()
-                .logoutSuccessUrl("/login")
-                .logoutUrl("/logout")
-                .deleteCookies("JWT").invalidateHttpSession(true)
-                .permitAll();
-
+                  .logoutSuccessUrl("/login")
+                  .logoutUrl("/logout")
+                  .deleteCookies("JWT").invalidateHttpSession(true)
+                  .permitAll();
+        
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
-                .csrf().disable();
+                  .csrf().disable();
     }
 }

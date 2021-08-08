@@ -31,4 +31,10 @@ public class VoucherService implements IVoucherService {
     public void remove(Long id) {
         voucherRepository.deleteById(id);
     }
+    
+    
+    @Override
+    public Iterable<Voucher> findAllByEndDateDesc () {
+        return voucherRepository.findAllByEndDateDesc();
+    }
 }
