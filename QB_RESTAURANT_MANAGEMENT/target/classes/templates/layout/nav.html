@@ -159,14 +159,34 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a th:href="@{/vouchers}" class="nav-link">
+
+          <li class="dropdown nav-item">
+            <a class="nav-link">
               <i class="fas fa-tags"></i>
               <p>
                 Khuyến mãi
               </p>
             </a>
+            <ul>
+              <li class="nav-item">
+                <a th:href="@{/vouchers}" class="nav-link">
+                  <i class="fas fa-tags"></i>
+                  <p>
+                    Còn hạn
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a th:href="@{/voucherExpired}" class="nav-link">
+                  <i class="fas fa-tags"></i>
+                  <p>
+                    Hết hạn
+                  </p>
+                </a>
+              </li>
+            </ul>
           </li>
+
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="fas fa-history"></i>
