@@ -4,7 +4,13 @@ import com.codegym.restaurant.model.Voucher;
 import com.codegym.restaurant.service.IGeneralService;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.Optional;
+
 public interface IVoucherService extends IGeneralService<Voucher> {
-//	@Query ("select v from Voucher v where v.endDate >= current_date  order by v.voucherId desc")
-	Iterable<Voucher> findAllByEndDateDesc();
+	
+	Iterable<Voucher> findAllByVoucherValid();
+	
+	Iterable<Voucher> findAllByVoucherExpired();
+	
+	void changeVoucherStatus();
 }

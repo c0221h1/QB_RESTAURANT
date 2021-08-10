@@ -3,9 +3,11 @@ package com.codegym.restaurant.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.userdetails.User;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 @Data
@@ -26,17 +28,46 @@ public class Voucher {
     @Max(100)
     private int percent;
     
-    @Temporal(TemporalType.DATE)
-    @FutureOrPresent
+//    @Temporal(TemporalType.DATE)
+    @FutureOrPresent(message = "Khuyến mãi không thể bắt đầu từ quá khứ !")
     private Date beginDate;
 
     @Column(nullable = false)
     private boolean status;
-
-
+    
     private String note;
     
-    @Temporal(TemporalType.DATE)
-    @Future
+    @Future(message = "Khuyến mãi kết thúc trong tương lai !")
     private Date endDate;
+    
+    public Voucher (Long voucherId, String voucherName, int percent, Date beginDate, Date endDate, String note) {
+        this.voucherId = voucherId;
+        this.voucherName = voucherName;
+        this.percent = percent;
+        this.beginDate = beginDate;
+        this.endDate = endDate;
+        this.note = note;
+    }
+    
+    public Voucher (String voucherName, int percent, Date beginDate, boolean status, String note, Date endDate) {
+        this.voucherName = voucherName;
+        this.percent = percent;
+        this.beginDate = beginDate;
+        this.status = status;
+        this.note = note;
+        this.endDate = endDate;
+    }
+    
+    public Voucher (String voucherName, int percent, Date beginDate, String note, Date endDate) {
+        this.voucherName = voucherName;
+        this.percent = percent;
+        this.beginDate = beginDate;
+        this.note = note;
+        this.endDate = endDate;
+    }
+    
+    public Voucher (Long voucherId, boolean status) {
+        this.voucherId = voucherId;
+        this.status = status;
+    }
 }

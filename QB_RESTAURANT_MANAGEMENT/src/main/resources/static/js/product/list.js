@@ -19,7 +19,7 @@ $("#singleUploadForm").on("submit",function (){
 function getAllCategory(){
     $.ajax({
         type: "GET",
-        url: "/allCategory"
+        url: "/products/allCategory"
     }).done(function (category){
         let content = "";
         for (let i = 0; i < category.length; i++) {
@@ -34,7 +34,7 @@ function getAllCategory(){
 function getAllProduct(){
     $.ajax({
         type: "GET",
-        url: "/allProduct"
+        url: "/products/allProduct"
     }).done(function (product){
         let content = "";
         for (let i = product.length-1; i >= 0; i--) {
@@ -96,7 +96,7 @@ function createProduct(){
             },
             type: "POST",
             data: JSON.stringify(newProduct),
-            url: "/createProduct"
+            url: "/products/createProduct"
         }).done(function (product){
             $("#create-form")[0].reset();
             App.showSuccessAlert("Thêm mới sản phẩm thành công!!");
@@ -126,7 +126,7 @@ function showModalCategory() {
 function deleteProduct(productID) {
     $.ajax({
         type : "DELETE",
-        url : `/${productID}`
+        url : `/products/${productID}`
     }).done(function (){
         $("#row" + productID).remove();
         App.showSuccessAlert("Đã xóa thành công!")

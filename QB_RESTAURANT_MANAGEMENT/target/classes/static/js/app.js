@@ -1,7 +1,5 @@
 
 class App {
-
-
     static showDeleteConfirmDialog() {
         return Swal.fire({
             icon: 'warning',
