@@ -17,8 +17,6 @@ public interface IVoucherRepository extends JpaRepository<Voucher, Long> {
 	@Query ("select v from Voucher v where v.endDate >= current_date  order by v.beginDate desc")
 	Iterable<Voucher> findAllByVoucherValid();
 	
-	@Query("update Voucher  v set v.status = false where v.endDate  < current_date ")
-	void changeVoucherStatus();
 	
 	@Modifying
 	@Query ("select v from Voucher v where v.endDate < current_date ")

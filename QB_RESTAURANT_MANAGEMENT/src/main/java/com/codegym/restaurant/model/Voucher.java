@@ -32,7 +32,7 @@ public class Voucher {
     @FutureOrPresent(message = "Khuyến mãi không thể bắt đầu từ quá khứ !")
     private Date beginDate;
 
-    @Column(nullable = false)
+    @Column(name = "status",columnDefinition = "boolean default false")
     private boolean status;
     
     private String note;
@@ -68,6 +68,14 @@ public class Voucher {
     
     public Voucher (Long voucherId, boolean status) {
         this.voucherId = voucherId;
+        this.status = status;
+    }
+    
+    public boolean isStatus () {
+        return status;
+    }
+    
+    public void setStatus (boolean status) {
         this.status = status;
     }
 }

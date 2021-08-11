@@ -24,16 +24,16 @@ voucher.voucherList = function(){
                     '<span class="badge bg-danger">Chờ</span>'}
                         </td>
                         <td class='text-center'>
-                            <a href='javascript:;' class='btn btn-success btn-sm'
+                            <a href='javascript:;' class='btn btn-outline-success btn-sm'
                                 title='Cập nhật khuyến mãi'
                                 onclick="voucher.getVoucher(${item.voucherId})">
                                 <i class='fa fa-pencil-alt'></i>
                             </a>
                             <a href='javascript:;' onclick="voucher.confirmChangeStatus(${item.voucherId}, ${item.status})" 
-                                class='btn ${item.status ? "btn-warning" : "btn-secondary"} btn-sm'
+                                class='btn ${item.status ? "btn-outline-warning" : "btn-outline-secondary"} btn-sm'
                                     title='${item.status ? "Dừng KM" : "Áp dụng KM"}'>
                                     <i class='fa ${item.status ? "fa-lock-open" : "fa-lock"}'></i></a>
-                            <a href='javascript:;' class='btn btn-danger btn-sm' title='Xóa khuyến mãi'
+                            <a href='javascript:;' class='btn btn-outline-danger btn-sm' title='Xóa khuyến mãi'
                                 onclick="voucher.removeVoucher(${item.voucherId})">
                                 <i class='fa fa-trash'></i>
                             </a>
@@ -41,12 +41,12 @@ voucher.voucherList = function(){
                     </tr>
                     `);
             });
-            $('.table-voucher').DataTable({
-                columnDefs: [
-                    { orderable: false, targets: [0,6,7] },
-                    { searchable: false, targets: [0,6,7] }
-                ],
-            });
+            // $('.table-voucher').DataTable({
+            //     columnDefs: [
+            //         { orderable: false, targets: [0,6,7] },
+            //         { searchable: false, targets: [0,6,7] }
+            //     ],
+            // });
         }
     })
 };
@@ -70,7 +70,7 @@ voucher.voucherExpiredList = function(){
                         <td class='text-right'>${item.endDate}</td>
                         <td class='text-left'>${item.note}</td>
                         <td class='text-center'>
-                            <a href='javascript:;' class='btn btn-danger btn-sm' title='Xóa khuyến mãi'
+                            <a href='javascript:;' class='btn btn-outline-danger btn-sm' title='Xóa khuyến mãi'
                                 onclick="voucher.removeVoucher(${item.voucherId})">
                                 <i class='fa fa-trash'></i>
                             </a>
@@ -78,12 +78,12 @@ voucher.voucherExpiredList = function(){
                     </tr>
                     `);
             });
-            $('.table-voucher-expired').DataTable({
-                columnDefs: [
-                    { orderable: false, targets: [0,5,6] },
-                    { searchable: false, targets: [0,6] }
-                ],
-            });
+            // $('.table-voucher-expired').DataTable({
+            //     columnDefs: [
+            //         { orderable: false, targets: [0,5,6] },
+            //         { searchable: false, targets: [0,6] }
+            //     ],
+            // });
         }
     })
 };
@@ -101,8 +101,8 @@ voucher.save = function (){
             modifiObj.voucherId = voucherId;
 
             $.ajax({
-                url: `/vouchers/edit/${voucherId}`,
-                method: "PATCH",
+                url: `/vouchers/edit`,
+                method: "PUT",
                 contentType: "application/json",
                 dataType: "json",
                 data: JSON.stringify(modifiObj),
@@ -185,14 +185,16 @@ voucher.confirmChangeStatus = function(voucherId, status){
 voucher.changeStatus = function(voucherId, status){
     let updateStatusObj= {};
     updateStatusObj.status = !status;
+    updateStatusObj.voucherId = voucherId;
 
     $.ajax({
-        url:`/vouchers/edit/${voucherId}`,
-        method: "PATCH",
+        url:`/changeVoucherStatus`,
+        method: "PUT",
         contentType:"application/json",
         datatype :"json",
         data: JSON.stringify(updateStatusObj),
         success: function(result){
+            console.log(result);
             if(result){
                 voucher.voucherList();
                 App.showSuccessAlert("Trạng thái khuyến mãi đã thay đổi");
@@ -219,29 +221,48 @@ voucher.removeVoucher = function (voucherId){
         callback: function (result) {
             if (result) {
                 $.ajax({
-                    url: `/vouchers/delete/${voucherId}`,
+                    url: `/deleteVoucher/${voucherId}`,
                     method: 'DELETE',
-                    success: function (response) {
-                        if (response) {
+                }).done( function () {
                             voucher.voucherList();
                             voucher.voucherExpiredList();
-                            App.showSuccessAlert("Xóa khuyến mãi thành công");
-                        } else {
+                            App.showSuccessAlert("Xóa khuyến mãi thành công")
+                        }).fail(function (){
                             App.showErrorAlert("Xảy ra lỗi, thử lại ");
-                        }
+                        });
                     }
-                })
             }
-        }
     });
 }
 
 voucher.showModal = function() {
-    voucher.reset();
+    voucher.reSet();
     $('#voucherModal').modal('show');
+
+    $("#beginDate").val(getToday());
+
+    $("#beginDate")[0].setAttribute('min', getToday());
+
+    let beginDate = $("#beginDate").val();
+
+    if (beginDate > getToday()) {
+        $("#endDate")[0].setAttribute('min', begin_date);
+    } else {
+        $("#endDate")[0].setAttribute('min', getToday());
+    }
+
+    $("#beginDate").on("change", function () {
+        let begin_date = $('input[name = "beginDate"]').val();
+        let end_date = $("#endDate").val();
+
+        if (begin_date > end_date) {
+            $("#endDate").val(begin_date);
+        }
+        $("#endDate")[0].setAttribute('min', begin_date);
+    })
 };
 
-voucher.reset = function(){
+voucher.reSet = function(){
     $('#voucherForm').validate().resetForm();
     $('#voucherForm')[0].reset();
     $('#voucherModal').find('.modal-title').text("Tạo khuyến mãi");
