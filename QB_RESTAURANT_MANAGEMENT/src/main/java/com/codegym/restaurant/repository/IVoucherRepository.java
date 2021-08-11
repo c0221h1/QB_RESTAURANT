@@ -8,11 +8,22 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Repository
 public interface IVoucherRepository extends JpaRepository<Voucher, Long> {
-//	select * from `vouchers` where (YEAR(end_date) - YEAR(CURDATE())  >= 0 and MONTH(end_date) - MONTH(CURDATE()) >=0 and DAY(end_date) - DAY(CURDATE()) >= 0)   order by voucher_id DESC ;
+
+	@Modifying
 	@Query ("select v from Voucher v where v.endDate >= current_date  order by v.beginDate desc")
-	Iterable<Voucher> findAllByEndDateDesc();
+	Iterable<Voucher> findAllByVoucherValid();
+	
+	
+	@Modifying
+	@Query ("select v from Voucher v where v.endDate < current_date ")
+	Iterable<Voucher> findAllByVoucherExpired();
+	
+
+	
 	
 //	@Transactional
 //	@Modifying

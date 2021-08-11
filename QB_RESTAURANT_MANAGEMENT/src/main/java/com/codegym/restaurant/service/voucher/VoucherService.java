@@ -4,10 +4,12 @@ import com.codegym.restaurant.model.Voucher;
 import com.codegym.restaurant.repository.IVoucherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
+@Transactional
 public class VoucherService implements IVoucherService {
 
     @Autowired
@@ -32,9 +34,15 @@ public class VoucherService implements IVoucherService {
         voucherRepository.deleteById(id);
     }
     
+    @Override
+    public Iterable<Voucher> findAllByVoucherValid () {
+        
+        return voucherRepository.findAllByVoucherValid();
+    }
     
     @Override
-    public Iterable<Voucher> findAllByEndDateDesc () {
-        return voucherRepository.findAllByEndDateDesc();
+    public Iterable<Voucher> findAllByVoucherExpired () {
+        return voucherRepository.findAllByVoucherExpired();
     }
+    
 }
