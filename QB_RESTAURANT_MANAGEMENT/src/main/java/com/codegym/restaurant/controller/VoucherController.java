@@ -41,9 +41,14 @@ public class VoucherController {
     
     @GetMapping("/voucherExpired/allVoucherExpired")
     public ResponseEntity<Iterable<Voucher>> listVoucherExpired(){
-        return new ResponseEntity<>(voucherService.findAllByVoucherExpired(), HttpStatus.OK);
+        Iterable<Voucher> list = voucherService.findAllByVoucherExpired();
+        for(Voucher voucher : list){
+            voucher.setStatus(false);
+            voucherService.save(voucher);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
-    
+
     @PostMapping("/vouchers/add")
     public ResponseEntity<Voucher> addVoucher(@RequestBody Voucher voucher){
         return new ResponseEntity<>(
@@ -56,30 +61,41 @@ public class VoucherController {
         return new ResponseEntity<>(voucherOptional,HttpStatus.OK);
     }
     
-    @PatchMapping ("/vouchers/edit/{id}")
-    public ResponseEntity<Voucher> editVoucher(@RequestBody Voucher voucher , @PathVariable Long id){
-        Optional <Voucher> voucherOptional = voucherService.findById(id);
+    @PutMapping ("/vouchers/edit")
+    public ResponseEntity<Voucher> editVoucher(@RequestBody Voucher voucher ){
+        Optional <Voucher> voucherOptional = voucherService.findById(voucher.getVoucherId());
         if (!voucherOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }else{
-            Date date = new Date();
-            if (voucher.getBeginDate().getTime()<= date.getTime() && voucher.getEndDate().getTime() >= date.getTime()){
-                voucher.setStatus(true);
-            }else {
-                voucher.setStatus(false);
-            }
+//            Date date = new Date();
+//            if (voucher.getBeginDate().getTime()<= date.getTime() && voucher.getEndDate().getTime() >= date.getTime()){
+//                voucher.setStatus(true);
+//            }else {
+//                voucher.setStatus(false);
+//            }
             return new ResponseEntity<>(voucherService.save(voucher),HttpStatus.OK);
         }
     }
     
-    @DeleteMapping("/vouchers/delete/{id}")
+    @PutMapping("/changeVoucherStatus")
+    public ResponseEntity<Voucher> changeVoucherStatus(@RequestBody Voucher voucher){
+        Optional <Voucher> voucherOptional = voucherService.findById(voucher.getVoucherId());
+        if (!voucherOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else{
+            voucherOptional.get().setStatus(voucher.isStatus());
+            return new ResponseEntity<>(voucherService.save(voucherOptional.get()),HttpStatus.OK);
+        }
+    }
+    
+    @DeleteMapping("/deleteVoucher/{id}")
     public ResponseEntity<Voucher> deleteVoucher(@PathVariable Long id) {
         Optional <Voucher> voucherOptional = voucherService.findById(id);
         if (!voucherOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         voucherService.remove(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
     
 }

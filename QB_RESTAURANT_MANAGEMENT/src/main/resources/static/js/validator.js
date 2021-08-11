@@ -51,11 +51,11 @@ $(() => {
             },
             beginDate:{
                 required:true,
-                min: Date.now(),
+
             },
             endDate:{
                 required: true,
-                min: Date.now(),
+
             },
 
         },
@@ -72,11 +72,11 @@ $(() => {
             },
             beginDate:{
                 required:"Ngày bắt đầu khuyến mãi là bắt buộc",
-                min:"Khuyến mãi không thể bắt đầu trong quá khứ"
+
             },
             endDate:{
                 required:"Ngày kết thúc khuyến mãi là bắt buộc",
-                min:"Không thể đặt kết thúc khuyến mãi trong quá khứ"
+
             },
         },
         submitHandler: function() {

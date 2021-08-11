@@ -45,10 +45,4 @@ public class VoucherService implements IVoucherService {
         return voucherRepository.findAllByVoucherExpired();
     }
     
-    @Override
-    public void changeVoucherStatus () {
-        voucherRepository.changeVoucherStatus();
-    }
-    
-    
 }
