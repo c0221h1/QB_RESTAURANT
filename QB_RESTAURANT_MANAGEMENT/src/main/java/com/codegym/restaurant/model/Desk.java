@@ -26,12 +26,24 @@ public class Desk {
 
     @Column(columnDefinition = "boolean default false")
     private boolean custom;
-    @Column(columnDefinition = "boolean default false")
-    private boolean book;
+
+    private String book;
+
     @Column(columnDefinition = "boolean default false")
     private boolean hidden;
 
     @JsonIgnore
     @OneToMany(targetEntity = Order.class)
     private List<Order> orders;
+
+    public Desk(String tableName) {
+        this.tableName = tableName;
+    }
+
+    public Desk(String tableName, boolean custom, String book, boolean hidden) {
+        this.tableName = tableName;
+        this.custom = custom;
+        this.book = book;
+        this.hidden = hidden;
+    }
 }

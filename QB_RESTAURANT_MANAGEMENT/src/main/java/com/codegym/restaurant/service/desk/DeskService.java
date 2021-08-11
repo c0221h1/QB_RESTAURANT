@@ -23,8 +23,8 @@ public class DeskService implements  IDeskService{
     }
 
     @Override
-    public void save(Desk desk) {
-    deskRepository.save(desk);
+    public Desk save(Desk desk) {
+    return  deskRepository.save(desk);
     }
 
     @Override

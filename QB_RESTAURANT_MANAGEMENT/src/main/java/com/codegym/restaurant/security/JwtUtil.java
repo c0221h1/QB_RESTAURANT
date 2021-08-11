@@ -19,12 +19,12 @@ import java.util.Date;
 
 @Component
 public class JwtUtil {
-
+    
     private static Logger logger = LoggerFactory.getLogger(JwtUtil.class);
     private static final String USER = "user";
     public static final long JWT_TOKEN_VALIDITY = 1000L;
     private static final String SECRET_KEY = "boxofficenumberone";
-
+    
     public String generateToken(com.codegym.restaurant.security.UserPrincipal user) {
         String token = null;
         try {
@@ -41,26 +41,26 @@ public class JwtUtil {
         }
         return token;
     }
-
+    
     public String generateTokenLogin(Authentication authentication) {
         UserPrinciple userPrincipal = (UserPrinciple) authentication.getPrincipal();
-
+        
         return Jwts.builder()
-                .setSubject((userPrincipal.getUsername()))
-                .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + JWT_TOKEN_VALIDITY * 60 * 60 * 24))
-                .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
-                .compact();
+                  .setSubject((userPrincipal.getUsername()))
+                  .setIssuedAt(new Date())
+                  .setExpiration(new Date((new Date()).getTime() + JWT_TOKEN_VALIDITY * 60 * 60 * 24))
+                  .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
+                  .compact();
     }
-
+    
     public Date generateExpirationDate() {
         return new Date(System.currentTimeMillis() + 864000000);
     }
-
+    
     public JWTClaimsSet getClaimsFromToken(String token) {
         JWTClaimsSet claims = null;
         if (token != null) {
-
+            
             try {
                 SignedJWT signedJWT = SignedJWT.parse(token);
                 JWSVerifier verifier = new MACVerifier(SECRET_KEY.getBytes());
@@ -73,7 +73,7 @@ public class JwtUtil {
         }
         return claims;
     }
-
+    
     public com.codegym.restaurant.security.UserPrincipal getUserFromToken(String token) {
         com.codegym.restaurant.security.UserPrincipal user = null;
         try {
@@ -87,15 +87,15 @@ public class JwtUtil {
         }
         return user;
     }
-
+    
     private Date getExpirationDateFromToken(JWTClaimsSet claims) {
         return claims != null ? claims.getExpirationTime() : new Date();
     }
-
+    
     public boolean isTokenExpired(JWTClaimsSet claims) {
         return getExpirationDateFromToken(claims).after(new Date());
     }
-
+    
     public boolean validateJwtToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(authToken);
@@ -113,5 +113,5 @@ public class JwtUtil {
         }
         return false;
     }
-
+    
 }

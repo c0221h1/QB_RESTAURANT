@@ -23,8 +23,8 @@ public class OrderDetailService implements IOrderDetailService {
     }
 
     @Override
-    public void save(OrderDetail orderDetail) {
-        orderDetailRepository.save(orderDetail);
+    public OrderDetail save(OrderDetail orderDetail) {
+        return orderDetailRepository.save(orderDetail);
     }
 
     @Override

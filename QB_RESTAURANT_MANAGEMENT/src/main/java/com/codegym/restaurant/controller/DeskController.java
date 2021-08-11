@@ -6,14 +6,15 @@ import com.codegym.restaurant.service.desk.DeskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Optional;
 
 @RestController
 public class DeskController {
+
+    private static String viewMode;
 
     @Autowired
     private DeskService deskService;
@@ -28,4 +29,63 @@ public class DeskController {
         return new ResponseEntity<>(deskService.findAll(), HttpStatus.OK);
     }
 
+    @PostMapping("/createDesk")
+    public ResponseEntity<Desk> createDesk(@RequestBody Desk desk){
+        return new ResponseEntity<>(deskService.save(desk),HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/desk/{id}")
+    public ResponseEntity<Desk> deleteDesk(@PathVariable Long id) {
+        Optional<Desk> deskOptional = deskService.findById(id);
+        if (!deskOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        deskService.remove(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/display")
+    public ModelAndView viewDisplay() {
+        viewMode = "display";
+        ModelAndView modelAndView = new ModelAndView("/dashboard/desk");
+        modelAndView.addObject("viewMode", viewMode);
+        return modelAndView;
+    }
+    @GetMapping("/manager")
+    public ModelAndView viewManager() {
+        viewMode = null;
+        ModelAndView modelAndView = new ModelAndView("/dashboard/desk");
+        modelAndView.addObject("viewMode", viewMode);
+        return modelAndView;
+    }
+
+    @PutMapping("/tableHidden/{id}")
+    public ResponseEntity<Desk> editTableHidden(@PathVariable Long id) {
+        Optional<Desk> deskOptional = deskService.findById(id);
+        if (!deskOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Desk desk = deskOptional.get();
+        if (desk.isHidden()) {
+            desk.setHidden(false);
+        } else {
+            desk.setHidden(true);
+        }
+        return new ResponseEntity<>(deskService.save(desk), HttpStatus.OK);
+    }
+
+    @GetMapping("/tableBook/{id}")
+    public ResponseEntity<Desk> showTableBook(@PathVariable Long id) {
+        Optional<Desk> deskOptional = deskService.findById(id);
+        if (!deskOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(deskOptional.get(), HttpStatus.OK);
+    }
+
+    @PutMapping("/tableBook/{id}")
+    public ResponseEntity<Desk> editTableBook(@RequestBody Desk desk, @PathVariable Long id) {
+        desk.setTableId(id);
+        return new ResponseEntity<>(deskService.save(desk), HttpStatus.OK);
+    }
 }

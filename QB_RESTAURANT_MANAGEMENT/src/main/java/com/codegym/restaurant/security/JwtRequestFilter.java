@@ -23,26 +23,26 @@ import java.util.Set;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
-
+    
     @Autowired
     private JwtUtil jwtUtil;
-
+    
     private String getCookieValue(HttpServletRequest req, String cookieName) {
         return Arrays.stream(req.getCookies())
-                .filter(c -> c.getName().equals(cookieName))
-                .findFirst()
-                .map(Cookie::getValue)
-                .orElse(null);
+                  .filter(c -> c.getName().equals(cookieName))
+                  .findFirst()
+                  .map(Cookie::getValue)
+                  .orElse(null);
     }
-
+    
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
+              throws ServletException, IOException {
         final String authorizationHeader = request.getHeader("Authorization");
 
 //        Cookie authorizationCookie = WebUtils.getCookie(request, "JWT");
         final String authorizationCookie = getCookieValue(request, "JWT");
-
+        
         UserPrincipal user = null;
 //        Token token = new Token();
         String token = null;
@@ -68,7 +68,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 user = jwtUtil.getUserFromToken(authorizationCookie);
             }
         }
-
+        
         if (null != user && token != null) {
             JWTClaimsSet claims = jwtUtil.getClaimsFromToken(token);
             if (jwtUtil.isTokenExpired(claims)) {
@@ -79,8 +79,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
-
+        
         filterChain.doFilter(request, response);
     }
-
+    
 }
