@@ -5,6 +5,8 @@ import com.codegym.restaurant.service.IGeneralService;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 
 public interface IProductService extends IGeneralService<Product> {
     Iterable<Product> findAllByOrderByProductIdDesc();
@@ -14,5 +16,7 @@ public interface IProductService extends IGeneralService<Product> {
     Iterable<Product> findAllByOrderByProductHiddenDesc();
 
     void restoreProductById(@Param("id") Long id);
+
+    Optional<Product> findByProductName(String productName);
 
 }

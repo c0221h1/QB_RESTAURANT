@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface IProductRepository extends JpaRepository<Product, Long> {
 
@@ -25,4 +27,5 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
     @Query("update Product p set p.status = true where p.productId = :id")
     void restoreProductById(@Param("id") Long id);
 
+    Optional<Product> findByProductName(String productName);
 }

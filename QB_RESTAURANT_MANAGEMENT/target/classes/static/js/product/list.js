@@ -1,4 +1,4 @@
-//Up load-------------------
+//--------Up Load-----------//
 let singleUploadForm = document.querySelector('#singleUploadForm');
 let singleFileUploadInput = document.querySelector('#singleFileUploadInput');
 
@@ -33,8 +33,9 @@ function editUploadSingleFile(file) {
     xhr.open("POST", "/uploadFileEdit");
     xhr.send(formData);
 }
-// Up load-------------------
+//--------Up Load-----------//
 
+// --------Get All Category------//
 
 function getAllCategory(){
     $.ajax({
@@ -50,6 +51,10 @@ function getAllCategory(){
         $("#category").html(content);
     })
 }
+
+//----------Get all Category-----------//
+
+// ---------Get all Product------------//
 
 function getAllProduct(){
     $.ajax({
@@ -81,6 +86,12 @@ function getAllProduct(){
         })
     })
 }
+
+getAllProduct();
+
+// ---------Get all Product------------//
+
+// ---------Get all Hidden Product------------//
 
 function getHiddenProduct(){
     $.ajax({
@@ -115,13 +126,14 @@ function getHiddenProduct(){
 
 getHiddenProduct();
 
-getAllCategory();
+// ---------Get all Hidden Product------------//
 
-getAllProduct();
 
 function showModal() {
     $('#productModal').modal('show')
 }
+
+// ---------Create Product ----------------//
 
 function createProduct(){
     let files = singleFileUploadInput.files;
@@ -161,30 +173,26 @@ function createProduct(){
         }).done(function (product){
             $("#create-form")[0].reset();
             $("#productModal").modal('hide');
+            $("#productList").dataTable().fnDestroy();
             getAllProduct();
             App.showSuccessAlert("Thêm mới sản phẩm thành công!!");
-            // $('#productList tbody').prepend(' <tr id="row'+product.productId+'" class="text-center">\n' +
-            //     ' <input hidden id="'+product.productId+'">\n' +
-            //     ' <td>'+ product.productName + '</td>\n' +
-            //     ' <td><img style="object-fit: cover"  width="100" height="100" src= "/uploads/product.image"  alt="'+product.productName+'"></td>\n' +
-            //     ' <td>'+ product.price + " VND" + '</td>\n' +
-            //     ' <td>'+ product.category.categoryName + '</td>\n' +
-            //     ' <td class="text-center">\n'+
-            //     ' <button value="'+product.productId +'" class="btn btn-outline-primary mr-2 edit-button" ><i class="far fa-edit"></i>Sửa</button>\n' +
-            //     ' <button value="'+product.productId +'" class="btn btn-outline-danger delete-button" onclick="deleteProduct('+product.productId+')"><i class="fas fa-trash-alt"></i>Ẩn</button>\n' +
-            //     ' </td>\n' +
-            //     ' </tr>');
         }).fail(()=>{
-            App.showErrorAlert("Đã xảy ra lỗi!");
+            App.showErrorAlert("Tên sản phẩm đã tồn tại!");
         })
     }
 }
 
 $("#create-button").on("click",createProduct);
 
+getAllCategory();
+
+// ---------Create Product ----------------//
+
 function showModalCategory() {
     $('#categoryModal').modal('show')
 }
+
+// ---------Create Category --------------//
 
 function createCategory(){
     let categoryName = $("#category_name").val();
@@ -212,7 +220,10 @@ function createCategory(){
 
 $(".create-category").on("click",createCategory);
 
-// Start function Delete Product() //
+// ---------Create Category --------------//
+
+
+// ------------ Delete Product -----------//
 
 function deleteProduct(productID) {
     Swal.fire({
@@ -240,7 +251,8 @@ function deleteProduct(productID) {
     })
 }
 
-// End function Delete Product() //
+// ------------ Delete Product -----------//
+
 
 // Start function Edit Product() //
 
@@ -259,6 +271,8 @@ function upImageEditSingleFile(file) {
     xhr.open("POST", "/uploadFileEdit");
     xhr.send(formData);
 }
+
+//----------Load Edit Data------------//
 
 function loadEditData(productID){
     $.ajax({
@@ -294,6 +308,11 @@ function getEditCategory(){
 
 getEditCategory();
 
+//----------Load Edit Data------------//
+
+
+//----------Restore Product-----------//
+
 function restoreProduct(productID) {
     Swal.fire({
         title: 'Phục hồi?',
@@ -320,6 +339,8 @@ function restoreProduct(productID) {
     })
 }
 
+//----------Restore Product-----------//
+
     const image = document.getElementById("up_singleFileUploadInput");
     const previewContainer = document.getElementById("imagePreview");
     const previewImage = previewContainer.querySelector(".image-preview__image");
@@ -342,6 +363,8 @@ function restoreProduct(productID) {
     previewImage.style.display = "none";
     }
 });
+
+// ----------Save Product ----------//
 
 function saveProduct(){
     let files = upSingleFileUploadInput.files;
@@ -381,14 +404,16 @@ function saveProduct(){
             url: `/editProduct`
         }).done(function (){
             $("#edit-form")[0].reset();
+            $("#editProductModal").modal('hide');
             App.showSuccessAlert("Đã cập nhật thành công!")
-            window.location.href = "/listProduct";
-            // getAllProduct();
+            $("#productList").dataTable().fnDestroy();
+            getAllProduct()
         })
     }
 }
 $("#save-button").on("click",saveProduct);
-// End function Edit Product() //
+
+// ----------Save Product ----------//
 
 
 

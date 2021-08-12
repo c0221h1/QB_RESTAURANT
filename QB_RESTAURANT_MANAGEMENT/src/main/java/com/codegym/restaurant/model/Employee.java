@@ -38,7 +38,7 @@ public class Employee extends BaseEntity {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dob;
 
-
+//    @Column(columnDefinition = "boolean default true")
     private boolean gender;
 
 
