@@ -14,8 +14,12 @@ import java.util.Optional;
 public interface IVoucherRepository extends JpaRepository<Voucher, Long> {
 
 	@Modifying
-	@Query ("select v from Voucher v where v.endDate >= current_date  order by v.beginDate desc")
+	@Query ("select v from Voucher v where (v.endDate >= current_date  and v.voucherDeleted = false ) order by v.beginDate desc")
 	Iterable<Voucher> findAllByVoucherValid();
+	
+	@Modifying
+	@Query ("select v from Voucher v where v.voucherDeleted = true")
+	Iterable<Voucher> findAllByVoucherIsDeleted();
 	
 	
 	@Modifying
