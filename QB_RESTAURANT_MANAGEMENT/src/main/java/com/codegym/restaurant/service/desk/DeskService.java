@@ -22,6 +22,10 @@ public class DeskService implements  IDeskService{
         return deskRepository.findById(id);
     }
 
+    public Optional<Desk> findByName(String name) {
+        return deskRepository.findByTableName(name);
+    }
+
     @Override
     public Desk save(Desk desk) {
     return  deskRepository.save(desk);

@@ -31,7 +31,13 @@ public class DeskController {
 
     @PostMapping("/createDesk")
     public ResponseEntity<Desk> createDesk(@RequestBody Desk desk){
-        return new ResponseEntity<>(deskService.save(desk),HttpStatus.CREATED);
+        desk.setHidden(true);
+        String nameTable = desk.getTableName();
+        Optional<Desk> deskOptional = deskService.findByName(nameTable);
+        if (!deskOptional.isPresent()) {
+            return new ResponseEntity<>(deskService.save(desk), HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/desk/{id}")

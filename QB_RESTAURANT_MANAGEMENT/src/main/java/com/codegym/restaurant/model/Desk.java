@@ -29,7 +29,7 @@ public class Desk {
 
     private String book;
 
-    @Column(columnDefinition = "boolean default false")
+    @Column(columnDefinition = "boolean default true")
     private boolean hidden;
 
     @JsonIgnore
