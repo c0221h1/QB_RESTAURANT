@@ -3,8 +3,6 @@ package com.codegym.restaurant.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.userdetails.User;
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.sql.Date;
@@ -32,10 +30,13 @@ public class Voucher {
     @FutureOrPresent(message = "Khuyến mãi không thể bắt đầu từ quá khứ !")
     private Date beginDate;
 
-    @Column(name = "status",columnDefinition = "boolean default false")
+    @Column(columnDefinition = "boolean default false")
     private boolean status;
     
     private String note;
+    
+    @Column(columnDefinition = "boolean default false")
+    private boolean voucherDeleted;
     
     @Future(message = "Khuyến mãi kết thúc trong tương lai !")
     private Date endDate;
@@ -71,11 +72,34 @@ public class Voucher {
         this.status = status;
     }
     
+    public Voucher(boolean voucherDeleted, Long voucherId){
+        this.voucherId = voucherId;
+        this.voucherDeleted = voucherDeleted;
+    }
+    
+    public Voucher (String voucherName, int percent, Date beginDate, boolean status, String note, boolean voucherDeleted, Date endDate) {
+        this.voucherName = voucherName;
+        this.percent = percent;
+        this.beginDate = beginDate;
+        this.status = status;
+        this.note = note;
+        this.voucherDeleted = voucherDeleted;
+        this.endDate = endDate;
+    }
+    
     public boolean isStatus () {
         return status;
     }
-    
+
     public void setStatus (boolean status) {
         this.status = status;
+    }
+
+    public boolean isVoucherDeleted () {
+        return voucherDeleted;
+    }
+
+    public void setVoucherDeleted (boolean voucherDeleted) {
+        this.voucherDeleted = voucherDeleted;
     }
 }
