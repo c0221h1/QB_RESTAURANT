@@ -144,10 +144,32 @@
             </a>
           </li>
           <li class="nav-item">
-            <a th:href="@{/listProduct}" class="nav-link">
+            <a href="#" class="nav-link">
               <i class="fas fa-hamburger"></i>
               <p>
                 Sản phẩm
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a th:href="@{/listProduct}" class="nav-link">
+                  <i class="fas fa-circle nav-icon"></i>
+                  <p>Danh sách sản phẩm</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a th:href="@{/listHiddenProduct}" class="nav-link">
+                  <i class="fas fa-circle nav-icon"></i>
+                  <p>Sản phẩm hết hàng</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/listEmployee}" class="nav-link">
+              <i class="fas fa-user-shield"></i>
+              <p>
+                Nhân viên
               </p>
             </a>
           </li>
@@ -159,17 +181,14 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="fas fa-user-shield"></i>
-              <p>
-                Nhân viên
-              </p>
-            </a>
-          </li>
+<<<<<<< HEAD
 
           <li class="nav-item">
             <a class="nav-link">
+=======
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+>>>>>>> 9c50acc444963043cb0050cc3e7910294c9f178a
               <i class="fas fa-tags"></i>
               <p>
                 Khuyến mãi
@@ -179,17 +198,25 @@
               <li class="nav-item">
                 <a th:href="@{/vouchers}" class="nav-link">
                   <i class="fas fa-circle"></i>
+<<<<<<< HEAD
                   <p>
                     Còn hạn
                   </p>
+=======
+                  <p>Còn hạn</p>
+>>>>>>> 9c50acc444963043cb0050cc3e7910294c9f178a
                 </a>
               </li>
               <li class="nav-item">
                 <a th:href="@{/voucherExpired}" class="nav-link">
                   <i class="fas fa-circle"></i>
+<<<<<<< HEAD
                   <p>
                     Hết hạn
                   </p>
+=======
+                  <p>Hết hạn</p>
+>>>>>>> 9c50acc444963043cb0050cc3e7910294c9f178a
                 </a>
               </li>
               <li class="nav-item">
@@ -202,7 +229,6 @@
               </li>
             </ul>
           </li>
-
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="fas fa-history"></i>
@@ -220,7 +246,7 @@
             </ul> -->
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a th:href="@{/calendar}" class="nav-link">
               <i class="far fa-calendar-alt"></i>
               <p>
                 Lịch

@@ -102,8 +102,10 @@
             console.log(user);
             if  (user.roles[0].authority === "ADMIN"){
                 window.location.href = "/dashboard";
-            } else if (user.roles[0].authority === "PROJECTION"){
-                window.location.href = "/projection";
+            } else if (user.roles[0].authority === "STAFF" || "CASHIER"){
+                window.location.href = "/app";
+            } else  if (user.roles[0].authority === "MANAGER" ) {
+                window.location.href = "/managerDashboard";
             }
         }).fail(() => {
             App.showErrorAlert("Đã xảy ra lỗi. Vui lòng thử lại sau!");
