@@ -4,9 +4,11 @@ import com.codegym.restaurant.model.Product;
 import com.codegym.restaurant.repository.IProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+@Transactional
 @Service
 public class ProductService implements IProductService {
 
@@ -16,6 +18,21 @@ public class ProductService implements IProductService {
     @Override
     public Iterable<Product> findAllByOrderByProductIdDesc() {
         return productRepository.findAllByOrderByProductIdDesc();
+    }
+
+    @Override
+    public void deleteProductById(Long id) {
+        productRepository.deleteProductById(id);
+    }
+
+    @Override
+    public Iterable<Product> findAllByOrderByProductHiddenDesc() {
+        return productRepository.findAllByOrderByProductHiddenDesc();
+    }
+
+    @Override
+    public void restoreProductById(Long id) {
+        productRepository.restoreProductById(id);
     }
 
     @Override

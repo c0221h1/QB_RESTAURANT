@@ -44,7 +44,6 @@ public class Employee extends BaseEntity {
 
     private String avatar;
 
-    @Column(nullable = false)
     @NumberFormat
     @Size(min = 10, max = 12)
     private String citizenId;

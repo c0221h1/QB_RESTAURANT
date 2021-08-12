@@ -28,4 +28,17 @@ public class FileController {
                 file.getContentType(), file.getSize());
     }
 
+    @PostMapping("/uploadFileEdit")
+    public UploadFileResponse uploadFileEdit(@RequestParam("fileEdit") MultipartFile file) {
+        String fileName = fileStorageService.storeFile(file);
+
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/downloadFile/")
+                .path(fileName)
+                .toUriString();
+
+        return new UploadFileResponse(fileName, fileDownloadUri,
+                file.getContentType(), file.getSize());
+    }
+
 }
