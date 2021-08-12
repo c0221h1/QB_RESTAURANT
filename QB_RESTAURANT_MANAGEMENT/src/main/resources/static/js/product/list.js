@@ -1,4 +1,3 @@
-//--------Up Load-----------//
 let singleUploadForm = document.querySelector('#singleUploadForm');
 let singleFileUploadInput = document.querySelector('#singleFileUploadInput');
 
@@ -33,7 +32,6 @@ function editUploadSingleFile(file) {
     xhr.open("POST", "/uploadFileEdit");
     xhr.send(formData);
 }
-//--------Up Load-----------//
 
 // --------Get All Category------//
 
