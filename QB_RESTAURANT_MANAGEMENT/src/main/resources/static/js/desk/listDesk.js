@@ -65,6 +65,7 @@ function createDesk(){
         data: JSON.stringify(newDesk),
         url: "/createDesk"
     }).done(function (desk){
+        $('#deskModal').modal('hide');
         $("#deskForm")[0].reset();
         App.showSuccessAlert("Thêm mới bàn ăn thành công!!");
         $('#deskList tbody').prepend(' <tr id="row'+desk.tableId+'" class="text-center">\n' +
@@ -73,14 +74,16 @@ function createDesk(){
             (desk.custom ?
             ' <td>Bàn đang có khách</td>\n' :
             ' <td>Bàn đang trống</td>\n') +
-            ' <td>'+ desk.book + '</td>\n' +
-            ' <td>'+ desk.hidden + '</td>\n' +
+            ' <td></td>\n' +
+            (desk.hidden ?
+            '<td><a onclick="tableHidden('+ desk.tableId +')" class="btn btn-danger"><i class="fas fa-eye-slash fa-lg"></i></a></td>' :
+            '<td><a onclick="tableHidden('+ desk.tableId +')" class="btn btn-primary"><i class="fas fa-eye fa-lg"></i></a></td>') +
             ' <td class="text-center">\n'+
             ' <button class="btn btn-outline-danger delete-button" onclick="deleteDesk('+desk.tableId+')"><i class="fas fa-trash-alt"></i>Xóa</button>\n' +
             ' </td>\n' +
             ' </tr>');
     }).fail(()=>{
-        App.showErrorAlert("Đã xảy ra lỗi!");
+        App.showErrorAlert("Lỗi ! Tên bàn đã tồn tại!!");
     })
 }
 
@@ -102,7 +105,7 @@ function tableHidden(tableId) {
         url : `/tableHidden/${tableId}`
     }).done(function (){
         getAllDesk();
-        App.showSuccessAlert("Đã ẩn thành công!")
+        App.showSuccessAlert("Đã thay đổi thành công!")
     }).fail(function (){
         App.showErrorAlert("Đã xảy ra lỗi!")
     })
