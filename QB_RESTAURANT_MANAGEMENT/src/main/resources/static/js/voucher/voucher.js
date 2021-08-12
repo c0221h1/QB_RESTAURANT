@@ -14,7 +14,7 @@ voucher.voucherList = function(){
             $.each(response, function(index, item){
                 $('.table-voucher tbody').append(`
                     <tr>     
-                        <td>${item.voucherId}</td>
+                        <td>KM${item.voucherId}</td>
                         <td>${item.voucherName}</td>
                         <td class='text-right'>${item.percent}</td>
                         <td class='text-right'>${item.beginDate}</td>
@@ -35,7 +35,7 @@ voucher.voucherList = function(){
                                 class='btn ${item.status ? "btn-outline-warning" : "btn-outline-secondary"} btn-sm'
                                     title='${item.status ? "Dừng KM" : "Áp dụng KM"}'>
                                     <i class='fa ${item.status ? "fa-lock-open" : "fa-lock"}'></i></a>
-                            <a href='javascript:;' class='btn btn-outline-danger btn-sm' title='Xóa khuyến mãi'
+                            <a href='javascript:;' class='btn btn-outline-danger btn-sm' title='Ẩn khuyến mãi'
                                 onclick="voucher.deleteTemporaryOrRestoreVoucher(${item.voucherId}, ${item.voucherDeleted})">
                                 <i class='fa fa-trash'></i>
                             </a>
@@ -61,7 +61,8 @@ voucher.voucherExpiredList = function(){
             $.each(response, function(index, item){
                 $('.table-voucher-expired tbody').append(`
                     <tr id="row'+${item.voucherId}+'">     
-                        <td>${item.voucherId}</td>
+                    
+                        <td>KM${item.voucherId}</td>
                         <td>${item.voucherName}</td>
                         <td class='text-right'>${item.percent}</td>
                         <td class='text-right'>${item.beginDate}</td>
@@ -94,7 +95,7 @@ voucher.voucherTrash = function(){
             $.each(response, function(index, item){
                 $('.table-voucher-trash tbody').append(`
                     <tr id="row'+${item.voucherId}+'">     
-                        <td>${item.voucherId}</td>
+                        <td>KM${item.voucherId}</td>
                         <td>${item.voucherName}</td>
                         <td class='text-right'>${item.percent}</td>
                         <td class='text-right'>${item.beginDate}</td>
