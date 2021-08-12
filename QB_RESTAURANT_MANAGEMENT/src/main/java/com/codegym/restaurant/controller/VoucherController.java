@@ -10,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.Date;
 import java.util.Optional;
 
@@ -66,7 +67,7 @@ public class VoucherController {
     }
 
     @PostMapping("/vouchers/add")
-    public ResponseEntity<Voucher> addVoucher(@RequestBody Voucher voucher){
+    public ResponseEntity<Voucher> addVoucher(@Valid @RequestBody Voucher voucher){
         return new ResponseEntity<>(
                   voucherService.save(voucher), HttpStatus.CREATED);
     }
@@ -78,7 +79,7 @@ public class VoucherController {
     }
     
     @PutMapping ("/vouchers/edit")
-    public ResponseEntity<Voucher> editVoucher(@RequestBody Voucher voucher ){
+    public ResponseEntity<Voucher> editVoucher(@Valid @RequestBody Voucher voucher ){
         Optional <Voucher> voucherOptional = voucherService.findById(voucher.getVoucherId());
         if (!voucherOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
