@@ -33,6 +33,12 @@ public class VoucherController {
         ModelAndView modelAndView = new ModelAndView("/dashboard/voucher/voucher_expired");
         return modelAndView;
     }
+    @GetMapping("/voucherTrash")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public ModelAndView ListAllVoucherTrash() {
+        ModelAndView modelAndView = new ModelAndView("/dashboard/voucher/voucher_trash");
+        return modelAndView;
+    }
     
     @GetMapping("/vouchers/allVoucherValid")
     public ResponseEntity<Iterable<Voucher>> listVoucherValid(){
@@ -42,6 +48,16 @@ public class VoucherController {
     @GetMapping("/voucherExpired/allVoucherExpired")
     public ResponseEntity<Iterable<Voucher>> listVoucherExpired(){
         Iterable<Voucher> list = voucherService.findAllByVoucherExpired();
+        for(Voucher voucher : list){
+            voucher.setStatus(false);
+            voucherService.save(voucher);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+    
+    @GetMapping("/trash/voucherListIsDeleted")
+    public ResponseEntity<Iterable<Voucher>> listVoucherIsDeleted(){
+        Iterable<Voucher> list = voucherService.findAllByVoucherIsDeleted();
         for(Voucher voucher : list){
             voucher.setStatus(false);
             voucherService.save(voucher);
@@ -67,12 +83,6 @@ public class VoucherController {
         if (!voucherOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }else{
-//            Date date = new Date();
-//            if (voucher.getBeginDate().getTime()<= date.getTime() && voucher.getEndDate().getTime() >= date.getTime()){
-//                voucher.setStatus(true);
-//            }else {
-//                voucher.setStatus(false);
-//            }
             return new ResponseEntity<>(voucherService.save(voucher),HttpStatus.OK);
         }
     }
@@ -88,6 +98,18 @@ public class VoucherController {
         }
     }
     
+    @PutMapping("/deleteTemporaryVoucher")
+    public ResponseEntity<Voucher> deleteTemporaryOrRestoreVoucher(@RequestBody Voucher voucher){
+        Optional <Voucher> voucherOptional = voucherService.findById(voucher.getVoucherId());
+        if (!voucherOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else{
+            voucherOptional.get().setVoucherDeleted(voucher.isVoucherDeleted());
+            return new ResponseEntity<>(voucherService.save(voucherOptional.get()),HttpStatus.OK);
+        }
+    }
+    
+    
     @DeleteMapping("/deleteVoucher/{id}")
     public ResponseEntity<Voucher> deleteVoucher(@PathVariable Long id) {
         Optional <Voucher> voucherOptional = voucherService.findById(id);
@@ -97,5 +119,15 @@ public class VoucherController {
         voucherService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    
+//    @PutMapping("/deleteTemporaryVoucher/${id}")
+//    public ResponseEntity<Voucher> deleteTemporaryVoucher(@PathVariable Long id) {
+//        Optional <Voucher> voucherOptional = voucherService.findById(id);
+//        if (!voucherOptional.isPresent()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        voucherOptional.get().setDeleted(true);
+//        return new ResponseEntity<>(voucherService.save(voucherOptional.get()), HttpStatus.OK);
+//    }
     
 }

@@ -12,5 +12,6 @@
         <language minSize="112" name="JavaScript" />
       </Languages>
     </inspection_tool>
+    <inspection_tool class="SpringJavaInjectionPointsAutowiringInspection" enabled="true" level="WARNING" enabled_by_default="true" />
   </profile>
 </component>
