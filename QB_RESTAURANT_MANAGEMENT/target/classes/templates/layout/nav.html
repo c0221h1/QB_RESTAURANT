@@ -1,8 +1,5 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="navbar">
-  <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="/dist/img/AdminLTELogo.png" alt="QBrestaurant" height="100" width="100">
-  </div>
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
@@ -39,9 +36,9 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a class="brand-link">
-      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span><em style="font-family: 'WindSong';font-size: large;">QBrestaurant</em></span>
+    <a th:href="@{/dashboard}" class="brand-link" style="text-align: center">
+      <img src="/uploads/logoQBrestaurant/logo1.gif" style="opacity: .9; width: 200px; height: 200px; border-radius: 10px">
+<!--      <span style="font-family: 'WindSong';font-size: large;">QBrestaurant</span>-->
     </a>
 
     <!-- Sidebar -->
@@ -52,7 +49,7 @@
           <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">ADMIN</a>
+          <span th:text="${userInfo}" style="color: #9affc6"></span>
         </div>
       </div>
       <!-- Sidebar Menu -->
@@ -61,9 +58,7 @@
           <li class="nav-item">
             <a th:href="@{/dashboard}" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Doanh số
-              </p>
+              <p>Thống kê</p>
             </a>
           </li>
           <li class="nav-item">
@@ -77,13 +72,13 @@
               <li class="nav-item">
                 <a th:href="@{/listProduct}" class="nav-link">
                   <i class="fas fa-circle nav-icon"></i>
-                  <p>Danh sách sản phẩm</p>
+                  <p>Danh mục sản phẩm</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a th:href="@{/listHiddenProduct}" class="nav-link">
                   <i class="fas fa-circle nav-icon"></i>
-                  <p>Sản phẩm hết hàng</p>
+                  <p>SP hết hàng</p>
                 </a>
               </li>
             </ul>
@@ -128,9 +123,7 @@
               <li class="nav-item">
                 <a th:href="@{/voucherTrash}" class="nav-link">
                   <i class="fas fa-circle"></i>
-                  <p>
-                    Thùng rác
-                  </p>
+                  <p>Đã xóa</p>
                 </a>
               </li>
             </ul>
@@ -142,14 +135,6 @@
                 Lịch sử thanh toán
               </p>
             </a>
-            <!-- <ul class="nav nav-treeview">
-        <li class="nav-item">
-            <a href="pages/examples/invoice.html" class="nav-link">
-            <i class="far fa-circle nav-icon"></i>
-            <p>Invoice</p>
-            </a>
-        </li>
-            </ul> -->
           </li>
           <li class="nav-item">
             <a th:href="@{/calendar}" class="nav-link">
