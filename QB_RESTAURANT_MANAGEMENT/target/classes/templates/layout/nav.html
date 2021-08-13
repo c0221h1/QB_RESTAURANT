@@ -22,12 +22,12 @@
         </a>
         <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
           <!-- item-->
-          <div class="dropdown-header noti-title">
-            <h6 class="text-overflow m-0">Welcome !</h6>
-          </div>
-          <a th:href="@{/logout}" href="javascript:void(0);" class="dropdown-item notify-item">
-            <p> <i class="fas fa-sign-out-alt"></i> Logout</p>
-          </a>
+            <div class="dropdown-header noti-title">
+              <h6 class="text-overflow m-0">Welcome !</h6>
+            </div>
+            <a th:href="@{/logout}" href="javascript:void(0);" class="dropdown-item notify-item">
+              <p> <i class="fas fa-sign-out-alt"></i> Logout</p>
+            </a>
 
         </div>
       </li>
@@ -38,7 +38,6 @@
     <!-- Brand Logo -->
     <a th:href="@{/dashboard}" class="brand-link" style="text-align: center">
       <img src="/uploads/logoQBrestaurant/logo1.gif" style="opacity: .9; width: 200px; height: 200px; border-radius: 10px">
-<!--      <span style="font-family: 'WindSong';font-size: large;">QBrestaurant</span>-->
     </a>
 
     <!-- Sidebar -->
@@ -49,7 +48,7 @@
           <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <span th:text="${userInfo}" style="color: #9affc6"></span>
+          <span th:text="ADMIN" style="color: #9affc6"></span>
         </div>
       </div>
       <!-- Sidebar Menu -->
@@ -110,14 +109,17 @@
               <li class="nav-item">
                 <a th:href="@{/vouchers}" class="nav-link">
                   <i class="fas fa-circle"></i>
-                  <p>Còn hạn</p>
+                  <p>
+                    Còn hạn
+                  </p>
                 </a>
               </li>
               <li class="nav-item">
                 <a th:href="@{/voucherExpired}" class="nav-link">
                   <i class="fas fa-circle"></i>
-                  <p>Hết hạn</p>
-
+                  <p>
+                    Hết hạn
+                  </p>
                 </a>
               </li>
               <li class="nav-item">

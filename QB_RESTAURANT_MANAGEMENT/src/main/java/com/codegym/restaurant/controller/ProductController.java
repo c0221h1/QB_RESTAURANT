@@ -58,8 +58,13 @@ public class ProductController {
 
     @PostMapping("/createProduct")
     public ResponseEntity<Product> createProduct(@RequestBody Product product){
-        product.setStatus(true);
-        return new ResponseEntity<>(productService.save(product),HttpStatus.CREATED);
+        String productName = product.getProductName();
+        Optional<Product> product1 = productService.findByProductName(productName);
+        if (!product1.isPresent()){
+            product.setStatus(true);
+            return new ResponseEntity<>(productService.save(product),HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PutMapping("/deleteProduct/{id}")

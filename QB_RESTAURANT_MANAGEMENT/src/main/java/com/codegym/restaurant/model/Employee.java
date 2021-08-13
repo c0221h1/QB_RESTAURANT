@@ -50,7 +50,7 @@ public class Employee extends BaseEntity {
     @Size(min = 10, max = 12)
     private String citizenId;
 
-    @Column(columnDefinition = "boolean default true")
+//    @Column(columnDefinition = "boolean default true")
     private boolean status;
 
     @Size (max = 200)

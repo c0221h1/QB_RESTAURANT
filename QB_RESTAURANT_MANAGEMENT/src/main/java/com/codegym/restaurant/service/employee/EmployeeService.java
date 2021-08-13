@@ -45,7 +45,12 @@ public class EmployeeService implements IEmployeeService, IEmpService{
     public Employee createUser(Employee employee) {
         return employeeRepository.saveAndFlush(employee);
     }
-    
+
+    @Override
+    public Optional<Employee> findEmployeeByPhone(Integer phoneNumber) {
+        return employeeRepository.findEmployeeByPhone(phoneNumber);
+    }
+
     @Override
     public UserPrincipal findByUsername(String username) {
         Employee employee = employeeRepository.findByUsername(username);
