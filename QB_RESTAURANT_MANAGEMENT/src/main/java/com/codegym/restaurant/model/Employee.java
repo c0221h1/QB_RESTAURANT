@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.util.List;
@@ -36,9 +37,10 @@ public class Employee extends BaseEntity {
 
     @Column(nullable = false)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Past
     private Date dob;
-
-
+    
+    @Column(columnDefinition = "boolean default true")
     private boolean gender;
 
 
@@ -48,7 +50,7 @@ public class Employee extends BaseEntity {
     @Size(min = 10, max = 12)
     private String citizenId;
 
-    @Column(columnDefinition = "boolean default true")
+//    @Column(columnDefinition = "boolean default true")
     private boolean status;
 
     @Size (max = 200)

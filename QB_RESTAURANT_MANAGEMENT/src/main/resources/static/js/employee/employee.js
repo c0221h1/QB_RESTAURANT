@@ -1,3 +1,5 @@
+
+//--------------Upload---------//
 let singleUploadForm = document.querySelector('#singleUploadForm');
 let singleFileUploadInput = document.querySelector('#singleFileUploadInput');
 
@@ -15,9 +17,15 @@ $("#singleUploadForm").on("submit",function (){
     $("#imageName").val(files[0].name);
     uploadSingleFile(files[0]);
 })
+
+//--------------Upload---------//
+
+
 function showEmployeeModal() {
     $('#employeeModal').modal('show')
 }
+
+//-------------Get All Position----------//
 function getAllPosition(){
     $.ajax({
         type: "GET",
@@ -33,7 +41,9 @@ function getAllPosition(){
     })
 }
 getAllPosition();
+//-------------Get All Position----------//
 
+//-------------Get All Employee----------//
 function getAllEmployee(){
     $.ajax({
         type: "GET",
@@ -66,7 +76,10 @@ function getAllEmployee(){
 }
 
 getAllEmployee();
+//-------------Get All Employee----------//
 
+
+//-------------Create Employee-----------//
 function createEmployee(){
     let employee_id = $('#employeeID').val();
     let employee_name = $("#employee_name").val();
@@ -118,12 +131,14 @@ function createEmployee(){
                 ' </td>\n' +
                 ' </tr>');
         }).fail(()=>{
-            App.showErrorAlert("Đã xảy ra lỗi!");
+            App.showErrorAlert("Số điện thoại đã tồn tại!");
         })
     }
 }
 $("#create-button").on("click",createEmployee);
+//-------------Create Employee-----------//
 
+//-------------Delete Employee-----------//
 function deleteEmployee(employeeID) {
     Swal.fire({
         title: 'Bạn muốn xóa?',
@@ -149,6 +164,8 @@ function deleteEmployee(employeeID) {
         }
     })
 }
+//-------------Delete Employee-----------//
+
 
 function loadEditData(employeeID){
     $.ajax({

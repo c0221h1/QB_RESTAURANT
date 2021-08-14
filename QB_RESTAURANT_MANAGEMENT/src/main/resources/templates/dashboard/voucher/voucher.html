@@ -2,35 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="/layout/head::header">
-
-  <style>
-    .dob {
-        position: relative;
-      height: 38px;
-      color: white;
-    }
-
-    .dob:before {
-      position: absolute;
-      top: 6px;
-      left: 12px;
-      content: attr(data-date);
-      display: inline-block;
-      color: black;
-    }
-
-    .dob::-webkit-calendar-picker-indicator {
-      position: absolute;
-      top: 6px;
-      right: 5px;
-      color: black;
-      opacity: 1;
-    }
-  </style>
-
-
 </head>
-<body class="hold-transition sidebar-mini layout-fixed" style="margin-left: 10px; margin-right: 10px">
+<body class="hold-transition sidebar-mini layout-fixed" style="margin: 10px">
 <div class="wrapper">
 
   <!--  Navbar start-->
@@ -46,7 +19,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/index.html">Home</a></li>
+              <li class="breadcrumb-item"><a th:href="@{/dashboard}">Home</a></li>
               <li class="breadcrumb-item active">Khuyến mãi</li>
             </ol>
           </div>
@@ -101,7 +74,7 @@
             </div>
             <div class="form-group">
               <label>Ngày bắt đầu</label>
-              <input type="date" name="beginDate" id="beginDate" class="form-control dob" data-date="" data-date-format="DD-MM-YYYY" value="" data-rule-required="true" data-msg-required="Không để trống trường này">
+              <input type="date" name="beginDate" id="beginDate" class="form-control " data-rule-required="true" data-msg-required="Không để trống trường này">
             </div>
             <div class="form-group">
               <label>Ngày kết thúc</label>

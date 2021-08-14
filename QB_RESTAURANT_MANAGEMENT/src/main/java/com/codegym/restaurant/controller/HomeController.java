@@ -72,7 +72,7 @@ public class HomeController {
 
     @GetMapping("/error-403")
     public ModelAndView page403(){
-        return new ModelAndView("/error-403");
+        return new ModelAndView("/error/");
     }
 
 }

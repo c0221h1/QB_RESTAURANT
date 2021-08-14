@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Date;
 import java.util.Optional;
 
 @RestController
@@ -72,8 +73,13 @@ public class EmployeeController {
 
     @PostMapping("/createEmployee")
     public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee){
-        employee.getPosition().setPositionName(positionService.findById(employee.getPosition().getPositionId()).get().getPositionName());
-        return new ResponseEntity<>(iEmployeeService.createUser(employee),HttpStatus.CREATED);
+        Integer phoneNumber = employee.getPhone();
+        Optional<Employee> employee1 = employeeService.findEmployeeByPhone(phoneNumber);
+        if (!employee1.isPresent()){
+            employee.getPosition().setPositionName(positionService.findById(employee.getPosition().getPositionId()).get().getPositionName());
+            return new ResponseEntity<>(iEmployeeService.createUser(employee),HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/deleteEmployee/{id}")
