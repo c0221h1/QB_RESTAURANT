@@ -26,22 +26,21 @@
                 </div>
             </div>
         </div>
+        <hr>
         <!-- /.content-header -->
         <section class="content">
             <div class="container-fluid">
                 <!-- Small boxes (Stat box) -->
-                <div class="row">
+                <!--    View Manager-->
+                <div class="row" th:if="!${viewMode}">
                     <div class="d-flex flex-row-reverse bd-highlight">
                         <div class="p-2 bd-highlight">
                             <a onclick="showModalDesk()" class="btn btn-primary">
                                 <i class="fa fa-plus"></i> Thêm bàn ăn
                             </a>
-                            <a th:href="@{/manager}" class="btn btn-primary">Manager</a>
-                            <a th:href="@{/display}" class="btn btn-primary">Display</a>
                         </div>
                     </div>
-                    <!--    View Manager-->
-                    <div class="card-body table-responsive p-0" th:if="!${viewMode}">
+                    <div class="card-body table-responsive p-0">
                         <table class="table table-hover table-bordered text-nowrap table-product" id="deskList">
                             <thead class="thead-dark text-center">
                             <tr>
@@ -56,12 +55,13 @@
                             </tbody>
                         </table>
                     </div>
+                </div>
                     <!--    View Display-->
-                    <div class="card-body table-responsive p-0" th:if="${viewMode}">
+                <div class="row" th:if="${viewMode}">
+                    <div class="card-body table-responsive p-0">
                         <div id="wholepage">
                             <section>
                                 <div class="page">
-                                    <h1>Table</h1>
                                     <div id="showDisplay"></div>
                                 </div>
                             </section>
@@ -115,19 +115,24 @@
                         <div class="form-group">
                             <label>Chọn giờ đặt bàn</label>
                             <select id="upTimeBook" name="upTimeBook">
-                                <option>08:00 AM</option>
-                                <option>09:00 AM</option>
-                                <option>10:00 AM</option>
-                                <option>11:00 AM</option>
-                                <option>12:00 AM</option>
-                                <option>01:00 PM</option>
-                                <option>02:00 PM</option>
-                                <option>03:00 PM</option>
-                                <option>04:00 PM</option>
-                                <option>05:00 PM</option>
-                                <option>06:00 PM</option>
-                                <option>07:00 PM</option>
-                                <option>08:00 PM</option>
+                                <option>08</option>
+                                <option>09</option>
+                                <option>10</option>
+                                <option>11</option>
+                                <option>12</option>
+                                <option>13</option>
+                                <option>14</option>
+                                <option>15</option>
+                                <option>16</option>
+                                <option>17</option>
+                                <option>18</option>
+                                <option>19</option>
+                                <option>20</option>
+                            </select> : <select id="upMinuteBook" name="upMinuteBook">
+                                <option>00</option>
+                                <option>15</option>
+                                <option>30</option>
+                                <option>45</option>
                             </select>
                             <input type="hidden" name="upTableId" id="upTableId">
                             <input type="hidden" name="upTableName" id="upTableName">

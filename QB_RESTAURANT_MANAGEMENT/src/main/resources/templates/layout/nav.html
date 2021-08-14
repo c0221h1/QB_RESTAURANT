@@ -176,19 +176,26 @@
           <li class="nav-item">
             <a th:href="@{/desk}" class="nav-link">
               <i class="fas fa-chair"></i>
-              <p>
-                Bàn ăn
-              </p>
+              <p>Bàn ăn</p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a th:href="@{/manager}" class="nav-link">
+                  <i class="fas fa-circle nav-icon"></i>
+                  <p>Quản lý</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a th:href="@{/display}" class="nav-link">
+                  <i class="fas fa-circle nav-icon"></i>
+                  <p>Giao diện</p>
+                </a>
+              </li>
+            </ul>
           </li>
-<<<<<<< HEAD
 
           <li class="nav-item">
             <a class="nav-link">
-=======
-          <li class="nav-item">
-            <a href="#" class="nav-link">
->>>>>>> 9c50acc444963043cb0050cc3e7910294c9f178a
               <i class="fas fa-tags"></i>
               <p>
                 Khuyến mãi
@@ -198,25 +205,19 @@
               <li class="nav-item">
                 <a th:href="@{/vouchers}" class="nav-link">
                   <i class="fas fa-circle"></i>
-<<<<<<< HEAD
+
                   <p>
                     Còn hạn
                   </p>
-=======
-                  <p>Còn hạn</p>
->>>>>>> 9c50acc444963043cb0050cc3e7910294c9f178a
                 </a>
               </li>
               <li class="nav-item">
                 <a th:href="@{/voucherExpired}" class="nav-link">
                   <i class="fas fa-circle"></i>
-<<<<<<< HEAD
+
                   <p>
                     Hết hạn
                   </p>
-=======
-                  <p>Hết hạn</p>
->>>>>>> 9c50acc444963043cb0050cc3e7910294c9f178a
                 </a>
               </li>
               <li class="nav-item">
