@@ -70,7 +70,7 @@ body{
     border: 1px solid;
     object-fit: contain;
     position: relative;
-    bottom: 6rem;
+    bottom: 8rem;
 }
 .sub-container li{
     display: flex;
@@ -100,8 +100,6 @@ body{
 .activee {
     background-color: #704232 !important;
     color: #fff !important;
-    border-radius: 10px !important;
-
 }
 
 .logout{
@@ -172,7 +170,7 @@ body{
 }
   
 .btnn {
-    background-color: #fff;
+    background-color: #f9f9fb;
     border: 0;
     cursor: pointer;
     font-size: 24px;
@@ -200,8 +198,8 @@ body{
 }
   
 .product-search.active .btnn {
-    transform: translateX(145px);
-    background-color: #fff;
+    transform: translateX(148px);
+    background-color: #f9f9fb;
 }
 
 
@@ -220,13 +218,6 @@ body{
 .category-title > p{
     margin: 0;
     width: 100px;
-}
-
-.category-title > p:hover{
-    background-color: #704232;
-    color: #f0f0f0;
-    border-radius: 10px;
-    transition: 0.3s;
 }
 
 .food-information{
@@ -365,6 +356,7 @@ body{
     margin: 5px;
     margin-top: 10px;
     position: relative;
+    display: none;
     overflow: hidden;
     height: 100px;
 }
@@ -539,6 +531,8 @@ body{
     border: none;
 }
 
+
+
 .filterDiv {
     background-color: #2196F3;
     color: #ffffff;
@@ -562,7 +556,7 @@ body{
     justify-content: center;
     align-items: center;
     text-align: center;
-    width: calc(20% - 10px);
+    width: calc(25%-10px);
 
 }
   

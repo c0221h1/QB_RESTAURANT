@@ -14,5 +14,4 @@ public interface ICategoryRepository extends JpaRepository<Category, Long> {
     @Modifying
     @Query("select c from Category c where c.categoryName = ?1")
     Optional<Category> findCategoryByCategoryName(String categoryName);
-
 }
