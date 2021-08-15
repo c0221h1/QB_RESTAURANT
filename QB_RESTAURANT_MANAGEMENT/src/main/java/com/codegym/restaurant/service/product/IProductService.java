@@ -19,4 +19,6 @@ public interface IProductService extends IGeneralService<Product> {
 
     Optional<Product> findByProductName(String productName);
 
+    Iterable<Product> findAllByCategoryCategory_id(Long id);
+
 }
