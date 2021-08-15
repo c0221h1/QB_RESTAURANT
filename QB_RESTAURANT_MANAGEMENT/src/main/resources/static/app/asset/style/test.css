@@ -6,7 +6,10 @@
     padding: 0;
     margin: 0;
 }
-
+#userInformation{
+    position: relative;
+    top: 6rem;
+}
 :root{
     --main-font: 'Source Sans Pro', sans-serif;
     --secondary-font: 'Herr Von Muellerhoff', cursive;
@@ -70,7 +73,7 @@ body{
     border: 1px solid;
     object-fit: contain;
     position: relative;
-    bottom: 8rem;
+    bottom: 6rem;
 }
 .sub-container li{
     display: flex;
@@ -100,6 +103,8 @@ body{
 .activee {
     background-color: #704232 !important;
     color: #fff !important;
+    border-radius: 10px !important;
+
 }
 
 .logout{
@@ -170,7 +175,7 @@ body{
 }
   
 .btnn {
-    background-color: #f9f9fb;
+    background-color: #fff;
     border: 0;
     cursor: pointer;
     font-size: 24px;
@@ -198,8 +203,8 @@ body{
 }
   
 .product-search.active .btnn {
-    transform: translateX(148px);
-    background-color: #f9f9fb;
+    transform: translateX(145px);
+    background-color: #fff;
 }
 
 
@@ -218,6 +223,13 @@ body{
 .category-title > p{
     margin: 0;
     width: 100px;
+}
+
+.category-title > p:hover{
+    background-color: #704232;
+    color: #f0f0f0;
+    border-radius: 10px;
+    transition: 0.3s;
 }
 
 .food-information{
@@ -356,7 +368,6 @@ body{
     margin: 5px;
     margin-top: 10px;
     position: relative;
-    display: none;
     overflow: hidden;
     height: 100px;
 }
@@ -531,8 +542,6 @@ body{
     border: none;
 }
 
-
-
 .filterDiv {
     background-color: #2196F3;
     color: #ffffff;
@@ -556,7 +565,7 @@ body{
     justify-content: center;
     align-items: center;
     text-align: center;
-    width: calc(25%-10px);
+    width: calc(20% - 10px);
 
 }
   
