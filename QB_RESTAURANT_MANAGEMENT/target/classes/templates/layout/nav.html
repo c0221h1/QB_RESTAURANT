@@ -93,13 +93,25 @@
           <li class="nav-item">
             <a th:href="@{/desk}" class="nav-link">
               <i class="fas fa-chair"></i>
-              <p>
-                Bàn ăn
-              </p>
+              <p>Bàn ăn</p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a th:href="@{/manager}" class="nav-link">
+                  <i class="fas fa-circle nav-icon"></i>
+                  <p>Quản lý</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a th:href="@{/display}" class="nav-link">
+                  <i class="fas fa-circle nav-icon"></i>
+                  <p>Giao diện</p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a class="nav-link">
               <i class="fas fa-tags"></i>
               <p>
                 Khuyến mãi
