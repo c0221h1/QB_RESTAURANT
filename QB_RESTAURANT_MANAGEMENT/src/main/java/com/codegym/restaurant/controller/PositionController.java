@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.codegym.restaurant.controller;
 
 import com.codegym.restaurant.model.Position;
@@ -23,3 +24,30 @@ public class PositionController {
     }
 
 }
+=======
+package com.codegym.restaurant.controller;
+
+import com.codegym.restaurant.model.Position;
+import com.codegym.restaurant.service.position.IPositionService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/position")
+public class PositionController {
+
+    @Autowired
+    private IPositionService positionService;
+
+    @GetMapping("/listPosition")
+    public ResponseEntity<Iterable<Position>> getAllPosition(){
+        return new ResponseEntity<>(positionService.findAll(), HttpStatus.OK);
+    }
+
+}
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa

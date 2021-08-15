@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <component name="libraryTable">
   <library name="Maven: org.springframework.data:spring-data-jpa:2.5.3">
     <CLASSES>
@@ -10,4 +11,18 @@
       <root url="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-jpa/2.5.3/spring-data-jpa-2.5.3-sources.jar!/" />
     </SOURCES>
   </library>
+=======
+<component name="libraryTable">
+  <library name="Maven: org.springframework.data:spring-data-jpa:2.5.3">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-jpa/2.5.3/spring-data-jpa-2.5.3.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-jpa/2.5.3/spring-data-jpa-2.5.3-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-jpa/2.5.3/spring-data-jpa-2.5.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa
 </component>

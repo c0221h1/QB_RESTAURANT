@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // filterSelection("all")
 // function filterSelection(c) {
 //   var x, i;
@@ -130,6 +131,19 @@ function adToOrder(productID){
 }
 
 //----------Set Up Product---------------------//
+=======
+filterSelection("all")
+function filterSelection(c) {
+  var x, i;
+  x = document.getElementsByClassName("drink-container");
+  if (c == "all") c = "";
+  for (i = 0; i < x.length; i++) {
+    w3RemoveClass(x[i], "show");
+    if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+  }
+}
+
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa
 function w3AddClass(element, name) {
   var i, arr1, arr2;
   arr1 = element.className.split(" ");
@@ -163,6 +177,21 @@ for(let i = 0; i < btns.length; i++){
     })
 }
 
+<<<<<<< HEAD
+=======
+let head = document.getElementById("myDIV")
+let cate = head.getElementsByClassName("category")
+for(let i = 0; i < cate.length; i++){
+  cate[i].addEventListener('click', function(){
+    let current = document.getElementsByClassName("activee")
+    current[0].className = current[0].className.replace(" activee", "")
+    this.className += " activee"
+  })
+}
+
+
+
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa
   // Add smooth scrolling to all links
   $("a").on('click', function(event) {
 

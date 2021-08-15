@@ -10,18 +10,33 @@ function getAllDesk(){
                               <input hidden id="${desks[i].tableId}">
                               <td>${desks[i].tableName}</td>
                               ${desks[i].custom ?
+<<<<<<< HEAD
                               '<td style="color: darkred">Bàn đang có khách</td><td>Bàn đang có khách</td>' :
                               `<td style="color: darkblue">Bàn đang trống</td>
                               ${!desks[i].hidden ?
                               `${desks[i].book!= null ?
                                 `<td><a onclick="showBookDesk(${desks[i].tableId})" class="btn btn-danger">Đặt bàn ${desks[i].book}</a></td>` :
                                 `<td><a onclick="showBookDesk(${desks[i].tableId})" class="btn btn-primary">Đặt bàn</a></td>`}` :
+=======
+                              '<td style="color: darkred">Bàn đang có khách</td><td><button class="btn btn-warning" title="Tạm thời không thể đặt">Đã có khách</button></td>' :
+                              `<td style="color: darkblue">Bàn đang trống</td>
+                              ${!desks[i].hidden ?
+                              `${desks[i].book!= null && desks[i].book !== (null +"h "+ null) ?
+                                `<td><a onclick="showBookDesk(${desks[i].tableId})" class="btn btn-danger">Đặt bàn ${desks[i].book}</a></td>` :
+                                `<td><a onclick="showBookDesk(${desks[i].tableId})" class="btn btn-primary">Có thể đặt bàn</a></td>`}` :
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa
                                 '<td></td>'}`}
                               ${desks[i].hidden ?
                                 `<td><a onclick="tableHidden(${desks[i].tableId})" class="btn btn-danger"><i class="fas fa-eye-slash fa-lg"></i></a></td>` :
                                 `<td><a onclick="tableHidden(${desks[i].tableId})" class="btn btn-primary"><i class="fas fa-eye fa-lg"></i></a></td>`}                         
                               <td class="text-center">
+<<<<<<< HEAD
                                 <button class="btn btn-outline-danger delete-button" onclick=deleteDesk(${desks[i].tableId})><i class="fas fa-trash-alt"></i>Xóa</button>
+=======
+                              ${!desks[i].hidden ?
+                                '<button class="btn btn-outline-secondary delete-button" disabled style="text-decoration: line-through"><i class="fas fa-trash-alt"></i>Xóa</button>' :
+                                `<button class="btn btn-outline-danger delete-button" onclick=deleteDesk(${desks[i].tableId})><i class="fas fa-trash-alt"></i>Xóa</button>`}
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa
                               </td>
                         </tr>
                 `;
@@ -43,7 +58,13 @@ function showBookDesk(tableId) {
             $('#upTableId').val(desk.tableId);
             $('#nameTable').text(desk.tableName);
             $('#upTableCustom').val(desk.custom);
+<<<<<<< HEAD
             $('#upTimeBook').val(desk.book);
+=======
+            let times = desk.book.split("h ");
+            $('#upTimeBook').val(times[0]);
+            $('#upMinuteBook').val(times[1]);
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa
             $('#upTableHidden').val(desk.hidden);
             $('#upTableName').val(desk.tableName);
         }
@@ -115,7 +136,11 @@ function tableBook() {
     let tableId = $("#upTableId").val();
     let tableName = $("#upTableName").val();
     let custom = $("#upTableCustom").val();
+<<<<<<< HEAD
     let timeBook = $("#upTimeBook").val();
+=======
+    let timeBook = ($("#upTimeBook").val() + "h " + $("#upMinuteBook").val());
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa
     let tableHidden = $("#upTableHidden").val();
     let newDesk = {
         tableName : tableName,
@@ -142,6 +167,10 @@ function tableBook() {
 
 function resetBook() {
     $('#upTimeBook').val(null);
+<<<<<<< HEAD
+=======
+    $('#upMinuteBook').val(null);
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa
 }
 
 function getAllDeskDisplay(){
@@ -151,11 +180,16 @@ function getAllDeskDisplay(){
     }).done(function (desks){
         let content = "";
         for (let i = 0; i < desks.length; i++) {
+<<<<<<< HEAD
             content += `<div class="table-container" style="float: left; width: 25%; margin-bottom: 5%">
+=======
+            content += `<div class="table-container" style="float: left; width: 20%; margin-bottom: 5%">
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa
                             ${desks[i].hidden ?
                             '' :
                             `<div class="table-infor">
                                 <div class="table-img" style="margin-left: 15%">
+<<<<<<< HEAD
                                     <div class="table-name"><p>${desks[i].tableName}
                                     ${desks[i].book ?
                                         `<span class="book" style="color: red"> (Bàn đã đặt ${desks[i].book})</span>` :
@@ -164,6 +198,16 @@ function getAllDeskDisplay(){
                                     ${desks[i].custom ?
                                         '<img src="/uploads/table/table1.jpg" style="width: 60%">' :
                                         '<img src="/uploads/table/table2.jpg" style="width: 60%">'}
+=======
+                                    <div class="table-name"><p style="color: darkblue">${desks[i].tableName}
+                                    ${desks[i].book && desks[i].book !== (null +"h "+ null) ?
+                                        `<span class="book" style="color: red"> (Đặt lúc ${desks[i].book})</span>` :
+                                        ''}
+                                    </p></div>
+                                    ${desks[i].custom ?
+                                        '<img src="/uploads/table/table1.jpg" style="width: 70%">' :
+                                        '<img src="/uploads/table/table2.jpg" style="width: 70%">'}
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa
                                 </div>
                             </div>`}
                         </div>`

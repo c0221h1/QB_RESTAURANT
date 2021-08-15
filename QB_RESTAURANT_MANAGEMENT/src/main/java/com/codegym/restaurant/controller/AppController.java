@@ -1,5 +1,6 @@
 package com.codegym.restaurant.controller;
 
+<<<<<<< HEAD
 import com.codegym.restaurant.model.Category;
 import com.codegym.restaurant.model.Product;
 import com.codegym.restaurant.model.Voucher;
@@ -9,11 +10,16 @@ import com.codegym.restaurant.service.voucher.IVoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+=======
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.PathVariable;
+=======
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/app")
 public class AppController {
 
+<<<<<<< HEAD
     @Autowired
     private IProductService productService;
 
@@ -31,6 +38,8 @@ public class AppController {
     @Autowired
     private ICategoryService categoryService;
 
+=======
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa
     private String getPrincipal() {
         String userName = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -49,6 +58,7 @@ public class AppController {
         modelAndView.addObject("userInfo", getPrincipal());
         return modelAndView;
     }
+<<<<<<< HEAD
 
     @GetMapping("getAllItem")
     public ModelAndView getAllItem(){
@@ -95,3 +105,6 @@ public class AppController {
 }
 
 
+=======
+}
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa

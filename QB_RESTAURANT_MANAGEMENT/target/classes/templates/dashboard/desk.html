@@ -26,22 +26,37 @@
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
+=======
+        <hr>
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa
         <!-- /.content-header -->
         <section class="content">
             <div class="container-fluid">
                 <!-- Small boxes (Stat box) -->
+<<<<<<< HEAD
                 <div class="row">
+=======
+                <!--    View Manager-->
+                <div class="row" th:if="!${viewMode}">
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa
                     <div class="d-flex flex-row-reverse bd-highlight">
                         <div class="p-2 bd-highlight">
                             <a onclick="showModalDesk()" class="btn btn-primary">
                                 <i class="fa fa-plus"></i> Thêm bàn ăn
                             </a>
+<<<<<<< HEAD
                             <a th:href="@{/manager}" class="btn btn-primary">Manager</a>
                             <a th:href="@{/display}" class="btn btn-primary">Display</a>
                         </div>
                     </div>
                     <!--    View Manager-->
                     <div class="card-body table-responsive p-0" th:if="!${viewMode}">
+=======
+                        </div>
+                    </div>
+                    <div class="card-body table-responsive p-0">
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa
                         <table class="table table-hover table-bordered text-nowrap table-product" id="deskList">
                             <thead class="thead-dark text-center">
                             <tr>
@@ -56,12 +71,22 @@
                             </tbody>
                         </table>
                     </div>
+<<<<<<< HEAD
                     <!--    View Display-->
                     <div class="card-body table-responsive p-0" th:if="${viewMode}">
                         <div id="wholepage">
                             <section>
                                 <div class="page">
                                     <h1>Table</h1>
+=======
+                </div>
+                    <!--    View Display-->
+                <div class="row" th:if="${viewMode}">
+                    <div class="card-body table-responsive p-0">
+                        <div id="wholepage">
+                            <section>
+                                <div class="page">
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa
                                     <div id="showDisplay"></div>
                                 </div>
                             </section>
@@ -115,6 +140,7 @@
                         <div class="form-group">
                             <label>Chọn giờ đặt bàn</label>
                             <select id="upTimeBook" name="upTimeBook">
+<<<<<<< HEAD
                                 <option>08:00 AM</option>
                                 <option>09:00 AM</option>
                                 <option>10:00 AM</option>
@@ -128,6 +154,26 @@
                                 <option>06:00 PM</option>
                                 <option>07:00 PM</option>
                                 <option>08:00 PM</option>
+=======
+                                <option>08</option>
+                                <option>09</option>
+                                <option>10</option>
+                                <option>11</option>
+                                <option>12</option>
+                                <option>13</option>
+                                <option>14</option>
+                                <option>15</option>
+                                <option>16</option>
+                                <option>17</option>
+                                <option>18</option>
+                                <option>19</option>
+                                <option>20</option>
+                            </select> : <select id="upMinuteBook" name="upMinuteBook">
+                                <option>00</option>
+                                <option>15</option>
+                                <option>30</option>
+                                <option>45</option>
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa
                             </select>
                             <input type="hidden" name="upTableId" id="upTableId">
                             <input type="hidden" name="upTableName" id="upTableName">

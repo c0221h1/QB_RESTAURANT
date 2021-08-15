@@ -14,6 +14,9 @@ public interface IVoucherService extends IGeneralService<Voucher> {
 	Iterable<Voucher> findAllByVoucherExpired();
 	
 	Iterable<Voucher> findAllByVoucherIsDeleted();
+<<<<<<< HEAD
 
 	Iterable<Voucher> findVouchersIsApply();
+=======
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa
 }

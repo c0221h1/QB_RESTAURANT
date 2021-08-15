@@ -70,7 +70,11 @@ body{
     border: 1px solid;
     object-fit: contain;
     position: relative;
+<<<<<<< HEAD
     bottom: 6rem;
+=======
+    bottom: 8rem;
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa
 }
 .sub-container li{
     display: flex;
@@ -86,10 +90,13 @@ body{
     cursor: pointer;
     transition: 0.3s;
 }
+<<<<<<< HEAD
 #userInformation{
     position: relative;
     top: 6rem;
 }
+=======
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa
 
 .sub-container li:hover, .active{
     background-color: #704232;
@@ -104,8 +111,11 @@ body{
 .activee {
     background-color: #704232 !important;
     color: #fff !important;
+<<<<<<< HEAD
     border-radius: 10px !important;
 
+=======
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa
 }
 
 .logout{
@@ -176,7 +186,11 @@ body{
 }
   
 .btnn {
+<<<<<<< HEAD
     background-color: #fff;
+=======
+    background-color: #f9f9fb;
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa
     border: 0;
     cursor: pointer;
     font-size: 24px;
@@ -204,8 +218,13 @@ body{
 }
   
 .product-search.active .btnn {
+<<<<<<< HEAD
     transform: translateX(145px);
     background-color: #fff;
+=======
+    transform: translateX(148px);
+    background-color: #f9f9fb;
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa
 }
 
 
@@ -226,6 +245,7 @@ body{
     width: 100px;
 }
 
+<<<<<<< HEAD
 .category-title > p:hover{
     background-color: #704232;
     color: #f0f0f0;
@@ -233,6 +253,8 @@ body{
     transition: 0.3s;
 }
 
+=======
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa
 .food-information{
     display: flex;
     flex-direction: row;
@@ -369,6 +391,10 @@ body{
     margin: 5px;
     margin-top: 10px;
     position: relative;
+<<<<<<< HEAD
+=======
+    display: none;
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa
     overflow: hidden;
     height: 100px;
 }
@@ -543,6 +569,11 @@ body{
     border: none;
 }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa
 .filterDiv {
     background-color: #2196F3;
     color: #ffffff;
@@ -566,7 +597,11 @@ body{
     justify-content: center;
     align-items: center;
     text-align: center;
+<<<<<<< HEAD
     width: calc(20% - 10px);
+=======
+    width: calc(25%-10px);
+>>>>>>> 8c604e44383d00fbd0295616e57c35a2091ab4aa
 
 }
   
