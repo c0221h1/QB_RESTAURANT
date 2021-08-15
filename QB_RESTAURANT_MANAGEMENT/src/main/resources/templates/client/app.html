@@ -83,7 +83,7 @@
                             <a href="#table"></a><li class="btn active"><i class="fas fa-table"></i>Table</li></a>
                             <a href="#product"></a><li class="btn"><i class="fas fa-cog"></i>Setting</li></a>
                         </ul>
-                    <div class="text-center border rounded-circle" style="position: relative;top: 6rem;">
+                    <div class="text-center">
                         <h5><span th:text="${userInfo}" th:value="${userInfo}" id="userInfo"></span></h5>
                         <i class="fas fa-user"></i>
                     </div>
@@ -112,10 +112,10 @@
 
             <!-- Menu display foods -->
             <div class="menu">
-                <div class="page"><!--
-                    <h1>Table</h1> -->
-                    <div id="show"></div>
-                </div>
+                    <div class="page"><!-- 
+                        <h1>Table</h1> -->
+                        <div id="show"></div>
+                    </div>
             </div>
         </section>
         <!-- Modal: modalQuickView -->
@@ -128,45 +128,166 @@
                         <p class="second-text">Choose category</p>
                     </div>
                         <div class="">
-                            <div class="categories" id="categories">
-                                <div class="category btn activee" style="padding: 0;">
+                            <div class="categories" id="myDIV">
+                                <div class="category btn activee" style="padding: 0;" onclick="filterSelection('all')">
                                     <div class="category-title">
-                                        <p onclick="getAllItem()">Tất Cả</p>
+                                        <p>All</p>
                                     </div>
                                 </div>
 
-<!--                                <div class="category btn" style="padding: 0;">-->
-<!--                                    <div class="category-title">-->
-<!--                                        <p>Đặc sản</p>-->
-<!--                                    </div>-->
-<!--                                </div>-->
+                                <div class="category btn" onclick="filterSelection('specials')" style="padding: 0;">
+                                    <div class="category-title">
+                                        <p>Đặc sản</p>
+                                    </div>
+                                </div>
 
-<!--                                <div class="category btn" onclick="filterSelection('specials')" style="padding: 0;">-->
-<!--                                    <div class="category-title">-->
-<!--                                        <p>Đặc sản</p>-->
-<!--                                    </div>-->
-<!--                                </div>-->
+                                <div class="category btn" onclick="filterSelection('seafoods')" style="padding: 0;">
+                                    <div class="category-title">
+                                        <p>Hải sản</p>
+                                    </div>
+                                </div>
 
-<!--                                <div class="category btn" onclick="filterSelection('seafoods')" style="padding: 0;">-->
-<!--                                    <div class="category-title">-->
-<!--                                        <p>Hải sản</p>-->
-<!--                                    </div>-->
-<!--                                </div>-->
+                                <div class="category btn" onclick="filterSelection('traditionals')" style="padding: 0;">
+                                    <div class="category-title">
+                                        <p>Dân gian</p>
+                                    </div>
+                                </div>
 
-<!--                                <div class="category btn" onclick="filterSelection('traditionals')" style="padding: 0;">-->
-<!--                                    <div class="category-title">-->
-<!--                                        <p>Dân gian</p>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-
-<!--                                <div class="category btn" onclick="filterSelection('alacater')" style="padding: 0;">-->
-<!--                                    <div class="category-title">-->
-<!--                                        <p>Alacater</p>-->
-<!--                                    </div>-->
-<!--                                </div>-->
+                                <div class="category btn" onclick="filterSelection('alacater')" style="padding: 0;">
+                                    <div class="category-title">
+                                        <p>Alacater</p>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="food-information">
+                                <div class="drink-container specials">
+                                    <img src="/app/asset/img/pr3.png" alt="">
+                                    <div class="overlay">
+                                        <div class="text">Name of the food</div>
+                                        <button class="button-overlay">Add to table</button>
+                                    </div>
+                                </div>
+
+                                <div class="drink-container traditionals">
+                                    <img src="/app/asset/img/pr4.png" alt="">
+                                    <div class="overlay">
+                                        <div class="text">Name of the food</div>
+                                        <button class="button-overlay">Add to table</button>
+                                    </div>
+                                </div>
+
+                                <div class="drink-container seafoods">
+                                    <img src="/app/asset/img/pr5.png" alt="">
+                                    <div class="overlay">
+                                        <div class="text">Name of the food</div>
+                                        <button class="button-overlay">Add to table</button>
+                                    </div>
+                                </div>
+
+                                <div class="drink-container alacater">
+                                    <img src="/app/asset/img/pr6.png" alt="">
+                                    <div class="overlay">
+                                        <div class="text">Name of the food</div>
+                                        <button class="button-overlay">Add to table</button>
+                                    </div>
+                                </div>
+
+                                <div class="drink-container cars animals">
+                                    <img src="/app/asset/img/pr2.png" alt="">
+                                    <div class="overlay">
+                                        <div class="text">Name of the food</div>
+                                        <button class="button-overlay">Add to table</button>
+                                    </div>
+                                </div>
+
+                                <div class="drink-container traditionals">
+                                    <img src="/app/asset/img/pr2.png" alt="">
+                                    <div class="overlay">
+                                        <div class="text">Name of the food</div>
+                                        <button class="button-overlay">Add to table</button>
+                                    </div>
+                                </div>
+
+                                <div class="drink-container seafoods">
+                                    <img src="/app/asset/img/pr2.png" alt="">
+                                    <div class="overlay">
+                                        <div class="text">Name of the food</div>
+                                        <button class="button-overlay">Add to table</button>
+                                    </div>
+                                </div>
+
+                                <div class="drink-container alacater">
+                                    <img src="/app/asset/img/pr2.png" alt="">
+                                    <div class="overlay">
+                                        <div class="text">Name of the food</div>
+                                        <button class="button-overlay">Add to table</button>
+                                    </div>
+                                </div>
+
+                                <div class="drink-container alacater">
+                                    <img src="/app/asset/img/pr2.png" alt="">
+                                    <div class="overlay">
+                                        <div class="text">Name of the food</div>
+                                        <button class="button-overlay">Add to table</button>
+                                    </div>
+                                </div>
+                                <div class="drink-container alacater">
+                                    <img src="/app/asset/img/pr2.png" alt="">
+                                    <div class="overlay">
+                                        <div class="text">Name of the food</div>
+                                        <button class="button-overlay">Add to table</button>
+                                    </div>
+                                </div>
+                                <div class="drink-container alacater">
+                                    <img src="/app/asset/img/pr2.png" alt="">
+                                    <div class="overlay">
+                                        <div class="text">Name of the food</div>
+                                        <button class="button-overlay">Add to table</button>
+                                    </div>
+                                </div>
+                                <div class="drink-container alacater">
+                                    <img src="/app/asset/img/pr2.png" alt="">
+                                    <div class="overlay">
+                                        <div class="text">Name of the food</div>
+                                        <button class="button-overlay">Add to table</button>
+                                    </div>
+                                </div>
+                                <div class="drink-container alacater">
+                                    <img src="/app/asset/img/pr2.png" alt="">
+                                    <div class="overlay">
+                                        <div class="text">Name of the food</div>
+                                        <button class="button-overlay">Add to table</button>
+                                    </div>
+                                </div>
+                                <div class="drink-container alacater">
+                                    <img src="/app/asset/img/pr2.png" alt="">
+                                    <div class="overlay">
+                                        <div class="text">Name of the food</div>
+                                        <button class="button-overlay">Add to table</button>
+                                    </div>
+                                </div>
+                                <div class="drink-container alacater">
+                                    <img src="/app/asset/img/pr2.png" alt="">
+                                    <div class="overlay">
+                                        <div class="text">Name of the food</div>
+                                        <button class="button-overlay">Add to table</button>
+                                    </div>
+                                </div>
+                                <div class="drink-container alacater">
+                                    <img src="/app/asset/img/pr2.png" alt="">
+                                    <div class="overlay">
+                                        <div class="text">Name of the food</div>
+                                        <button class="button-overlay">Add to table</button>
+                                    </div>
+                                </div>
+                                <div class="drink-container alacater">
+                                    <img src="/app/asset/img/pr2.png" alt="">
+                                    <div class="overlay">
+                                        <div class="text">Name of the food</div>
+                                        <button class="button-overlay">Add to table</button>
+                                    </div>
+                                </div>
 
                             </div>
                         </div>
@@ -180,11 +301,6 @@
 
                 <div class="modal-body modal-body1">
                     <p class="first-text">Thông tin bàn</p>
-<!--                    <div class="panel-heading">-->
-<!--                        <h4 class="d-flex justify-content-between align-items-center ml-5 mt-4 mb-2">-->
-<!--                            <span class="btn btn-outline-danger clearOrder">Hủy</span>-->
-<!--                        </h4>-->
-<!--                    </div>-->
                     <section class="payment">
                         <p>Hóa đơn</p>
                         <div class="bill-container">
@@ -203,7 +319,7 @@
                         </div>
 
                             <!-- <div class="subtotal-text"><h5>Phương thức thanh toán</h5></div> -->
-                            <button class="btn-bill mb-2">Thanh toán</button>
+                            <button class="btn-bill">Thanh toán</button>
                     </section>
                 </div>
             </div>

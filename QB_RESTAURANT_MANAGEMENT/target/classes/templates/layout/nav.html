@@ -1,8 +1,5 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="navbar">
-  <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="/dist/img/AdminLTELogo.png" alt="QBrestaurant" height="100" width="100">
-  </div>
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
@@ -25,12 +22,12 @@
         </a>
         <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
           <!-- item-->
-          <div class="dropdown-header noti-title">
-            <h6 class="text-overflow m-0">Welcome !</h6>
-          </div>
-          <a th:href="@{/logout}" href="javascript:void(0);" class="dropdown-item notify-item">
-            <p> <i class="fas fa-sign-out-alt"></i> Logout</p>
-          </a>
+            <div class="dropdown-header noti-title">
+              <h6 class="text-overflow m-0">Welcome !</h6>
+            </div>
+            <a th:href="@{/logout}" href="javascript:void(0);" class="dropdown-item notify-item">
+              <p> <i class="fas fa-sign-out-alt"></i> Logout</p>
+            </a>
 
         </div>
       </li>
@@ -39,9 +36,8 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a class="brand-link">
-      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span><em style="font-family: 'WindSong';font-size: large;">QBrestaurant</em></span>
+    <a th:href="@{/dashboard}" class="brand-link" style="text-align: center">
+      <img src="/uploads/logoQBrestaurant/logo1.gif" style="opacity: .9; width: 200px; height: 200px; border-radius: 10px">
     </a>
 
     <!-- Sidebar -->
@@ -52,14 +48,14 @@
           <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">ADMIN</a>
+          <span th:text="ADMIN" style="color: #9affc6"></span>
         </div>
       </div>
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a th:href="@{/dashboard}" class="nav-link">
+            <a th:href="@{/statistical}" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>Thống kê</p>
             </a>
@@ -75,13 +71,13 @@
               <li class="nav-item">
                 <a th:href="@{/listProduct}" class="nav-link">
                   <i class="fas fa-circle nav-icon"></i>
-                  <p>Danh sách sản phẩm</p>
+                  <p>Danh mục sản phẩm</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a th:href="@{/listHiddenProduct}" class="nav-link">
                   <i class="fas fa-circle nav-icon"></i>
-                  <p>Sản phẩm hết hàng</p>
+                  <p>SP hết hàng</p>
                 </a>
               </li>
             </ul>
@@ -129,28 +125,18 @@
               <li class="nav-item">
                 <a th:href="@{/voucherTrash}" class="nav-link">
                   <i class="fas fa-circle"></i>
-                  <p>
-                    Thùng rác
-                  </p>
+                  <p>Đã xóa</p>
                 </a>
               </li>
             </ul>
           </li>
           <li class="nav-item">
-            <a href="@{/billHistory}" class="nav-link">
+            <a th:href="@{/billHistory}" class="nav-link">
               <i class="fas fa-history"></i>
               <p>
                 Lịch sử thanh toán
               </p>
             </a>
-            <!-- <ul class="nav nav-treeview">
-        <li class="nav-item">
-            <a href="pages/examples/invoice.html" class="nav-link">
-            <i class="far fa-circle nav-icon"></i>
-            <p>Invoice</p>
-            </a>
-        </li>
-            </ul> -->
           </li>
           <li class="nav-item">
             <a th:href="@{/calendar}" class="nav-link">

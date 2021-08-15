@@ -18,6 +18,8 @@ public interface IProductService extends IGeneralService<Product> {
     void restoreProductById(@Param("id") Long id);
 
     Optional<Product> findByProductName(String productName);
+    
+    int countByStatusTrue();
 
     Iterable<Product> findAllByCategoryCategory_id(Long id);
 

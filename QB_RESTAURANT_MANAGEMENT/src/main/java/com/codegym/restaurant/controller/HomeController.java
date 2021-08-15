@@ -1,5 +1,11 @@
 package com.codegym.restaurant.controller;
 
+import com.codegym.restaurant.service.bill.IBillService;
+import com.codegym.restaurant.service.desk.IDeskService;
+import com.codegym.restaurant.service.employee.IEmpService;
+import com.codegym.restaurant.service.employee.IEmployeeService;
+import com.codegym.restaurant.service.product.IProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class HomeController {
+    
 
     private String getPrincipal() {
         String userName = null;
@@ -60,19 +67,20 @@ public class HomeController {
     public ModelAndView register() {
         return new ModelAndView("/register");
     }
-
+    
     @GetMapping("/dashboard")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ModelAndView admin(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("/dashboard/index");
         modelAndView.addObject("userInfo", getPrincipal());
+    
         return modelAndView;
     }
 
 
     @GetMapping("/error-403")
     public ModelAndView page403(){
-        return new ModelAndView("/error-403");
+        return new ModelAndView("/error/403");
     }
 
 }
