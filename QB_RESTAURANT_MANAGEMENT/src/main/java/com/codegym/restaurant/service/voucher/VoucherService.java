@@ -49,5 +49,10 @@ public class VoucherService implements IVoucherService {
     public Iterable<Voucher> findAllByVoucherIsDeleted () {
         return voucherRepository.findAllByVoucherIsDeleted();
     }
-    
+
+    @Override
+    public Iterable<Voucher> findVouchersIsApply() {
+        return voucherRepository.findVouchersIsApply();
+    }
+
 }
