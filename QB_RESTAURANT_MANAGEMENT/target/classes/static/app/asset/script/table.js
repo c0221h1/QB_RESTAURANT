@@ -8,7 +8,7 @@ function getAllDesk(){
         let content = "";
         for (let i = 0; i < desks.length; i++) {
             content += `
-                    <input hidden id="${desks[i].tableId}" value="">
+                    <input hidden id="${desks[i].tableId}">
                     <div class="table-container">
                     <div class="table-infor"><p>${desks[i].tableName}</p>
                     <div class="table-img">
