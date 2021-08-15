@@ -3,10 +3,7 @@ package com.codegym.restaurant.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
@@ -17,33 +14,35 @@ import javax.validation.constraints.Size;
 @Table(name = "staticsicals")
 public class Staticsical {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Size(min = 4, max = 5)
     @Min(2020)
-    private Long year;
+    private Long yearBill;
 
-    private Double total;
+    
+    private Double totalBillOfYear;
 
-    private  Double jan;
+    private  Double janBill;
 
-    private Double feb;
+    private Double febBill;
 
-    private Double mar;
+    private Double marBill;
 
-    private Double apr;
+    private Double aprBill;
 
-    private Double may;
+    private Double mayBill;
 
-    private Double jun;
+    private Double junBill;
 
-    private Double jul;
+    private Double julBill;
 
-    private Double aug;
+    private Double augBill;
 
-    private Double sep;
+    private Double sepBill;
 
-    private Double oct;
+    private Double octBill;
 
-    private Double nov;
+    private Double novBill;
 
-    private Double dec;
+    private Double decBill;
 }

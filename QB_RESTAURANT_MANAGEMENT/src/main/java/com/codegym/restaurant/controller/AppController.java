@@ -26,7 +26,7 @@ public class AppController {
     @GetMapping
     @PreAuthorize("hasAnyAuthority('STAFF')")
     public ModelAndView getAllProductPage() {
-        ModelAndView modelAndView = new ModelAndView("/app/app");
+        ModelAndView modelAndView = new ModelAndView("/client/app");
         modelAndView.addObject("userInfo", getPrincipal());
         return modelAndView;
     }

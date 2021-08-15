@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 
 @Entity
 @Data
@@ -16,11 +17,19 @@ public class BillDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long billDetailId;
+    
+    @Column(nullable = false)
+    @Min (0)
+    private int amount;
+    
+    @Column(nullable = false)
+    @Min(0)
+    private Double productPrice;
+    
+    @Column(nullable = false)
+    private String productName;
 
-    @OneToOne
-    @JoinColumn(name = "orderDetail_Id")
-    private OrderDetail orderDetail;
-
+    
     @ManyToOne
     @JoinColumn(name = "bill_Id")
     private Bill bill;

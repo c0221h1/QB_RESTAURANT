@@ -24,7 +24,7 @@ order.orderList = function (){
                             </a>
                             <a href='javascript:;' class='btn btn-outline-success btn-sm'
                                 title='Tạo hóa đơn'
-                                onclick="#">
+                                onclick="">
                                 <i class="fas fa-file-invoice-dollar"></i>
                             </a>
                         </td>

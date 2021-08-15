@@ -68,6 +68,10 @@ public class VoucherController {
 
     @PostMapping("/vouchers/add")
     public ResponseEntity<Voucher> addVoucher(@Valid @RequestBody Voucher voucher){
+        Date date = new Date();
+        if(voucher.getBeginDate().getTime() <= date.getTime()){
+            voucher.setStatus(true);
+        }
         return new ResponseEntity<>(
                   voucherService.save(voucher), HttpStatus.CREATED);
     }
