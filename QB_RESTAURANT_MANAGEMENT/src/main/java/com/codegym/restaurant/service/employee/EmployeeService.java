@@ -10,12 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
 @Service
+@Transactional
 public class EmployeeService implements IEmployeeService, IEmpService{
     
     @Autowired
@@ -84,4 +86,14 @@ public class EmployeeService implements IEmployeeService, IEmpService{
         return UserPrinciple.build(userOptional.get());
     }
     
+    @Override
+    public int countEmployee () {
+        return employeeRepository.countEmployee();
+    }
+    
+    @Override
+    public int countByStatusFalse () {
+        return employeeRepository.countByStatusFalse();
+    }
+   
 }

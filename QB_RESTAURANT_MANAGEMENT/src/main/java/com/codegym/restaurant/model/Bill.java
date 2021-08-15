@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -18,20 +19,23 @@ public class Bill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long billId;
+    
+    @Column
+    private String customerName;
 
     @Column(nullable = false)
     private Date billTime;
 
-    @Size(min = 0, max = 2147483000)
-    private  int vat;
-
     @Column(nullable = false)
-    private boolean status;
-
-    @OneToOne
-    @JoinColumn(name = "order_Id")
-    private Order order;
-
+    private Double billTotal;
+    
+    @Column
+    private String billNote;
+    
     @OneToMany(targetEntity = BillDetail.class, fetch = FetchType.EAGER)
-    private List<BillDetail> billDetailList;
+    private Set<BillDetail> billDetailList;
+    
+    @OneToOne
+    @JoinColumn(name = "voucher_id")
+    private Voucher voucher;
 }

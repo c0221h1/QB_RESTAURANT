@@ -39,7 +39,12 @@ public class ProductService implements IProductService {
     public Optional<Product> findByProductName(String productName) {
         return productRepository.findByProductName(productName);
     }
-
+    
+    @Override
+    public int countByStatusTrue () {
+        return productRepository.countByStatusTrue();
+    }
+    
     @Override
     public Iterable<Product> findAll() {
         return productRepository.findAll();

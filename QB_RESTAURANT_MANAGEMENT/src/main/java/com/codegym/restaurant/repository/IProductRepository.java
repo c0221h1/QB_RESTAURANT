@@ -28,4 +28,10 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
     void restoreProductById(@Param("id") Long id);
 
     Optional<Product> findByProductName(String productName);
+    
+    @Modifying
+    @Query("SELECT count (p) FROM Product  p where p.status = true group by  p.productId")
+    int countProduct();
+    
+    int countByStatusTrue();
 }
