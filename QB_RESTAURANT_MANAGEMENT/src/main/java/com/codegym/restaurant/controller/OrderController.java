@@ -3,6 +3,7 @@ package com.codegym.restaurant.controller;
 import com.codegym.restaurant.model.Order;
 import com.codegym.restaurant.model.Voucher;
 import com.codegym.restaurant.service.order.IOrderService;
+import com.codegym.restaurant.service.orderDetail.IOrderDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +18,11 @@ public class OrderController {
 	@Autowired
 	public IOrderService orderService;
 	
+	@Autowired
+	public IOrderDetailService orderDetailService;
+	
 	@GetMapping ("/orders")
-//	@PreAuthorize ("hasAnyAuthority('STAFF')")
+	@PreAuthorize ("hasAnyAuthority('STAFF')")
 	public ModelAndView orderList() {
 		ModelAndView modelAndView = new ModelAndView("/app/order/listOrder");
 		return modelAndView;
