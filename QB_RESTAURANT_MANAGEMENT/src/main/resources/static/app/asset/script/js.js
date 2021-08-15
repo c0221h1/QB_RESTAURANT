@@ -1,135 +1,14 @@
-// filterSelection("all")
-// function filterSelection(c) {
-//   var x, i;
-//   x = document.getElementsByClassName("drink-container");
-//   if (c == "all") c = "";
-//   for (i = 0; i < x.length; i++) {
-//     w3RemoveClass(x[i], "show");
-//     if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
-//   }
-// }
-
-//----------Get All Item In Client Page-----------//
-function getAllItem(){
-    $.ajax({
-        type: "GET",
-        url: "/app/allItem"
-    }).done(function (product){
-        let content = "";
-        for (let i = product.length-1; i >= 0; i--) {
-            content += `
-                        <div class="drink-container specials">
-                            <img src="/uploads/${product[i].image}" alt="${product[i].productName}">
-                            <div class="overlay">
-                                <div class="text mt-3">${product[i].productName}</div>
-                                <div class="text">${product[i].price}</div>
-                                <button class="button-overlay" onclick="adToOrder(${product[i].productId})">Đặt món</button>
-                            </div>
-                        </div>
-                `;
-        }
-        $(".food-information").html(content);
-    })
-}
-getAllItem();
-
-//----------Get All Item In Client Page-----------//
-
-
-//----------Get All Category---------------------//
-function getAllItemCategory(){
-    $.ajax({
-        type: "GET",
-        url: "/app/allItemCategory"
-    }).done(function (category){
-        let content = "<div class=\"category btn activee\" style=\"padding: 0;\">\n" +
-            "          <div class=\"category-title\">\n" +
-            "          <p onclick=\"getAllItem()\">Tất Cả</p>\n" +
-            "          </div>\n" +
-            "          </div>";
-        for (let i = 0; i < category.length; i++) {
-            content += `
-                        <div class="category-title" onclick="getProductByCategoryID(${category[i].categoryId})" >
-                            <p>${category[i].categoryName}</p>
-                        </div>
-                    `;
-        }
-        $("#categories").html(content);
-    })
+filterSelection("all")
+function filterSelection(c) {
+  var x, i;
+  x = document.getElementsByClassName("drink-container");
+  if (c == "all") c = "";
+  for (i = 0; i < x.length; i++) {
+    w3RemoveClass(x[i], "show");
+    if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+  }
 }
 
-getAllItemCategory();
-
-//----------Get All Category---------------------//
-
-//----------Get Product By Id-------------------//
-function getProductByCategoryID(categoryId){
-    $.ajax({
-        type: "GET",
-        url: `/app/allProductByCategory/${categoryId}`,
-        success: function (product){
-            let content = "";
-            for (let i = 0; i < product.length ; i++) {
-                content += `
-                        <div class="drink-container specials">
-                            <img src="/uploads/${product[i].image}" alt="${product[i].productName}">
-                            <div class="overlay">
-                                <div class="text mt-3">${product[i].productName}</div>
-                                <div class="text">${product[i].price}</div>
-                                <button class="button-overlay" onclick="adToOrder(${product[i].productId})" >Đặt món</button>
-                            </div>
-                        </div>
-                  `;
-            }
-            drawActive();
-            $('.food-information').html(content);
-        }
-    })
-}
-//---------- Draw class active in class category-title---------//
-function drawActive(){
-    let head = document.getElementById("categories");
-    let cate = head.getElementsByClassName("category-title");
-    for(let i = 0; i < cate.length; i++){
-        cate[i].addEventListener('click', function(){
-            let current = document.getElementsByClassName("activee");
-            current[0].className = current[0].className.replace(" activee", "");
-            this.className += " activee";
-        })
-    }
-}
-//---------- Draw class active in class category-title---------//
-
-
-//---------- Get Voucher is apply---------------//
-function getAllVoucherIsApply(){
-    $.ajax({
-        type: "GET",
-        url: "/app/allItemVoucherIsApply"
-    }).done(function (vouchers){
-        let content = "<a class=\"change-action\" href=\"\">Đổi bàn</a>" +
-                      "<a class=\"merge-action\" href=\"\">Gộp bàn</a>";
-        for (let i = vouchers.length-1; i >= 0; i--) {
-            content += `
-                         <a class="merge-action" href=""><i class="fas fa-tags">Giảm ${vouchers[i].percent}%</i></a>
-                `;
-        }
-        $(".table-action").html(content);
-    })
-}
-getAllVoucherIsApply();
-//---------- Get Voucher is apply---------------//
-
-//----------Get Product By Id-------------------//
-
-
-//----------Set Up Product---------------------//
-
-function adToOrder(productID){
-
-}
-
-//----------Set Up Product---------------------//
 function w3AddClass(element, name) {
   var i, arr1, arr2;
   arr1 = element.className.split(" ");
@@ -162,6 +41,18 @@ for(let i = 0; i < btns.length; i++){
         this.className += " active"
     })
 }
+
+let head = document.getElementById("myDIV")
+let cate = head.getElementsByClassName("category")
+for(let i = 0; i < cate.length; i++){
+  cate[i].addEventListener('click', function(){
+    let current = document.getElementsByClassName("activee")
+    current[0].className = current[0].className.replace(" activee", "")
+    this.className += " activee"
+  })
+}
+
+
 
   // Add smooth scrolling to all links
   $("a").on('click', function(event) {
