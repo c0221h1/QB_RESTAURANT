@@ -10,24 +10,26 @@ function getAllDesk(){
             content += `
                     <input hidden id="${desks[i].tableId}">
                     <div class="table-container">
-                    <div class="table-infor"><p>${desks[i].tableName}</p>
+                    ${desks[i].hidden ?
+                    '' :
+                    `<div class="table-infor"><p>${desks[i].tableName}
+                       ${desks[i].book && desks[i].book !== (null +"h "+ null) ?
+                        `<span style="color: red">(Đặt lúc ${desks[i].book})</span>` :
+                        ''}
+                        </p>
                     <div class="table-img">
-                    <div class="table-name"></div>
-                    ${desks[i].book ?
-                    '<div class="book"><p>Đặt</p></div>' :
-                    ''} ${desks[i].status ?
-                '<img src="/app/asset/img/table1.jpg">' :
-                '<img src="/app/asset/img/table2.jpg">'}
-                 <div class="portfolio-info">${desks[i].status ?
-                '<p style="color: blue; font-weight:bold;">Empty</p>' :
-                '<p style="color: red; font-weight:bold;">Exist</p>'}
-                <div class="portfolio-links">
-                <a href="#" data-toggle="modal" data-target="#modalQuickView"><i class="fas fa-eye fa-sm"></i></a>
-                </div>
-                </div>
-                </div>
-                            
+                    ${desks[i].custom ?
+                    '<img src="/app/asset/img/table1.jpg">' :
+                    '<img src="/app/asset/img/table2.jpg">'}
+                    <div class="portfolio-info">${desks[i].custom ?
+                    '<p style="color: red; font-weight:bold;">Exist</p>' :
+                    '<p style="color: blue; font-weight:bold;">Empty</p>'}
+                    <div class="portfolio-links">
+                    <a href="#" data-toggle="modal" onclick="getDesk(${desks[i].custom}, ${desks[i].tableId})"><i class="fas fa-eye fa-sm"></i></a>
                     </div>
+                    </div>
+                    </div>
+                    </div>`}
                         </div>
                 `;
         }
@@ -35,6 +37,73 @@ function getAllDesk(){
     })
 }
 getAllDesk();
+
+function getDesk(custom, tableId) {
+    if (!custom) {
+        Swal.fire({
+            title: 'Bạn có muốn đổi bàn thành có khách?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Vâng, hãy đổi!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type : "PUT",
+                    url : `/tableCustom/${tableId}`
+                }).done(function () {
+                    getAllDesk();
+                    Swal.fire(
+                        'Đổi thành công!',
+                        'Bạn có thể order món ăn.',
+                        'success'
+                    ).then(() => {
+                        $('#modalQuickView').modal('show')
+                    });
+                    let newDesk = {
+                        tableId : tableId
+                    }
+                    let time = new Date();
+                    let newOrder = {
+                        orderTime : time,
+                        desk : newDesk
+                    }
+                    $.ajax({
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        type: "POST",
+                        data: JSON.stringify(newOrder),
+                        url: "/app/createOrder"
+                    }).done()
+                });
+            }
+        })
+    } else {
+        Swal.fire({
+            title: 'Bạn có thể order món ăn.',
+            icon: 'success'
+        }).then(() => {
+            $('#modalQuickView').modal('show');
+            $.ajax({
+                type: "GET",
+                url: `/app/getOrder/${tableId}`
+            }).done(function (order) {
+                alert(order.orderTime)
+            })
+        })
+    }
+}
+
+function getToday(){
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+    return `${yyyy}-${mm}-${dd}`;
+}
 
 //-------------Hiển thị bàn------------//
 

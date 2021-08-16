@@ -31,4 +31,9 @@ public class OrderService implements IOrderService{
     public void remove(Long id) {
         orderRepository.deleteById(id);
     }
+
+    @Override
+    public Optional<Order> findByTableId(Long id){
+        return orderRepository.findByTableId(id);
+    };
 }
