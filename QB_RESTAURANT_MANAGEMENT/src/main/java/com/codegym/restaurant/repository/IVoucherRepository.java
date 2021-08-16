@@ -20,14 +20,13 @@ public interface IVoucherRepository extends JpaRepository<Voucher, Long> {
 	@Modifying
 	@Query ("select v from Voucher v where v.voucherDeleted = true")
 	Iterable<Voucher> findAllByVoucherIsDeleted();
-	
-	
+
 	@Modifying
 	@Query ("select v from Voucher v where v.endDate < current_date ")
 	Iterable<Voucher> findAllByVoucherExpired();
-	
 
-	
+	@Query("select v from Voucher v where v.status = true")
+	Iterable<Voucher> findVouchersIsApply();
 	
 //	@Transactional
 //	@Modifying
