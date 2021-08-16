@@ -20,7 +20,7 @@ public class Order {
     private Long orderId;
 
     @Column(nullable = false)
-    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+//    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
     private Date orderTime;
 
     @ManyToOne
@@ -30,4 +30,8 @@ public class Order {
     @OneToMany(targetEntity = OrderDetail.class, fetch = FetchType.EAGER)
     private Set<OrderDetail> orderDetails;
 
+    public Order(Date orderTime, Desk desk) {
+        this.orderTime = orderTime;
+        this.desk = desk;
+    }
 }

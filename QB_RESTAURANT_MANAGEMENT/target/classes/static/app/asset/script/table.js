@@ -8,9 +8,9 @@ function getAllDesk(){
         let content = "";
         for (let i = 0; i < desks.length; i++) {
             content += `
-                    <input hidden id="${desks[i].tableId}">
                     <div class="table-container">
                     <div class="table-infor"><p>${desks[i].tableName}</p>
+                    <input type="hidden" id="id-table" value="${desks[i].tableId}">
                     <div class="table-img">
                     <div class="table-name"></div>
                     ${desks[i].book ?
@@ -22,7 +22,7 @@ function getAllDesk(){
                 '<p style="color: blue; font-weight:bold;">Empty</p>' :
                 '<p style="color: red; font-weight:bold;">Exist</p>'}
                 <div class="portfolio-links">
-                <a href="#" data-toggle="modal" data-target="#modalQuickView"><i class="fas fa-eye fa-sm"></i></a>
+                <a  data-toggle="modal"  onclick="createOrderInTable(${desks[i].tableId})"><i style="color: white" class="far fa-eye fa-sm"></i></a>
                 </div>
                 </div>
                 </div>

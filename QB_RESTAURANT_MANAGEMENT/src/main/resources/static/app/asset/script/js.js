@@ -76,7 +76,7 @@ function getProductByCategoryID(categoryId){
                             <div class="overlay">
                                 <div class="text mt-3">${product[i].productName}</div>
                                 <div class="text">${product[i].price}</div>
-                                <button class="button-overlay" onclick="adToOrder(${product[i].productId})" >Đặt món</button>
+                                <button class="button-overlay" onclick="addToOrder(${product[i].productId})" >Đặt món</button>
                             </div>
                         </div>
                   `;
@@ -125,7 +125,23 @@ getAllVoucherIsApply();
 
 //----------Set Up Product---------------------//
 
-function adToOrder(productID){
+function getToday(){
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+    return `${yyyy}-${mm}-${dd}`;
+}
+
+function getTime(){
+    let time = new Date();
+    let hh = time.getHours();
+    let mm = time.getMinutes();
+    let ss = time.getSeconds();
+    return `${hh}:${mm}:${ss}`;
+}
+
+function addToOrder(productID){
 
 }
 

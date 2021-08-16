@@ -1,9 +1,11 @@
 package com.codegym.restaurant.controller;
 
 import com.codegym.restaurant.model.Category;
+import com.codegym.restaurant.model.Order;
 import com.codegym.restaurant.model.Product;
 import com.codegym.restaurant.model.Voucher;
 import com.codegym.restaurant.service.category.ICategoryService;
+import com.codegym.restaurant.service.order.IOrderService;
 import com.codegym.restaurant.service.product.IProductService;
 import com.codegym.restaurant.service.voucher.IVoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @RestController
@@ -30,6 +29,9 @@ public class AppController {
 
     @Autowired
     private ICategoryService categoryService;
+
+    @Autowired
+    private IOrderService orderService;
 
     private String getPrincipal() {
         String userName = null;
