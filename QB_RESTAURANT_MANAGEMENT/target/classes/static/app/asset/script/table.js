@@ -68,6 +68,26 @@ function getDesk(custom, tableId) {
                         'success'
                     ).then(() => {
                         $('#modalQuickView').modal('show');
+                        $('#idTableChange').val(tableId);
+                        $.ajax({
+                            type: "GET",
+                            //tên API
+                            url: `/tableBook/${tableId}`,
+                            //xử lý khi thành công
+                            success: function (desk) {
+                                $('#tableChange').text(desk.tableName);
+                            }
+                        });
+                        $.ajax({
+                            type: "GET",
+                            url: "/deskChange"
+                        }).done(function (desks){
+                            let content = "";
+                            for (let i = 0; i < desks.length; i++) {
+                                content += `<option value="${desks[i].tableId}">${desks[i].tableName}</option>`;
+                            }
+                            $("#tableNewChange").html(content);
+                        });
                     });
                     let newDesk = {
                         tableId : tableId

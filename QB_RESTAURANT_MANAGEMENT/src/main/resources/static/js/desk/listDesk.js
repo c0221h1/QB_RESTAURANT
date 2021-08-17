@@ -13,7 +13,7 @@ function getAllDesk(){
                               '<td style="color: darkred">Bàn đang có khách</td><td><button class="btn btn-warning" title="Tạm thời không thể đặt">Đã có khách</button></td>' :
                               `<td style="color: darkblue">Bàn đang trống</td>
                               ${!desks[i].hidden ?
-                              `${desks[i].book!= null && desks[i].book !== (null +"h "+ null) ?
+                              `${desks[i].book != null && desks[i].book !== (null +"h "+ null) ?
                                 `<td><a onclick="showBookDesk(${desks[i].tableId})" class="btn btn-danger">Đặt bàn ${desks[i].book}</a></td>` :
                                 `<td><a onclick="showBookDesk(${desks[i].tableId})" class="btn btn-primary">Có thể đặt bàn</a></td>`}` :
                                 '<td></td>'}`}
@@ -21,7 +21,7 @@ function getAllDesk(){
                                 `<td><a onclick="tableHidden(${desks[i].tableId})" class="btn btn-danger"><i class="fas fa-eye-slash fa-lg"></i></a></td>` :
                                 `<td><a onclick="tableHidden(${desks[i].tableId})" class="btn btn-primary"><i class="fas fa-eye fa-lg"></i></a></td>`}                         
                               <td class="text-center">
-                              ${!desks[i].hidden ?
+                              ${!desks[i].hidden || desks[i].custom ?
                                 '<button class="btn btn-outline-secondary delete-button" disabled style="text-decoration: line-through"><i class="fas fa-trash-alt"></i>Xóa</button>' :
                                 `<button class="btn btn-outline-danger delete-button" onclick=deleteDesk(${desks[i].tableId})><i class="fas fa-trash-alt"></i>Xóa</button>`}
                               </td>
@@ -92,14 +92,26 @@ function createDesk(){
 }
 
 function deleteDesk(tableId) {
-    $.ajax({
-        type : "DELETE",
-        url : `/desk/${tableId}`
-    }).done(function (){
-        $("#row" + tableId).remove();
-        App.showSuccessAlert("Đã xóa thành công!")
-    }).fail(function (){
-        App.showErrorAlert("Đã xảy ra lỗi!")
+    Swal.fire({
+        title: 'Bạn có chắc muốn xóa bàn?',
+        text: "Bạn sẽ không thể hoàn nguyên điều này!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Xóa!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type : "DELETE",
+                url : `/desk/${tableId}`
+            }).done(function (){
+                $("#row" + tableId).remove();
+                App.showSuccessAlert("Đã xóa thành công!")
+            }).fail(function (){
+                App.showErrorAlert("Đã xảy ra lỗi!")
+            })
+        }
     })
 }
 
