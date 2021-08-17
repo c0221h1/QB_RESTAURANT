@@ -10,4 +10,6 @@ import java.util.Optional;
 @Repository
 public interface IOrderRepository  extends JpaRepository<Order, Long> {
 
+    @Query("SELECT o FROM Order o WHERE o.desk.tableId = ?1")
+    Optional<Order> findByTableId(Long id);
 }

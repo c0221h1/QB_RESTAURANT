@@ -18,12 +18,13 @@ function getAllItem(){
         let content = "";
         for (let i = product.length-1; i >= 0; i--) {
             content += `
+                        <input type="hidden" id="id_product" value="${product[i].productId}">
                         <div class="drink-container specials">
                             <img src="/uploads/${product[i].image}" alt="${product[i].productName}">
-                            <div class="overlay">
+                            <div class="overlay">                            
                                 <div class="text mt-3">${product[i].productName}</div>
-                                <div class="text">${product[i].price}</div>
-                                <button class="button-overlay" onclick="adToOrder(${product[i].productId})">Đặt món</button>
+                                <div class="text" >${product[i].price}</div>
+                                <button class="button-overlay" onclick="createOrderDetail(${product[i].productId},${product[i].price})">Đặt món</button>
                             </div>
                         </div>
                 `;
@@ -71,12 +72,13 @@ function getProductByCategoryID(categoryId){
             let content = "";
             for (let i = 0; i < product.length ; i++) {
                 content += `
+                        <input type="hidden" id="id_product" value="${product[i].productId}">
                         <div class="drink-container specials">
                             <img src="/uploads/${product[i].image}" alt="${product[i].productName}">
                             <div class="overlay">
-                                <div class="text mt-3">${product[i].productName}</div>
-                                <div class="text">${product[i].price}</div>
-                                <button class="button-overlay" onclick="addToOrder(${product[i].productId})" >Đặt món</button>
+                                <div class="text mt-4">${product[i].productName}</div>
+                                <div class="text">${(product[i].price).toLocaleString('vi', {style : 'currency', currency : 'VND'})}</div>
+                                <button class="button-overlay" onclick="createOrderDetail(${product[i].productId},${product[i].price})" >Đặt món</button>
                             </div>
                         </div>
                   `;
@@ -86,6 +88,7 @@ function getProductByCategoryID(categoryId){
         }
     })
 }
+
 //---------- Draw class active in class category-title---------//
 function drawActive(){
     let head = document.getElementById("categories");
@@ -122,6 +125,45 @@ getAllVoucherIsApply();
 
 //----------Get Product By Id-------------------//
 
+function createOrderDetail(id,price) {
+    console.log(id);
+    let product_id = id;
+    let product_price = price;
+    console.log(price);
+    let order_id = $('#id-order').val();
+    console.log(order_id);
+
+    let newOrder = {
+        orderId: order_id,
+    }
+
+    let newProduct = {
+        productId: product_id,
+    }
+
+    let newOrderDetail = {
+        productPrice: product_price,
+        order: newOrder,
+        product: newProduct,
+        amount: 0,
+        status: true
+    }
+
+    console.log(newOrderDetail);
+
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "POST",
+        data: JSON.stringify(newOrderDetail),
+        url: `/app/createOrderDetail`,
+        }).done(function () {
+            App.showSuccessAlert("Thành công !!")
+    })
+}
+
 
 //----------Set Up Product---------------------//
 
@@ -141,9 +183,6 @@ function getTime(){
     return `${hh}:${mm}:${ss}`;
 }
 
-function addToOrder(productID){
-
-}
 
 //----------Set Up Product---------------------//
 function w3AddClass(element, name) {

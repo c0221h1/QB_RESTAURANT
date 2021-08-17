@@ -36,4 +36,9 @@ public class OrderDetail {
     @JoinColumn(name = "orderId")
     private Order order;
 
+    public OrderDetail(Double productPrice, Product product, Order order) {
+        this.productPrice = productPrice;
+        this.product = product;
+        this.order = order;
+    }
 }
