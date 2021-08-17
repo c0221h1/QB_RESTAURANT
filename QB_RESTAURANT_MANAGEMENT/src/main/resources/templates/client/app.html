@@ -67,6 +67,42 @@
             width: 40%;
             /* display: none; */
         }
+        .size span {
+            font-size: 11px
+        }
+
+        .color span {
+            font-size: 11px
+        }
+
+        .product-deta {
+            margin-right: 70px
+        }
+
+        .gift-card:focus {
+            box-shadow: none
+        }
+
+        .pay-button {
+            color: #fff
+        }
+
+        .pay-button:hover {
+            color: #fff
+        }
+
+        .pay-button:focus {
+            color: #fff;
+            box-shadow: none
+        }
+
+        .text-grey {
+            color: #a39f9f
+        }
+
+        .qty i {
+            font-size: 11px
+        }
     </style>
 </head>
 <body>
@@ -152,12 +188,13 @@
 
                 <div class="modal-body modal-body1">
                     <p class="first-text">Thông tin bàn</p>
+                    <div class="table_name">
+
+                    </div>
                     <section class="payment">
                         <p>Hóa đơn</p>
-                        <div class="bill-container">
-<!--                            <div class="sub-bill">-->
+                        <div class="bill-container overflow-auto" id="payment" style="scroll-behavior: smooth;">
 
-<!--                            </div>-->
                         </div>
 
                             <!-- <div class="subtotal-text"><h5>Phương thức thanh toán</h5></div> -->

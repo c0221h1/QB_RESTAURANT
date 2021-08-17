@@ -74,9 +74,12 @@ function getDesk(custom, tableId) {
                             'Content-Type': 'application/json'
                         },
                         type: "POST",
+                        url: "/app/createOrder",
                         data: JSON.stringify(newOrder),
-                        url: "/app/createOrder"
-                    }).done()
+                    }).done(function (order){
+                        $('#id-order').val(order.orderId);
+                        $(".bill-container").html(" ");
+                    })
                 });
             }
         })
@@ -86,7 +89,9 @@ function getDesk(custom, tableId) {
             type: "GET",
             url: `/app/getOrder/${tableId}`
         }).done(function (order) {
-            $("#id-order").val(order.orderId);
+           $("#id-order").val(order.orderId);
+           let id = order.orderId;
+            drawListOrderDetail(id);
         })
     }
 }
