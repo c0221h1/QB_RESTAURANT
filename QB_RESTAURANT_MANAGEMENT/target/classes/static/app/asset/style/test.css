@@ -246,6 +246,7 @@ body{
     margin-top: 10px;
 }
 
+
 .food-information::-webkit-scrollbar {
     width: 5px;
     border-radius: 5px;
@@ -263,6 +264,24 @@ body{
 
 /* Handle on hover */
 .food-information::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
+#payment::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 5px;
+}
+
+#payment::-webkit-scrollbar-track {
+    border-radius: 5px;
+}
+
+#payment::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+#payment::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
 
