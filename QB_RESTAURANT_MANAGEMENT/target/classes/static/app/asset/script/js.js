@@ -21,9 +21,10 @@ function getAllItem(){
                         <input type="hidden" id="id_product" value="${product[i].productId}">
                         <div class="drink-container specials">
                             <img src="/uploads/${product[i].image}" alt="${product[i].productName}">
-                            <div class="overlay">                            
-                                <div class="text mt-3">${product[i].productName}</div>
-                                <div class="text" >${product[i].price}</div>
+                            <div class="overlay">                 
+                                <div class="text">${product[i].productName}</div>
+                                 <div class="text mt-3"><small>${(product[i].price).toLocaleString('vi', {style : 'currency', currency : 'VND'})}</small></div>  
+                                
                                 <button class="button-overlay" onclick="createOrderDetail(${product[i].productId},${product[i].price})">Đặt món</button>
                             </div>
                         </div>
@@ -76,8 +77,8 @@ function getProductByCategoryID(categoryId){
                         <div class="drink-container specials">
                             <img src="/uploads/${product[i].image}" alt="${product[i].productName}">
                             <div class="overlay">
-                                <div class="text mt-4">${product[i].productName}</div>
-                                <div class="text">${(product[i].price).toLocaleString('vi', {style : 'currency', currency : 'VND'})}</div>
+                                <div class="text">${product[i].productName}</div>
+                                <div class="text mt-3"><small>${(product[i].price).toLocaleString('vi', {style : 'currency', currency : 'VND'})}</small></div>
                                 <button class="button-overlay" onclick="createOrderDetail(${product[i].productId},${product[i].price})" >Đặt món</button>
                             </div>
                         </div>
@@ -108,6 +109,7 @@ function drawActive(){
 function getAllVoucherIsApply(){
     $.ajax({
         type: "GET",
+
         url: "/app/allItemVoucherIsApply"
     }).done(function (vouchers){
         let content = "<a class=\"change-action\" href=\"\">Đổi bàn</a>" +
