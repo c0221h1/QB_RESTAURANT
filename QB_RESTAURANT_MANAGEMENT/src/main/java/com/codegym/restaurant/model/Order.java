@@ -20,7 +20,7 @@ public class Order {
     private Long orderId;
 
     @Column(nullable = false)
-    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+//    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
     private Date orderTime;
 
     @ManyToOne

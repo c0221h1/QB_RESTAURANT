@@ -28,9 +28,10 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
     void restoreProductById(@Param("id") Long id);
 
     Optional<Product> findByProductName(String productName);
-    
+
+
     @Query("select p from Product p where p.category.categoryId = ?1")
-    Iterable<Product> findAllByCategoryCategory_id(Long id);
+    Iterable<Product> findAllByCategoryCategoryId(Long id);
 
     
     @Modifying
