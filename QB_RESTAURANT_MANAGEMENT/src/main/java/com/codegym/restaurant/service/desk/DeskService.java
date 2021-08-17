@@ -22,10 +22,6 @@ public class DeskService implements  IDeskService{
         return deskRepository.findById(id);
     }
 
-    public Optional<Desk> findByName(String name) {
-        return deskRepository.findByTableName(name);
-    }
-
     @Override
     public Desk save(Desk desk) {
     return  deskRepository.save(desk);
@@ -34,5 +30,13 @@ public class DeskService implements  IDeskService{
     @Override
     public void remove(Long id) {
         deskRepository.deleteById(id);
+    }
+
+    public Optional<Desk> findByName(String name) {
+        return deskRepository.findByTableName(name);
+    }
+
+    public Iterable<Desk> findNameDeskChange() {
+        return deskRepository.findDeskChange();
     }
 }
