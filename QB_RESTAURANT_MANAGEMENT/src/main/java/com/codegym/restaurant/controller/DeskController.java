@@ -94,4 +94,15 @@ public class DeskController {
         desk.setTableId(id);
         return new ResponseEntity<>(deskService.save(desk), HttpStatus.OK);
     }
+
+    @PutMapping("/tableCustom/{id}")
+    public ResponseEntity<Desk> editTableCustom(@PathVariable Long id) {
+        Optional<Desk> deskOptional = deskService.findById(id);
+        if (!deskOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Desk desk = deskOptional.get();
+        desk.setCustom(true);
+        return new ResponseEntity<>(deskService.save(desk), HttpStatus.OK);
+    }
 }

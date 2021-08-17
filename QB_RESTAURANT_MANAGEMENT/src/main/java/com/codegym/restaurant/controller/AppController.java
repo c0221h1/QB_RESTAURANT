@@ -1,9 +1,9 @@
 package com.codegym.restaurant.controller;
 
-import com.codegym.restaurant.model.Category;
-import com.codegym.restaurant.model.Product;
-import com.codegym.restaurant.model.Voucher;
+import com.codegym.restaurant.model.*;
 import com.codegym.restaurant.service.category.ICategoryService;
+import com.codegym.restaurant.service.order.IOrderService;
+import com.codegym.restaurant.service.orderDetail.IOrderDetailService;
 import com.codegym.restaurant.service.product.IProductService;
 import com.codegym.restaurant.service.voucher.IVoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +12,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping("/app")
 public class AppController {
+    @Autowired
+    private IOrderService orderService;
 
     @Autowired
     private IProductService productService;
@@ -30,6 +29,9 @@ public class AppController {
 
     @Autowired
     private ICategoryService categoryService;
+
+    @Autowired
+    private IOrderDetailService orderDetailService;
 
     private String getPrincipal() {
         String userName = null;
@@ -86,8 +88,31 @@ public class AppController {
     }
 
     @GetMapping("/allProductByCategory/{id}")
-    public ResponseEntity<Iterable<Product>> allProductResponseEntity(@PathVariable Long id){
-        Iterable<Product> products = productService.findAllByCategoryCategory_id(id);
+    public ResponseEntity<Iterable<Product>> allProductResponseEntity(@PathVariable Long id) {
+        Iterable<Product> products = productService.findAllByCategoryCategoryId(id);
         return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
+    @PostMapping("/createOrder")
+    public ResponseEntity<Order> createOrder(@RequestBody Order order) {
+        return new ResponseEntity<>(orderService.save(order), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/getOrder/{id}")
+    public ResponseEntity<Order> getOrderByIdTable(@PathVariable Long id) {
+        return new ResponseEntity<>(orderService.findByTableId(id).get(), HttpStatus.OK);
+    }
+
+    @PostMapping("/createOrderDetail")
+    public ResponseEntity<OrderDetail> createOrderDetail(@RequestBody OrderDetail orderDetail){
+        orderDetail.setAmount(1);
+        orderDetail.setStatus("true");
+        return new ResponseEntity<>(orderDetailService.save(orderDetail), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/getOrderDetailByOrderID/{id}")
+    public ResponseEntity<Iterable<OrderDetail>> getAllOrderDetail(@PathVariable Long id){
+        Iterable<OrderDetail> orderDetails = orderDetailService.findAllByOrderOrderId(id);
+        return new ResponseEntity<>(orderDetails, HttpStatus.OK);
     }
 }
