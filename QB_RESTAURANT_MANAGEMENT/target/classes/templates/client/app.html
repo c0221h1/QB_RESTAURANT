@@ -67,6 +67,42 @@
             width: 40%;
             /* display: none; */
         }
+        .size span {
+            font-size: 11px
+        }
+
+        .color span {
+            font-size: 11px
+        }
+
+        .product-deta {
+            margin-right: 70px
+        }
+
+        .gift-card:focus {
+            box-shadow: none
+        }
+
+        .pay-button {
+            color: #fff
+        }
+
+        .pay-button:hover {
+            color: #fff
+        }
+
+        .pay-button:focus {
+            color: #fff;
+            box-shadow: none
+        }
+
+        .text-grey {
+            color: #a39f9f
+        }
+
+        .qty i {
+            font-size: 11px
+        }
     </style>
 </head>
 <body>
@@ -123,6 +159,7 @@
         <div class="modal fade" id="modalQuickView" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
           aria-hidden="true">
           <div class="modal-dialog modal-lg" role="document">
+              <input id="id-order" type="hidden">
             <div class="modal-content">
                 <div class="modal-body ">
                     <div class="modal-header">
@@ -143,29 +180,21 @@
                         </div>
 
                         <div class="table-action">
-                            <a onclick="showModalChange()" class="change-action" href="#">Đổi bàn</a>
+                            <a href="#" class="change-action" onclick="showModalChange()">Đổi bàn</a>
                             <a class="merge-action" href="">Gộp bàn</a>
                         </div>
 
                 </div>
 
                 <div class="modal-body modal-body1">
-                    <p class="first-text">Thông tin bàn</p>
+                    <p class="first-text">Thông tin <span id="tableName"></span></p>
+                    <div class="table_name">
+
+                    </div>
                     <section class="payment">
                         <p>Hóa đơn</p>
-                        <div class="bill-container">
+                        <div class="bill-container overflow-auto" id="payment" style="scroll-behavior: smooth;">
 
-                            <div class="sub-bill">
-
-                            </div>
-
-                            <div class="sub-bill">
-
-                            </div>
-
-                            <div class="sub-bill">
-
-                            </div>
                         </div>
 
                             <!-- <div class="subtotal-text"><h5>Phương thức thanh toán</h5></div> -->

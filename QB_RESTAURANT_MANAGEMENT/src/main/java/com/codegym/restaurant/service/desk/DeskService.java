@@ -14,7 +14,7 @@ public class DeskService implements  IDeskService{
 
     @Override
     public Iterable<Desk> findAll() {
-        return deskRepository.findAll();
+        return deskRepository.findAllByOrderByTableIdAsc();
     }
 
     @Override
