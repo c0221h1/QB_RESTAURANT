@@ -40,10 +40,9 @@ public class Desk {
         this.tableName = tableName;
     }
 
-    public Desk(String tableName, boolean custom, String book, boolean hidden) {
-        this.tableName = tableName;
-        this.custom = custom;
-        this.book = book;
-        this.hidden = hidden;
+
+
+    public Desk(Long tableId) {
+        this.tableId = tableId;
     }
 }

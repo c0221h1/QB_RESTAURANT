@@ -44,7 +44,12 @@ public class ProductService implements IProductService {
     public int countByStatusTrue () {
         return productRepository.countByStatusTrue();
     }
-    
+
+    @Override
+    public Iterable<Product> findAllByCategoryCategoryId(Long id) {
+        return productRepository.findAllByCategoryCategoryId(id);
+    }
+
     @Override
     public Iterable<Product> findAll() {
         return productRepository.findAll();
