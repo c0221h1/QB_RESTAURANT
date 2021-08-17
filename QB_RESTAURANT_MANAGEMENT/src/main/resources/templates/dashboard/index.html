@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head th:replace="/layout/head::header">
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="preloader flex-column justify-content-center align-items-center">
@@ -88,9 +89,14 @@
                 <div class="content">
                     <div class="container-fluid">
                         <div class="row">
-                            <div id="chartdiv" style="height: 500px; width: 100%;">
+                            <div id="chartdiv"  style="height: 500px; width: 100%;" >
+                                <input type="hidden" th:value="${statisticalOfYear}" id="statisticalOfYear">
                             </div>
                         </div>
+
+<!--                        <div class="row">-->
+<!--                            <canvas id="myChart" width="400" height="400"></canvas>-->
+<!--                        </div>-->
                         <!-- /.row -->
                     </div>
                 </div>
@@ -102,11 +108,19 @@
     </div>
     <!-- Control Sidebar -->
 </div>
+
+
 <script src="/plugins/jquery/jquery.min.js"></script>
 <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/dist/js/adminlte.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
 
 <!-- Chart code -->
 <th:block th:replace="/dashboard/statisticalChart/statistical-chart :: statistical-chart"></th:block>
+<!--<th:block th:replace="/dashboard/statisticalChart/test :: test"></th:block>-->
+
 </body>
 </html>

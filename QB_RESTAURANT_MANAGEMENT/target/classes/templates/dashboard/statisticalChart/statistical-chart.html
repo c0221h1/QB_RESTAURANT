@@ -19,7 +19,6 @@
 
         var chart = am4core.create('chartdiv', am4charts.XYChart)
         chart.colors.step = 2;
-
         chart.legend = new am4charts.Legend()
         chart.legend.position = 'top'
         chart.legend.paddingBottom = 20
@@ -52,74 +51,77 @@
             return series;
         }
 
+        const labels = {
+            1: ['January'],
+            2:['February'],
+            3:['March'],
+            4:['April'],
+            5:['May'],
+            6:['June'],
+            7:['July'],
+            8:['August'],
+            9:['September'],
+            10:['October'],
+            11:['November'],
+            12:['December']
+        };
+
         chart.data = [
             {
-                category: 'T.1',
-                first: 40,
-                second: 55,
+                category: labels[1][0],
+                first: 10,
             },
             {
                 category: 'T.2',
                 first: 30,
-                second: 78,
             },
             {
                 category: 'T.3',
                 first: 27,
-                second: 40,
             },
             {
                 category: 'T.4',
                 first: 50,
-                second: 33,
 
             },
             {
                 category: 'T.5',
                 first: 50,
-                second: 33,
             },
             {
                 category: 'T.6',
                 first: 50,
-                second: 33,
 
             },
             {
                 category: 'T.7',
                 first: 50,
-                second: 33,
             },
             {
                 category: 'T.8',
                 first: 50,
-                second: 33,
             },
             {
                 category: 'T.9',
                 first: 50,
-                second: 33,
             },
             {
                 category: 'T.10',
                 first: 50,
-                second: 33,
             },
             {
                 category: 'T.11',
                 first: 50,
-                second: 33,
             },
             {
                 category: 'T.12',
                 first: 50,
-                second: 33,
             }
         ]
 
 
         createSeries('first', 'Doanh thu');
-        createSeries('second', 'Chi phi');
+        // createSeries('second', 'Chi phi');
 
         function arrangeColumns() {
 
@@ -163,5 +165,4 @@
 </script>
 </th:block>
 <!-- HTML -->
-</th:block>
 </html>

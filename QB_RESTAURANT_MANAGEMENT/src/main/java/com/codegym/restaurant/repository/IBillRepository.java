@@ -17,4 +17,5 @@ public interface IBillRepository extends JpaRepository<Bill, Long> {
 	int countByBillTime(Date date);
 	
 	Iterable<Bill> findByBillTime(Date date);
+	
 }

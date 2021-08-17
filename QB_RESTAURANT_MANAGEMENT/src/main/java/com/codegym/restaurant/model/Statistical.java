@@ -12,9 +12,9 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "staticsicals")
-public class Staticsical {
+public class Statistical {
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Size(min = 4, max = 5)
     @Min(2020)
     private Long yearBill;

@@ -153,8 +153,7 @@ voucher.save = function (){
             createObj.beginDate = $('input[name = "beginDate"]').val();
             createObj.endDate = $('input[name = "endDate"]').val();
             createObj.note = $('textarea[name = "note"]').val();
-            // createObj.voucherDeleted = false;
-            // createObj.status = false;
+
             $.ajax({
                 url: `/vouchers/add`,
                 method: "POST",
