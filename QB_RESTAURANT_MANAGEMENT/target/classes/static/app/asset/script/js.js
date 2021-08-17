@@ -112,7 +112,7 @@ function getAllVoucherIsApply(){
 
         url: "/app/allItemVoucherIsApply"
     }).done(function (vouchers){
-        let content = "<a class=\"change-action\" href=\"\">Đổi bàn</a>" +
+        let content = "<a class=\"change-action\" href='#' onclick='showModalChange()'>Đổi bàn</a>" +
                       "<a class=\"merge-action\" href=\"\">Gộp bàn</a>";
         for (let i = vouchers.length-1; i >= 0; i--) {
             content += `
