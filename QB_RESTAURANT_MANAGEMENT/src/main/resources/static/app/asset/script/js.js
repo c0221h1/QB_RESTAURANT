@@ -21,9 +21,10 @@ function getAllItem(){
                         <input type="hidden" id="id_product" value="${product[i].productId}">
                         <div class="drink-container specials">
                             <img src="/uploads/${product[i].image}" alt="${product[i].productName}">
-                            <div class="overlay">                            
-                                <div class="text mt-3">${product[i].productName}</div>
-                                <div class="text" >${product[i].price}</div>
+                            <div class="overlay">                 
+                                <div class="text">${product[i].productName}</div>
+                                 <div class="text mt-3"><small>${(product[i].price).toLocaleString('vi', {style : 'currency', currency : 'VND'})}</small></div>  
+                                
                                 <button class="button-overlay" onclick="createOrderDetail(${product[i].productId},${product[i].price})">Đặt món</button>
                             </div>
                         </div>
@@ -76,8 +77,8 @@ function getProductByCategoryID(categoryId){
                         <div class="drink-container specials">
                             <img src="/uploads/${product[i].image}" alt="${product[i].productName}">
                             <div class="overlay">
-                                <div class="text mt-4">${product[i].productName}</div>
-                                <div class="text">${(product[i].price).toLocaleString('vi', {style : 'currency', currency : 'VND'})}</div>
+                                <div class="text">${product[i].productName}</div>
+                                <div class="text mt-3"><small>${(product[i].price).toLocaleString('vi', {style : 'currency', currency : 'VND'})}</small></div>
                                 <button class="button-overlay" onclick="createOrderDetail(${product[i].productId},${product[i].price})" >Đặt món</button>
                             </div>
                         </div>
@@ -108,6 +109,7 @@ function drawActive(){
 function getAllVoucherIsApply(){
     $.ajax({
         type: "GET",
+
         url: "/app/allItemVoucherIsApply"
     }).done(function (vouchers){
         let content = "<a class=\"change-action\" href=\"\">Đổi bàn</a>" +
@@ -126,12 +128,9 @@ getAllVoucherIsApply();
 //----------Get Product By Id-------------------//
 
 function createOrderDetail(id,price) {
-    console.log(id);
     let product_id = id;
     let product_price = price;
-    console.log(price);
     let order_id = $('#id-order').val();
-    console.log(order_id);
 
     let newOrder = {
         orderId: order_id,
@@ -149,7 +148,6 @@ function createOrderDetail(id,price) {
         status: true
     }
 
-    console.log(newOrderDetail);
 
     $.ajax({
         headers: {
@@ -160,10 +158,38 @@ function createOrderDetail(id,price) {
         data: JSON.stringify(newOrderDetail),
         url: `/app/createOrderDetail`,
         }).done(function () {
-            App.showSuccessAlert("Thành công !!")
+            drawListOrderDetail(order_id);
     })
 }
 
+function drawListOrderDetail(id) {
+    $.ajax({
+        type: "GET",
+        url: `/app/getOrderDetailByOrderID/${id}`,
+    }).done(function (orderDetails){
+        let content = ""
+        if (orderDetails.length > 0){
+            for (let i = orderDetails.length-1; i >= 0; i--) {
+                content += `
+                       <div class="d-flex flex-row justify-content-between align-items-center p-2 bg-white mt-4 px-3 rounded">
+                            <div class="d-flex flex-column align-items-center product-details"><span class="font-weight-bold">${orderDetails[i].product.productName}</span>
+                            </div>
+                            <div class="d-flex flex-row align-items-center qty"><i class="fas fa-minus-circle" style="color: darkgrey"></i>
+                                <h5 class="text-grey mt-1 mr-1 ml-1">${orderDetails[i].amount}</h5><i class="fas fa-plus-circle" style="color: darkgrey"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-grey">${(orderDetails[i].productPrice)}</h5>
+                            </div>
+                            <div title="Xóa món" class="d-flex align-items-center"><i class="fa fa-trash mb-1 text-danger"></i></div>
+                       </div>  
+                `;
+            }
+            $(".bill-container").html(content);
+        }
+    }).fail(function (){
+        $(".bill-container").html("");
+    })
+}
 
 //----------Set Up Product---------------------//
 
@@ -368,7 +394,6 @@ for(let i = 0; i < btns.length; i++){
         },
         _displayCart: function () {
             var cartArray = this._listCart();
-            console.log(cartArray);
             var output = "";
             if (cartArray.length <= 0) {
                 output = "<h4>Your table is empty</h4>";
@@ -423,7 +448,6 @@ for(let i = 0; i < btns.length; i++){
     $.fn.simpleCart = function (options) {
         return this.each(function () {
             $.data(this, "simpleCart", new simpleCart(this));
-            console.log($(this, "simpleCart"));
         });
     };
 

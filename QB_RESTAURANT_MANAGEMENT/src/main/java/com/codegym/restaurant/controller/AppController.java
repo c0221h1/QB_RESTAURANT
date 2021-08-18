@@ -113,6 +113,11 @@ public class AppController {
     @GetMapping("/getOrderDetailByOrderID/{id}")
     public ResponseEntity<Iterable<OrderDetail>> getAllOrderDetail(@PathVariable Long id){
         Iterable<OrderDetail> orderDetails = orderDetailService.findAllByOrderOrderId(id);
-        return new ResponseEntity<>(orderDetails, HttpStatus.OK);
+        if (orderDetails.spliterator().getExactSizeIfKnown()>0){
+            return new ResponseEntity<>(orderDetails, HttpStatus.OK);
+
+        }
+        System.out.println("123");
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
