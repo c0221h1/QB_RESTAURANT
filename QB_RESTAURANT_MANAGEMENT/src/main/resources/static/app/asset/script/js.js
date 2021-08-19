@@ -171,16 +171,16 @@ function drawListOrderDetail(id) {
         if (orderDetails.length > 0){
             for (let i = orderDetails.length-1; i >= 0; i--) {
                 content += `
-                       <div class="d-flex flex-row justify-content-between align-items-center p-2 bg-white mt-4 px-3 rounded">
-                            <div class="d-flex flex-column align-items-center product-details"><span class="font-weight-bold">${orderDetails[i].product.productName}</span>
+                       <div class="sub__bill">
+                            <div class="sub__bill--name">${orderDetails[i].product.productName}
                             </div>
-                            <div class="d-flex flex-row align-items-center qty"><i class="fas fa-minus-circle" style="color: darkgrey"></i>
-                                <h5 class="text-grey mt-1 mr-1 ml-1">${orderDetails[i].amount}</h5><i class="fas fa-plus-circle" style="color: darkgrey"></i>
+                            <div class="sub__bill--quantity"><i class="fas fa-minus-circle" style="color: darkgrey"></i>
+                                <h5 class="" style="margin: 0; font-size: .9rem">${orderDetails[i].amount}</h5><i class="fas fa-plus-circle" style="color: darkgrey"></i>
                             </div>
                             <div>
-                                <h5 class="text-grey">${(orderDetails[i].productPrice)}</h5>
+                                <h5 style="font-size: .8rem" class="sub__bill--price">${(orderDetails[i].productPrice.toLocaleString('vi', {style : 'currency', currency : 'VND'}))}</h5>
                             </div>
-                            <div title="Xóa món" class="d-flex align-items-center"><i class="fa fa-trash mb-1 text-danger"></i></div>
+                            <div title="Xóa món" class="sub__bill-delIcon"><i class="fa fa-trash mb-1 text-danger"></i></div>
                        </div>  
                 `;
             }

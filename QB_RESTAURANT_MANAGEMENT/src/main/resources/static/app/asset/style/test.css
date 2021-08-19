@@ -482,6 +482,48 @@ body{
     /* overflow-y: scroll; */
 }
 
+.sub__bill{
+    display: block;
+    width: 100%;
+    height: 12vh;
+    position: relative;
+}
+
+.sub__bill--name{
+    float: left;
+    width: 30%;
+}
+
+.sub__bill--quantity{
+    width: 30%;
+    display: flex;
+    gap: .5rem;
+    flex-shrink: 0;
+    justify-content: flex-end;
+    padding-top:.3rem;
+}
+
+.sub__bill--quantity i{
+    cursor: pointer;
+}
+
+.sub__bill--price{
+    position: absolute;
+    right: 30px;
+    top: 5px;
+    width: 20%;
+}
+
+
+
+.sub__bill-delIcon{
+    position: absolute;
+    top:0;
+    right: 0;
+    cursor: pointer;
+
+}
+
 .sub-bill{
     display: flex;
     justify-content: space-between;
@@ -497,24 +539,24 @@ body{
 
 
 
-.bills-container::-webkit-scrollbar {
+.bill-container::-webkit-scrollbar {
     width: 5px;
     border-radius: 5px;
 }
 
 /* Track */
-.bills-container::-webkit-scrollbar-track {
+.bill-container::-webkit-scrollbar-track {
     /* background: #F6EFEF; */
     border-radius: 5px;
 }
 
 /* Handle */
-.bills-container::-webkit-scrollbar-thumb {
+.bill-container::-webkit-scrollbar-thumb {
     background: #888;
 }
 
 /* Handle on hover */
-.bills-container::-webkit-scrollbar-thumb:hover {
+.bill-container::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
 
