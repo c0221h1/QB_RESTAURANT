@@ -15,6 +15,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/app")
 public class AppController {
@@ -106,7 +108,7 @@ public class AppController {
     @PostMapping("/createOrderDetail")
     public ResponseEntity<OrderDetail> createOrderDetail(@RequestBody OrderDetail orderDetail){
         orderDetail.setAmount(1);
-        orderDetail.setStatus("true");
+        orderDetail.setStatus(false);
         return new ResponseEntity<>(orderDetailService.save(orderDetail), HttpStatus.CREATED);
     }
 
@@ -115,9 +117,7 @@ public class AppController {
         Iterable<OrderDetail> orderDetails = orderDetailService.findAllByOrderOrderId(id);
         if (orderDetails.spliterator().getExactSizeIfKnown()>0){
             return new ResponseEntity<>(orderDetails, HttpStatus.OK);
-
         }
-        System.out.println("123");
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

@@ -2,7 +2,9 @@ package com.codegym.restaurant.controller;
 
 
 import com.codegym.restaurant.model.Desk;
+import com.codegym.restaurant.model.Order;
 import com.codegym.restaurant.service.desk.DeskService;
+import com.codegym.restaurant.service.order.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,9 @@ public class DeskController {
 
     @Autowired
     private DeskService deskService;
+
+    @Autowired
+    public IOrderService orderService;
 
     @GetMapping("/desk")
     public ModelAndView listProduct() {
@@ -104,5 +109,24 @@ public class DeskController {
         Desk desk = deskOptional.get();
         desk.setCustom(true);
         return new ResponseEntity<>(deskService.save(desk), HttpStatus.OK);
+    }
+
+    @GetMapping("/deskChange")
+    public ResponseEntity<Iterable<Desk>> listDeskChange(){
+        return new ResponseEntity<>(deskService.findNameDeskChange(), HttpStatus.OK);
+    }
+
+    @PutMapping("/deskChange")
+    public ResponseEntity<Order> deskChange(@RequestParam Long id1, Long id2){
+        Optional<Order> orderOptionalChange = orderService.findByTableId(id1);
+        if (!orderOptionalChange.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Desk deskChange = deskService.findById(id1).get();
+        deskChange.setCustom(false);
+        Desk deskNewChange = deskService.findById(id2).get();
+        deskNewChange.setCustom(true);
+        orderOptionalChange.get().setDesk(deskNewChange);
+        return new ResponseEntity<>(orderService.save(orderOptionalChange.get()), HttpStatus.OK);
     }
 }

@@ -38,6 +38,13 @@ function getAllDesk(){
 getAllDesk();
 
 function getDesk(custom, tableId) {
+    $.ajax({
+        type: "GET",
+        url: `/tableBook/${tableId}`,
+        success: function (desk) {
+            $('#tableName').text(desk.tableName);
+        }
+    });
     if (!custom) {
         Swal.fire({
             title: 'Bạn có muốn đổi bàn thành có khách?',
@@ -58,7 +65,25 @@ function getDesk(custom, tableId) {
                         'Bạn có thể order món ăn.',
                         'success'
                     ).then(() => {
-                        $('#modalQuickView').modal('show')
+                        $('#modalQuickView').modal('show');
+                        $('#idTableChange').val(tableId);
+                        $.ajax({
+                            type: "GET",
+                            url: `/tableBook/${tableId}`,
+                            success: function (desk) {
+                                $('#tableChange').text(desk.tableName);
+                            }
+                        });
+                        $.ajax({
+                            type: "GET",
+                            url: "/deskChange"
+                        }).done(function (desks){
+                            let content = "";
+                            for (let i = 0; i < desks.length; i++) {
+                                content += `<option value="${desks[i].tableId}">${desks[i].tableName}</option>`;
+                            }
+                            $("#tableNewChange").html(content);
+                        });
                     });
                     let newDesk = {
                         tableId : tableId
@@ -85,15 +110,50 @@ function getDesk(custom, tableId) {
         })
     } else {
         $('#modalQuickView').modal('show');
+        $('#idTableChange').val(tableId);
         $.ajax({
             type: "GET",
             url: `/app/getOrder/${tableId}`
         }).done(function (order) {
+            $.ajax({
+                type: "GET",
+                url: `/tableBook/${tableId}`,
+                success: function (desk) {
+                    $('#tableChange').text(desk.tableName);
+                }
+            });
+            $.ajax({
+                type: "GET",
+                url: "/deskChange"
+            }).done(function (desks){
+                let content = "";
+                for (let i = 0; i < desks.length; i++) {
+                    content += `<option value="${desks[i].tableId}">${desks[i].tableName}</option>`;
+                }
+                $("#tableNewChange").html(content);
+            });
            $("#id-order").val(order.orderId);
            let id = order.orderId;
             drawListOrderDetail(id);
         })
     }
+}
+
+function changeDesk() {
+    let idDeskChange = $('#idTableChange').val();
+    let idDeskNewChange = $('#tableNewChange').val();
+    $.ajax({
+        type: "PUT",
+        data: { 'id1' : idDeskChange, 'id2' : idDeskNewChange },
+        url: "/deskChange"
+    }).done(function () {
+        getAllDesk();
+        $('#modalDeskChange').modal('hide');
+        $('#modalQuickView').modal('hide');
+        App.showSuccessAlert("Đổi bàn thành công!!");
+    }).fail(()=>{
+        App.showErrorAlert("Lỗi ! Không đổi được!!");
+    })
 }
 
 function getToday(){
@@ -121,6 +181,9 @@ function down(min) {
     }
 }
 
+function showModalChange() {
+    $('#modalDeskChange').modal('show')
+}
 // function drawOrder() {
 //     let content = "<div class=\"current-order panel-body overflow-auto border\">";
 //     let total = 0;
@@ -190,3 +253,4 @@ function down(min) {
 //         })
 //     }
 // }
+
