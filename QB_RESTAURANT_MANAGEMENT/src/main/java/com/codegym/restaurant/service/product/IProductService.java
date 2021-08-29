@@ -22,4 +22,6 @@ public interface IProductService extends IGeneralService<Product> {
     int countByStatusTrue();
 
     Iterable<Product> findAllByCategoryCategoryId(Long id);
+
+    Optional<Product> findPriceByOrdOrderByProductId(Long id);
 }

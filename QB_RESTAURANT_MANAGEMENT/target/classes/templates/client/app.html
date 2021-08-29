@@ -21,6 +21,10 @@
     <link rel="stylesheet" href="/css/sweetalert2.min.css">
     <link rel="stylesheet" href="/css/bootstrap.css">
     <style>
+
+        .logout>a{
+            font-size: 15px;
+        }
         .modal{
          padding: 0 !important;
         }
@@ -111,21 +115,21 @@
         <div class="sub-container">
             <div class="navbar">
                 <ul>
-                    <div>
+                    <div style="position: relative; right: 20px">
                         <img class="logo" src="/app/asset/img/logo.png" alt="">
                     </div>
                 </ul>
                 <div class="clas">
-                        <ul class="sub-ul" id="myDiv">
+                        <ul class="sub-ul" id="myDiv" style="position: relative; right: 14px">
                             <a href="#table"></a><li class="btn active"><i class="fas fa-table"></i>Table</li></a>
                             <a href="#product"></a><li class="btn"><i class="fas fa-cog"></i>Setting</li></a>
                         </ul>
-                    <div class="text-center border rounded-circle" id="userInformation">
+                    <div class="text-center border rounded" id="userInformation">
                         <h5><span th:text="${userInfo}" th:value="${userInfo}" id="userInfo"></span></h5>
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="logout">
-                        <a th:href="@{/logout}"><i class="fas fa-sign-out-alt">Logout</i></a>
+                        <a th:href="@{/logout}"><i class="fas fa-sign-out-alt">Đăng xuất</i></a>
                     </div>
                 </div>        
             </div>
@@ -163,7 +167,7 @@
             <div class="modal-content">
                 <div class="modal-body ">
                     <div class="modal-header">
-                        <p class="second-text">Choose category</p>
+                        <p class="second-text">Menu</p>
                     </div>
                         <div class="">
                             <div class="categories" id="categories">
@@ -179,14 +183,15 @@
                             </div>
                         </div>
 
-                        <div class="table-action">
-                            <a href="#" class="change-action" onclick="showModalChange()">Đổi bàn</a>
-                            <a class="merge-action" href="">Gộp bàn</a>
+                        <div class="table-action" style="height: 45px">
+                            <a href="#" class="change-action" onclick="showModalChange()"><i class="fas fa-exchange-alt">Đổi bàn</i></a>
+                            <a href="#" class="change-action" onclick="showModalChange1()"><i class="fas fa-exchange-alt">Đổi bàn</i></a>
+                            <a class="merge-action" href=""><i class="fas fa-object-ungroup">Gộp bàn</i></a>
                         </div>
 
                 </div>
 
-                <div class="modal-body modal-body1">
+                <div class="modal-body modal-body1 mt-3">
                     <p class="first-text">Thông tin <span id="tableName"></span></p>
                     <div class="table_name">
 
@@ -233,15 +238,14 @@
 
                 <!--Footer-->
                 <div class="modal-footer flex-center" style="justify-content: center !important; background-color: darkgrey">
-                    <a href="#" class="btn btn-outline-danger" onclick="changeDesk()">Yes</a>
-                    <a type="button" class="btn  btn-danger waves-effect" data-dismiss="modal">No</a>
+                    <a href="#" class="btn btn-outline-danger" onclick="changeDesk()">Đổi</a>
+                    <a type="button" class="btn  btn-danger waves-effect" data-dismiss="modal">Không</a>
                 </div>
             </div>
             <!--/.Content-->
         </div>
     </div>
     <!--Modal: modalConfirmDelete-->
-
 </body>
 <script src="/app/assets/vendor/jquery/jquery.min.js"></script>
 <script src="/app/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

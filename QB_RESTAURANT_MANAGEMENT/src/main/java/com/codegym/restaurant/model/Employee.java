@@ -32,8 +32,7 @@ public class Employee extends BaseEntity {
     private String fullName;
 
     @Column(nullable = false)
-    @NumberFormat
-    private int phone;
+    private String phone;
 
     @Column(nullable = false)
     @DateTimeFormat(pattern = "dd/MM/yyyy")

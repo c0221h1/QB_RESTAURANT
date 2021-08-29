@@ -78,7 +78,6 @@ function getAllEmployee(){
 getAllEmployee();
 //-------------Get All Employee----------//
 
-
 //-------------Create Employee-----------//
 function createEmployee(){
     let employee_id = $('#employeeID').val();
@@ -114,24 +113,14 @@ function createEmployee(){
             type: "POST",
             data: JSON.stringify(newEmployee),
             url: "/createEmployee"
-        }).done(function (employee){
+        }).done(function (){
             $("#employeeForm")[0].reset();
             $("#employeeModal").modal('hide');
+            $("#employeeList").dataTable().fnDestroy();
             App.showSuccessAlert("Tạo mới nhân viên thành công");
-            // getAllEmployee();
-            $('#employeeList tbody').prepend(' <tr id="row'+employee.id+'" class="text-center">\n' +
-                ' <input hidden id="'+employee.id+'">\n' +
-                ' <td>'+ employee.fullName + '</td>\n' +
-                ' <td>'+ employee.phone + '</td>\n' +
-                ' <td>'+ employee.address + '</td>\n' +
-                ' <td>'+ employee.position.positionName + '</td>\n' +
-                ' <td class="text-center">\n'+
-                ' <button value="'+employee.id +'" class="btn btn-outline-primary mr-2 edit-button" ><i class="far fa-edit"></i>Sửa</button>\n' +
-                ' <button value="'+employee.id +'" class="btn btn-outline-danger delete-button" onclick="deleteEmployee('+employee.id+')"><i class="fas fa-trash-alt"></i>Xóa</button>\n' +
-                ' </td>\n' +
-                ' </tr>');
+            getAllEmployee();
         }).fail(()=>{
-            App.showErrorAlert("Số điện thoại đã tồn tại!");
+            App.showErrorAlert("Tên đăng nhập hoặc số điện thoại đã tồn tại!");
         })
     }
 }
@@ -216,6 +205,7 @@ function saveEmployee() {
     }
 
     let newEmployee = {
+        id: id_employee,
         fullName: fullName,
         phone: phoneNumber,
         dob: dob,
@@ -234,21 +224,12 @@ function saveEmployee() {
             type: "PATCH",
             data: JSON.stringify(newEmployee),
             url: `/editEmployee`
-        }).done(function (employee){
+        }).done(function (){
             $("#editEmployeeForm")[0].reset();
             App.showSuccessAlert("Đã cập nhật thành công!");
             $("#editEmployeeModal").modal('hide');
-            $('#employeeList tbody').prepend(' <tr id="row'+employee.id+'" class="text-center">\n' +
-                ' <input hidden id="'+employee.id+'">\n' +
-                ' <td>'+ employee.fullName + '</td>\n' +
-                ' <td>'+ employee.phone + '</td>\n' +
-                ' <td>'+ employee.address + '</td>\n' +
-                ' <td>'+ employee.position.positionName + '</td>\n' +
-                ' <td class="text-center">\n'+
-                ' <button value="'+employee.id +'" class="btn btn-outline-primary mr-2 edit-button" onclick="loadEditData('+employee.id+')" ><i class="far fa-edit"></i>Sửa</button>\n' +
-                ' <button value="'+employee.id +'" class="btn btn-outline-danger delete-button" onclick="deleteEmployee('+employee.id+')"><i class="fas fa-trash-alt"></i>Xóa</button>\n' +
-                ' </td>\n' +
-                ' </tr>');
+            $("#employeeList").dataTable().fnDestroy();
+            getAllEmployee();
         }).fail (()=>{
             App.showErrorAlert("Đã xảy ra lỗi!");
         })

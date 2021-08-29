@@ -14,7 +14,7 @@ import java.util.Optional;
 public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
     Employee findByUsername(String username);
 
-    Optional<Employee> findEmployeeByPhone(Integer phoneNumber);
+    Optional<Employee> findEmployeeByPhone(String phoneNumber);
     
     @Modifying
     @Query("SELECT count (e) FROM Employee  e where e.status = false group by e.id ")

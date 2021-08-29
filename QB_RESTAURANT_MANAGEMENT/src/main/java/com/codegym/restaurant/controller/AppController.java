@@ -15,6 +15,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/app")
 public class AppController {
@@ -105,8 +107,21 @@ public class AppController {
 
     @PostMapping("/createOrderDetail")
     public ResponseEntity<OrderDetail> createOrderDetail(@RequestBody OrderDetail orderDetail){
+        Optional<OrderDetail> orderDetailOptional = orderDetailService.findByOrderOrderIdAndProductProductId(orderDetail.getOrder().getOrderId(),orderDetail.getProduct().getProductId());
+        if (orderDetailOptional.isPresent()){
+            long id = orderDetailOptional.get().getOrderDetailId();
+            orderDetail.setOrderDetailId(id);
+            int amount = orderDetailOptional.get().getAmount() +1;
+            orderDetail.setAmount(amount);
+
+            double price = orderDetail.getProductPrice();
+            orderDetail.setProductPrice(orderDetailOptional.get().getProductPrice()+price);
+
+            orderDetail.setStatus(false);
+            return new ResponseEntity<>(orderDetailService.save(orderDetail), HttpStatus.OK);
+        }
         orderDetail.setAmount(1);
-        orderDetail.setStatus("true");
+        orderDetail.setStatus(false);
         return new ResponseEntity<>(orderDetailService.save(orderDetail), HttpStatus.CREATED);
     }
 
@@ -115,9 +130,47 @@ public class AppController {
         Iterable<OrderDetail> orderDetails = orderDetailService.findAllByOrderOrderId(id);
         if (orderDetails.spliterator().getExactSizeIfKnown()>0){
             return new ResponseEntity<>(orderDetails, HttpStatus.OK);
-
         }
-        System.out.println("123");
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/deleteOrderDetail/{id}")
+    public ResponseEntity<OrderDetail> deleteOrderDetail(@PathVariable Long id) {
+        Optional<OrderDetail> orderDetailOptional = orderDetailService.findById(id);
+        if (!orderDetailOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        orderDetailService.remove(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/increaseProduct/{id}")
+    public ResponseEntity<OrderDetail> increaseProduct(@PathVariable Long id) {
+        Optional<OrderDetail> orderDetailOptional = orderDetailService.findById(id);
+//        tính giá trị trung bình để lấy ra đơn giá cho sản phẩm
+        double price = (orderDetailOptional.get().getProductPrice())/(orderDetailOptional.get().getAmount());
+
+        int amount = orderDetailOptional.get().getAmount()+1;
+        orderDetailOptional.get().setAmount(amount);
+        orderDetailOptional.get().setProductPrice(amount*price);
+        return new ResponseEntity<>(orderDetailService.save(orderDetailOptional.get()),HttpStatus.OK);
+    }
+
+    @PutMapping("/reduceProduct/{id}")
+    public ResponseEntity<OrderDetail> reduceProduct(@PathVariable Long id) {
+        Optional<OrderDetail> orderDetailOptional = orderDetailService.findById(id);
+        double price = (orderDetailOptional.get().getProductPrice())/(orderDetailOptional.get().getAmount());
+
+        double totalPrice = orderDetailOptional.get().getProductPrice();
+
+        int amount = orderDetailOptional.get().getAmount();
+        if (amount>1){
+            orderDetailOptional.get().setAmount(amount-1);
+            orderDetailOptional.get().setProductPrice(totalPrice-price);
+            return new ResponseEntity<>(orderDetailService.save(orderDetailOptional.get()),HttpStatus.OK);
+        }else {
+//            orderDetailService.remove(id);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }

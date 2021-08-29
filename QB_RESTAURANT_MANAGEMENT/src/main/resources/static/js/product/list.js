@@ -211,6 +211,7 @@ function createCategory(){
             App.showSuccessAlert("Thêm mới danh mục thành công!!");
             $("#categoryForm")[0].reset();
             $("#categoryModal").modal('hide');
+            $("#productList").dataTable().fnDestroy();
             getAllProduct();
         }
     })

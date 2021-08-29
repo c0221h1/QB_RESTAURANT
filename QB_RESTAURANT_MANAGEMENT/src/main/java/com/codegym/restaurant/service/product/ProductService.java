@@ -51,6 +51,11 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    public Optional<Product> findPriceByOrdOrderByProductId(Long id) {
+        return productRepository.findPriceByOrdOrderByProductId(id);
+    }
+
+    @Override
     public Iterable<Product> findAll() {
         return productRepository.findAll();
     }

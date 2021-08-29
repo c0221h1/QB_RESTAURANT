@@ -33,7 +33,13 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
     @Query("select p from Product p where p.category.categoryId = ?1")
     Iterable<Product> findAllByCategoryCategoryId(Long id);
 
-    
+    @Modifying
+    @Query("select p.price, od.orderDetailId from OrderDetail od \n" +
+            "inner join Product p\n" +
+            "on p.productId = od.product.productId \n" +
+            "where od.orderDetailId = ?1")
+    Optional<Product> findPriceByOrdOrderByProductId(Long id);
+
     @Modifying
     @Query("SELECT count (p) FROM Product  p where p.status = true group by  p.productId")
     int countProduct();

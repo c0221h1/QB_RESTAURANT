@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -49,7 +50,7 @@ public class EmployeeService implements IEmployeeService, IEmpService{
     }
 
     @Override
-    public Optional<Employee> findEmployeeByPhone(Integer phoneNumber) {
+    public Optional<Employee> findEmployeeByPhone(String phoneNumber) {
         return employeeRepository.findEmployeeByPhone(phoneNumber);
     }
 
@@ -59,11 +60,6 @@ public class EmployeeService implements IEmployeeService, IEmpService{
         UserPrincipal userPrincipal = new UserPrincipal();
         if (null != employee) {
             Set<String> authorities = new HashSet<>();
-//            if (null != user.getRole()) user.getRole()(r -> {
-//                authorities.add(r.getRoleKey());
-//                r.getPermissions().forEach(p -> authorities.add(p.getPermissionKey()));
-//            });
-            
             if (employee.getPosition() != null){
                 authorities.add(employee.getPosition().getCode());
             }
@@ -75,8 +71,28 @@ public class EmployeeService implements IEmployeeService, IEmpService{
         }
         return userPrincipal;
     }
-    
-    
+
+    @Override
+    public boolean isContainUsername(String username) {
+        Iterable<Employee> employees = employeeRepository.findAll();
+        for (Employee e : employees
+        ) {
+            if (Objects.equals(e.getUsername(), username)) return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean isContainPhone(String phone) {
+        Iterable<Employee> employees = employeeRepository.findAll();
+        for (Employee e : employees
+        ) {
+            if (Objects.equals(e.getPhone(), phone)) return false;
+        }
+        return true;
+    }
+
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Employee> userOptional = Optional.ofNullable(employeeRepository.findByUsername(username));
@@ -95,5 +111,4 @@ public class EmployeeService implements IEmployeeService, IEmpService{
     public int countByStatusFalse () {
         return employeeRepository.countByStatusFalse();
     }
-   
 }

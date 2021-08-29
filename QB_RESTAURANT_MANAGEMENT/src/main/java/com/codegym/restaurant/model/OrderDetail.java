@@ -25,8 +25,8 @@ public class OrderDetail {
     @Min(0)
     private Double productPrice;
 
-    @Column(nullable = false)
-    private  String status;
+    @Column(nullable = false, columnDefinition = "false")
+    private  boolean status;
 
     @ManyToOne
     @JoinColumn(name = "productId")

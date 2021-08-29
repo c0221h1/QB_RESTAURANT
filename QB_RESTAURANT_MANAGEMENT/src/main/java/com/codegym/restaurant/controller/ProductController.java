@@ -1,6 +1,7 @@
 package com.codegym.restaurant.controller;
 
 import com.codegym.restaurant.model.Category;
+import com.codegym.restaurant.model.OrderDetail;
 import com.codegym.restaurant.model.Product;
 import com.codegym.restaurant.service.category.ICategoryService;
 import com.codegym.restaurant.service.product.IProductService;
