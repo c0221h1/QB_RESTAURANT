@@ -8,8 +8,7 @@ $("#employeeForm").validate({
         },
         phoneNumber: {
             required: true,
-            minlength : 10,
-            maxlength: 10
+            regexPhone: true,
         },
         user_name:{
             required:true,
@@ -37,8 +36,6 @@ $("#employeeForm").validate({
         },
         phoneNumber: {
             required: "Vui lòng nhập số điện thọai !",
-            minlength: "Số điện thoại dài 10 số !",
-            maxlength: "Số điện thoại dài 10 số !"
         },
         user_name:{
             required: "Vui lòng nhập tên đăng nhập!",
@@ -72,8 +69,7 @@ $("#editEmployeeForm").validate({
         },
         up_phoneNumber: {
             required: true,
-            minlength : 10,
-            maxlength: 10
+            regexPhone: true,
         },
         up_user_name:{
             required:true,
@@ -94,30 +90,28 @@ $("#editEmployeeForm").validate({
     },
 
     messages: {
-        employee_name: {
+        up_employee_name: {
             required: "Vui lòng nhập tên nhân viên !",
             minlength: "Vui lòng nhập tối thiểu 5 ký tự!",
             maxlength: "Vui lòng nhập tối đa chỉ có 50 ký tự!"
         },
-        phoneNumber: {
-            required: "Vui lòng nhập số điện thọai !",
-            minlength: "Số điện thoại dài 10 số !",
-            maxlength: "Số điện thoại dài 10 số !"
+        up_phoneNumber: {
+            required : "Vui lòng nhập số điện thọai !",
         },
-        user_name:{
+        up_user_name:{
             required: "Vui lòng nhập tên đăng nhập!",
             minlength: "Tên đăng nhập tối thiểu 5 ký tự !",
             maxlength: "Tên đăng nhập tối đa 50 ký tự"
         },
-        password:{
+        up_password:{
             required:"Vui lòng nhập mật khẩu !",
             minlength: "Mật khẩu tối thiểu 5 ký tự",
             maxlength:"Mật khẩu nhập tối đa 50 ký tự",
         },
-        DOB:{
+        up_DOB:{
             required: "Ngày sinh không được để trống !",
         },
-        address:{
+        up_address:{
             required: "Địa chỉ không được để trống !"
         },
     },
@@ -125,3 +119,6 @@ $("#editEmployeeForm").validate({
         saveEmployee();
     }
 });
+$.validator.addMethod("regexPhone", function (value, element) {
+    return this.optional(element) || /((09|03|07|08|05)+([0-9]{8})\b)/g.test(value);
+}, "Hãy nhập số điện thoại hợp lệ!!!");

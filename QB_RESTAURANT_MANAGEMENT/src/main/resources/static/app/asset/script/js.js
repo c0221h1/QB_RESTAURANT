@@ -1,14 +1,3 @@
-// filterSelection("all")
-// function filterSelection(c) {
-//   var x, i;
-//   x = document.getElementsByClassName("drink-container");
-//   if (c == "all") c = "";
-//   for (i = 0; i < x.length; i++) {
-//     w3RemoveClass(x[i], "show");
-//     if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
-//   }
-// }
-
 //----------Get All Item In Client Page-----------//
 function getAllItem(){
     $.ajax({
@@ -109,11 +98,10 @@ function drawActive(){
 function getAllVoucherIsApply(){
     $.ajax({
         type: "GET",
-
         url: "/app/allItemVoucherIsApply"
     }).done(function (vouchers){
-        let content = "<a class=\"change-action\" href='#' onclick='showModalChange()'><i class=\"fas fa-exchange-alt\">Đổi bàn</i></a>" +
-                      "<a class=\"merge-action\" href=\"\"><i class=\"fas fa-object-ungroup\">Gộp bàn</i></a>";
+        let content =   "<a class=\"change-action\" href='#' onclick='showModalChange()'><i class=\"fas fa-exchange-alt\">Đổi bàn</i></a>" +
+                        "<a class=\"merge-action\" href=\"\"><i class=\"fas fa-object-ungroup\">Gộp bàn</i></a>";
         for (let i = vouchers.length-1; i >= 0; i--) {
             content += `
                          <a class="merge-action" href=""><i class="fas fa-tags">Giảm ${vouchers[i].percent}%</i></a>
@@ -171,16 +159,17 @@ function drawListOrderDetail(id) {
         if (orderDetails.length > 0){
             for (let i = orderDetails.length-1; i >= 0; i--) {
                 content += `
-                       <div class="d-flex flex-row justify-content-between align-items-center p-2 bg-white mt-4 px-3 rounded">
-                            <div class="d-flex flex-column align-items-center product-details"><span class="font-weight-bold">${orderDetails[i].product.productName}</span>
+                       <div class="sub__bill">
+                            <input type="hidden" id="id-order-detail" value="${orderDetails[i].orderDetailId}">
+                            <div class="sub__bill--name">${orderDetails[i].product.productName}
                             </div>
-                            <div class="d-flex flex-row align-items-center"><i class="fas fa-minus-circle" style="color: darkgrey"></i>
-                                <h5 class="text-grey mt-1 mr-1 ml-1">${orderDetails[i].amount}</h5><i class="fas fa-plus-circle" style="color: darkgrey"></i>
+                            <div class="sub__bill--quantity"><i class="fas fa-minus-circle" onclick="reduceProduct(${orderDetails[i].orderDetailId})"  style="color: darkgrey"></i>
+                                <h5 class="" style="margin: 0; font-size: .9rem">${orderDetails[i].amount}</h5><i class="fas fa-plus-circle" onclick="increaseProduct(${orderDetails[i].orderDetailId})" style="color: darkgrey"></i>
                             </div>
-                            <div class="d-flex flex-column align-items-center">
-                                <p class="text-grey" style="margin-top: 15px">${(orderDetails[i].productPrice)}</p>
+                            <div>
+                                <h5 style="font-size: .8rem" class="sub__bill--price">${(orderDetails[i].productPrice.toLocaleString('vi', {style : 'currency', currency : 'VND'}))}</h5>
                             </div>
-                            <div title="Xóa món" class="d-flex align-items-center"><i class="fa fa-trash mb-1 text-danger"></i></div>
+                            <div title="Xóa món" class="sub__bill-delIcon"><i class="fa fa-trash mb-1 text-danger" onclick="deleteOrderDetail(${orderDetails[i].orderDetailId})"></i></div>
                        </div>  
                 `;
             }
@@ -191,9 +180,65 @@ function drawListOrderDetail(id) {
     })
 }
 
+//----------------Delete OrderDetail-----------//
+function deleteOrderDetail(orderDetailId) {
+    Swal.fire({
+        title: 'Bạn có muốn hủy món này?',
+        text: "Sau khi hủy sẽ không phục hồi!",
+        icon: 'warning',
+        showDenyButton: true,
+        confirmButtonColor: '#3085d6',
+        denyButtonColor: '#d33',
+        denyButtonText :`Hủy`,
+        confirmButtonText: 'Đồng ý!'
+    }).then((result) => {
+        if (result.isConfirmed){
+            $.ajax({
+                type : "DELETE",
+                url : `/app/deleteOrderDetail/${orderDetailId}`,
+                data : JSON.stringify(orderDetailId)
+            }).done(function (){
+                let idOrder = $('#id-order').val();
+                drawListOrderDetail(idOrder);
+                App.showSuccessAlert("Đã hủy thành công!")
+            }).fail(function (){
+                App.showErrorAlert("Đã xảy ra lỗi!")
+            })
+        }
+    })
+}
+//----------------Delete OrderDetail-----------//
 
-//----------Set Up Product---------------------//
-//----------Set Up Product---------------------//
+//----------------Increase Product-------------//
+function increaseProduct(id){
+    $.ajax({
+        type: "PUT",
+        url: `/app/increaseProduct/${id}`,
+        data : JSON.stringify(id)
+    }).done(function () {
+        let idOrder = $('#id-order').val();
+        drawListOrderDetail(idOrder);
+    }).fail(()=>{
+        App.showErrorAlert("Lỗi ! Không tăng số lượng được!!");
+    })
+}
+//----------------Increase Product-------------//
+
+//----------------Reduce Product---------------//
+function reduceProduct(id){
+    $.ajax({
+        type: "PUT",
+        url: `/app/reduceProduct/${id}`,
+        data : JSON.stringify(id)
+    }).done(function () {
+        let idOrder = $('#id-order').val();
+        drawListOrderDetail(idOrder);
+    }).fail(()=>{
+        App.showErrorAlert("Số lượng không thể nhỏ hơn 1!!");
+    })
+}
+//----------------Reduce Product---------------//
+
 
 function getToday(){
     let today = new Date();
@@ -246,7 +291,6 @@ for(let i = 0; i < btns.length; i++){
 }
 
   $("a").on('click', function(event) {
-
     // Make sure this.hash has a value before overriding default behavior
     if (this.hash !== "") {
       // Prevent default anchor click behavior
@@ -264,7 +308,7 @@ for(let i = 0; i < btns.length; i++){
         // Add hash (#) to URL when done scrolling (default click behavior)
         window.location.hash = hash;
       });
-    } // End if
+    }
   });
 
 

@@ -23,58 +23,24 @@
             <div id="wrapper">
                 <div id="login" class="animate form">
                     <form autocomplete="on" method="post">
-                        <h1>Log in</h1>
+                        <h1>Đăng nhập</h1>
                         <p>
-                            <label for="username" class="uname" > Username </label>
-                            <input id="username" name="username" required="required" type="text" placeholder="enter username"/>
+                            <label for="username" class="uname" > Tên đăng nhập </label>
+                            <input id="username" name="username" required="required" type="text" placeholder="Nhập tên đăng nhập..."/>
                         </p>
                         <p>
-                            <label for="password" class="youpasswd"> Your password </label>
-                            <input id="password" name="password" required="required" type="password" placeholder="123abc" />
+                            <label for="password" class="password"> Mật khẩu </label>
+                            <input id="password" name="password" required="required" type="password" placeholder="Nhập mật khẩu..." />
                         </p>
                         <p class="keeplogin">
                             <input type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping" />
-                            <label for="loginkeeping">Keep me logged in</label>
-                        </p>
-                        <p class="login button">
-                            <a href="http://cookingfoodsworld.blogspot.in/" target="_blank" ></a>
+                            <label for="loginkeeping">Nhớ mật khẩu</label>
                         </p>
                         <p class="signin button">
-                            <input type="submit" id="btnLogin" value="Sign in"/>
+                            <input type="submit" id="btnLogin" value="Đăng nhập"/>
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         </p>
                         <p class="change_link">
-                            Not a member yet ?
-                            <a href="#toregister" class="to_register">Join us</a>
-                        </p>
-                    </form>
-                </div>
-
-                <div id="register" class="animate form">
-                    <form  autocomplete="on">
-                        <h1> Sign up </h1>
-                        <p>
-                            <label for="usernamesignup" class="uname" >Your username</label>
-                            <input id="usernamesignup" name="usernamesignup" required="required" type="text" placeholder="mysuperusername690" />
-                        </p>
-                        <p>
-                            <label for="emailsignup" class="youmail"  > Your email</label>
-                            <input id="emailsignup" name="emailsignup" required="required" type="email" placeholder="mysupermail@mail.com"/>
-                        </p>
-                        <p>
-                            <label for="passwordsignup" class="youpasswd" >Your password </label>
-                            <input id="passwordsignup" name="passwordsignup" required="required" type="password" placeholder="eg. X8df!90EO"/>
-                        </p>
-                        <p>
-                            <label for="passwordsignup_confirm" class="youpasswd" >Please confirm your password </label>
-                            <input id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="eg. X8df!90EO"/>
-                        </p>
-                        <p class="signin button">
-                            <input type="submit" value="Sign up"/>
-                        </p>
-                        <p class="change_link">
-                            Already a member ?
-                            <a href="#tologin" class="to_register"> Go and log in </a>
                         </p>
                     </form>
                 </div>
@@ -84,7 +50,7 @@
 </div>
 <script>
     function loginHandle() {
-        let customer = {
+        let employee = {
             username: $("#username").val(),
             password: $("#password").val()
         };
@@ -96,7 +62,7 @@
                 'Content-Type': 'application/json'
             },
             url: "/api/login",
-            data: JSON.stringify(customer)
+            data: JSON.stringify(employee)
         }).done((user) => {
             App.showSuccessAlert("Đăng nhập thành công!");
             console.log(user);
@@ -108,11 +74,9 @@
                 window.location.href = "/managerDashboard";
             }
         }).fail(() => {
-            App.showErrorAlert("Đã xảy ra lỗi. Vui lòng thử lại sau!");
+            App.showErrorAlert("Đã xảy ra lỗi. Vui lòng kiểm tra tên đăng nhập và mật khẩu!");
         });
     }
-
-
     $("#btnLogin").on("click",loginHandle);
 </script>
 </body>

@@ -156,6 +156,7 @@ function changeDesk() {
     })
 }
 
+
 function getToday(){
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, '0');
@@ -182,75 +183,8 @@ function down(min) {
 }
 
 function showModalChange() {
-    $('#modalDeskChange').modal('show')
+    $('#modalDeskChange').modal('show');
 }
-// function drawOrder() {
-//     let content = "<div class=\"current-order panel-body overflow-auto border\">";
-//     let total = 0;
-//     if (order.products.length !== 0){
-//         for (let i = 0; i < order.products.length; i++) {
-//             total += order.products[i].price * order.products[i].amount;
-//             content += `
-//               <ul class="list-group mb-3 ">
-//                 <li class=" d-flex justify-content-between p-3 pb-0 ">
-//                   <div>
-//                     <h6 class="my-0" style="width: 150px; white-space: nowrap;  overflow: hidden; text-overflow: ellipsis">${order.products[i].product_name}</h6>
-//                   </div>
-//                   <div>
-//                     <p>
-//                     <i value="${order.products[i].product_id}" class="fas fa-minus btn btn-outline-dark subToProduct"></i>
-//                       <span class="w-50 text-center"> ${order.products[i].amount}</span>
-//                       <i value="${order.products[i].product_id}" class="fas fa-plus btn btn-outline-dark addMoreProduct"></i>
-//                     </p>
-//                   </div>
-//                   <span class="text-muted" >${order.products[i].price*order.products[i].amount} $</span>
-//                 </li>
-//               </ul>`;
-//         }
-//         content += "</div>";
-//         order.total_price = total;
-//         let subtotal = order.total_price;
-//         let voucher_id = order.voucher.voucher_id;
-//         let discount = order.voucher.percent_discount;
-//         let tax = Math.round((((order.total_price*(1-order.voucher.percent_discount/100))*0.1) + Number.EPSILON) * 100) / 100;
-//         let total_product = Math.round((((order.total_price *(1- order.voucher.percent_discount/100)) + (Math.round((((order.total_price*(1-order.voucher.percent_discount/100))*0.1) + Number.EPSILON) * 100) / 100)) + Number.EPSILON)* 100) / 100 ;
-//
-//         content += `
-//             <div class="panel-body border">
-//               <div class="d-flex justify-content-between p-3 pb-0">
-//                 <p>Subtotal</p>
-//                 <p><strong>${subtotal}</strong></p>
-//               </div>
-//               <div class="d-flex justify-content-between p-3 pb-0">
-//                 <p>Discounts</p>
-//                 <input hidden id="voucher_id" value="${voucher_id}">
-//                 <p><strong>${discount} %</strong></p>
-//               </div>
-//               <div class="d-flex justify-content-between p-3 pb-0">
-//                 <p>Sales Tax</p>
-//                 <p><strong>${tax} $</strong></p>
-//               </div>
-//               <hr>
-//               <div class="d-flex justify-content-between p-3 pb-0">
-//                 <h5>Total</h5>
-//                 <input hidden id="total" value="${total_product}">
-//                 <h5><strong>${total_product} $</strong></h5>
-//               </div>
-//             </div>
-//       `;
-//         order.total_price = total_product;
-//
-//         $('#allList').html(content);
-//
-//         $(".addMoreProduct").on("click",function (){
-//             let id = $(this).attr("value");
-//             getProduct(id);
-//         })
-//
-//         $(".subToProduct").on("click",function (){
-//             let id = $(this).attr("value");
-//             subProduct(id);
-//         })
-//     }
-// }
+
+
 

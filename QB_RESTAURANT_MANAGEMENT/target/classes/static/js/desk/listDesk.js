@@ -38,9 +38,7 @@ function showModalDesk() {
 function showBookDesk(tableId) {
     $.ajax({
         type: "GET",
-        //tên API
         url: `/tableBook/${tableId}`,
-        //xử lý khi thành công
         success: function (desk) {
             $('#upTableId').val(desk.tableId);
             $('#nameTable').text(desk.tableName);

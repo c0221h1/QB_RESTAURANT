@@ -124,7 +124,7 @@
                             <a href="#table"></a><li class="btn active"><i class="fas fa-table"></i>Table</li></a>
                             <a href="#product"></a><li class="btn"><i class="fas fa-cog"></i>Setting</li></a>
                         </ul>
-                    <div class="text-center border rounded-circle" id="userInformation">
+                    <div class="text-center border rounded" id="userInformation">
                         <h5><span th:text="${userInfo}" th:value="${userInfo}" id="userInfo"></span></h5>
                         <i class="fas fa-user"></i>
                     </div>
@@ -185,6 +185,7 @@
 
                         <div class="table-action" style="height: 45px">
                             <a href="#" class="change-action" onclick="showModalChange()"><i class="fas fa-exchange-alt">Đổi bàn</i></a>
+                            <a href="#" class="change-action" onclick="showModalChange1()"><i class="fas fa-exchange-alt">Đổi bàn</i></a>
                             <a class="merge-action" href=""><i class="fas fa-object-ungroup">Gộp bàn</i></a>
                         </div>
 
@@ -245,7 +246,6 @@
         </div>
     </div>
     <!--Modal: modalConfirmDelete-->
-
 </body>
 <script src="/app/assets/vendor/jquery/jquery.min.js"></script>
 <script src="/app/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

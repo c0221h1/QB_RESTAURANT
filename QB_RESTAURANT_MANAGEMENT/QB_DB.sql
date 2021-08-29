@@ -111,7 +111,7 @@ CREATE TABLE `categories` (
   `category_id` bigint NOT NULL AUTO_INCREMENT,
   `category_name` varchar(255) NOT NULL,
   PRIMARY KEY (`category_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -120,7 +120,7 @@ CREATE TABLE `categories` (
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` VALUES (1,'Đồ Ăn'),(2,'Đồ Uống'),(4,'Bia'),(5,'Khác');
+INSERT INTO `categories` VALUES (1,'Nước uống'),(2,'Món lẩu'),(3,'Tráng miệng'),(4,'Hải sản'),(5,'Khai vị'),(6,'Cơm - Mỳ'),(7,'Đặc biệt');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -165,13 +165,13 @@ CREATE TABLE `employees` (
   `full_name` varchar(255) NOT NULL,
   `gender` tinyint(1) DEFAULT '0',
   `password` varchar(255) NOT NULL,
-  `phone` int NOT NULL,
+  `phone` varchar(10) NOT NULL,
   `status` bit(1) DEFAULT NULL,
   `username` varchar(255) NOT NULL,
   `position_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKngcpgx7fx5kednw3m7u0u8of3` (`position_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=87 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -180,7 +180,7 @@ CREATE TABLE `employees` (
 
 LOCK TABLES `employees` WRITE;
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
-INSERT INTO `employees` VALUES (14,0,'Quảng Bình',NULL,NULL,'2006-04-23','Trần Nhật Nam',0,'nam123',373455419,_binary '\0','nam123',1),(24,0,'Hue',NULL,NULL,'2021-08-21','qưeert',0,'123',384056894,_binary '\0','sfdgf',1),(34,0,'asdasf',NULL,NULL,'2021-09-05','sfdsfsd',0,'ádsad',384056894,_binary '\0','sfsdsd',1),(60,0,'Quảng Bình',NULL,NULL,'2009-11-09','Võ Hoàng Dương',0,'$2a$05$MqXCYVi79m7fqco0QHiSYeRWvNCuzbwDNsH.iWv3L4OZ7veH5GVVG',898600373,_binary '\0','admin',1),(61,0,'Ad adipisicing illum',NULL,NULL,'2011-07-02','Lamar Bowman',0,'$2a$05$MqXCYVi79m7fqco0QHiSYeRWvNCuzbwDNsH.iWv3L4OZ7veH5GVVG',373455419,_binary '\0','user',2),(50,0,'Hue',NULL,NULL,'2021-08-13','sdfg',0,'ádfgf',384056894,_binary '\0','admin123',1),(62,0,'Elit et dolore sit ',NULL,NULL,'1976-06-17','Kalia Vaughn',0,'Pa$$w0rd!',898600373,_binary '\0','kytiwo',1),(64,0,'Deserunt fugiat qui ',NULL,NULL,'1992-01-15','Hayden Weiss',0,'Pa$$w0rd!',1612345656,_binary '\0','xycosuwyve',3),(65,0,'Excepturi sunt quo d',NULL,NULL,'2012-08-12','Stuart Page',0,'Pa$$w0rd!',236988745,_binary '\0','wibek',2),(66,0,'Deserunt fugiat qui ',NULL,NULL,'1992-01-15','Hayden Weiss',0,'abc123',1612345656,_binary '\0','xycosuwyve',3),(67,0,'Quia ipsum voluptate',NULL,NULL,'1978-08-06','Yuli Romero',0,'Pa$$w0rd!',979999999,_binary '\0','fixetune',2);
+INSERT INTO `employees` VALUES (1,0,'Huế',NULL,NULL,'1995-07-23','Võ Hoàng Dương',0,'$2a$05$MqXCYVi79m7fqco0QHiSYeRWvNCuzbwDNsH.iWv3L4OZ7veH5GVVG','0904744408',_binary '\0','admin',1),(85,0,'Quảng Bình',NULL,NULL,'1991-02-21','Phạm Đăng Phong',0,'$2a$10$Ntmpvegg7uy9INrad/JSi.NmrRh2NBAvq5CQOem6Scm9uCoMFelDS','0384056894',_binary '\0','admin1',1),(86,0,'Huế',NULL,NULL,'1999-06-29','Nguyễn Văn A',0,'$2a$10$KhGgs/XR0kbbKF64kDcr..D1nsmGsyxlWdYOy3L9YK40XZXTFmDKq','0384056897',_binary '\0','TestUser',2);
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -219,13 +219,13 @@ CREATE TABLE `order_details` (
   `order_detail_id` bigint NOT NULL AUTO_INCREMENT,
   `amount` int NOT NULL,
   `product_price` double NOT NULL,
-  `status` varchar(255) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT '0',
   `order_id` bigint DEFAULT NULL,
   `product_id` bigint DEFAULT NULL,
   PRIMARY KEY (`order_detail_id`),
   KEY `FKjyu2qbqt8gnvno9oe9j2s2ldk` (`order_id`),
   KEY `FK4q98utpd73imf4yhttm3w0eax` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=218 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -234,7 +234,7 @@ CREATE TABLE `order_details` (
 
 LOCK TABLES `order_details` WRITE;
 /*!40000 ALTER TABLE `order_details` DISABLE KEYS */;
-INSERT INTO `order_details` VALUES (1,1,100000,'true',15,87),(2,1,5000,'true',1,85),(3,1,100000,'true',15,87);
+INSERT INTO `order_details` VALUES (207,1,280000,0,31,117),(208,1,130000,0,31,122),(209,2,200000,0,30,112),(210,1,15000,0,31,128),(211,1,10000,0,31,126),(212,1,10000,0,31,124),(213,1,10000,0,32,126),(214,1,100000,0,32,97),(215,2,280000,0,34,103),(216,2,240000,0,34,102),(217,3,750000,0,34,101);
 /*!40000 ALTER TABLE `order_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -251,7 +251,7 @@ CREATE TABLE `orders` (
   `table_id` bigint DEFAULT NULL,
   PRIMARY KEY (`order_id`),
   KEY `FKrkhrp1dape261t3x3spj7l5ny` (`table_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -260,7 +260,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,'2021-08-16',4),(12,'2021-08-16',7),(13,'2021-08-16',8),(14,'2021-08-16',10),(15,'2021-08-16',3);
+INSERT INTO `orders` VALUES (27,'2021-08-17',21),(26,'2021-08-17',17),(25,'2021-08-17',19),(28,'2021-08-17',23),(29,'2021-08-17',22),(30,'2021-08-17',20),(31,'2021-08-18',18),(32,'2021-08-18',15),(33,'2021-08-24',16),(34,'2021-08-29',27);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -354,7 +354,7 @@ CREATE TABLE `products` (
   `category_id` bigint DEFAULT NULL,
   PRIMARY KEY (`product_id`),
   KEY `FKog2rp4qthbtt2lfyhfo32lsw9` (`category_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=88 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=129 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -363,7 +363,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (75,'Do porro ad sed ulla','tomhumhapbia1500k.png',9000,'Kelly Ryan',1,1),(74,'Dignissimos quia rep','cua-chien-nuoc-mam2000k.png',6820,'Hedley Stuart',1,1),(73,'Rerum voluptatem vel','tomhumhapbia1500k.png',7370,'Hayden Wagner',0,1),(72,'Ngon','cua-chien-nuoc-mam2000k.png',5650,'Cua ',1,1),(77,'Consequat Officia m','cua-chien-nuoc-mam2000k.png',6820,'Blythe Curry',0,1),(79,'Enim saepe voluptati','tomalaskahap350k-kg.png',6330,'Hedley Stuart234',1,1),(81,'Minima exercitation ','king-crabsalad1tr.png',6800,'Lydia Frazier',1,1),(82,'Lorem sint molestia','alaskachaytoi350k-kg.png',9310,'Tôm nướng',1,1),(83,'Molestiae in adipisi','tomalaskahap350k-kg.png',10000,'Tôm Hùm',1,1),(84,'Deserunt possimus e','tomhumhapbia1500k.png',6740,'MacKensie Lambert',1,1),(85,'Nước suối','Nước suối.png',5000,'Nước suối',1,2),(86,'Nước có ga','coca.jpg',10000,'Coca ',1,2),(87,'Nước có ga','7 up.jpg',100000,'7-up',1,2);
+INSERT INTO `products` VALUES (105,'Ngon','cua-chien-nuoc-mam2000k.png',2000000,'Cua chiên nước mắm',1,4),(104,'Ngon','alaskachaytoi350k-kg.png',350000,'Tôm Alaska',1,4),(103,'Ngon','vitquaybackinh140k.png',140000,'Vịt quay Bắc Kinh',1,7),(102,'Ngon','so-huyet-tu-xuyen120k.png',120000,'Sò huyết Tứ Xuyên',1,7),(101,'Ngon','heoquaylu250k.png',250000,'Heo quay lu',1,7),(100,'Ngon','ga-xao-hat-dieu120k.png',120000,'Gà xào hạt điều',1,7),(99,'Ngon','catamnuongladua180k.png',180000,'Cá tầm nướng',1,7),(98,'Ngon','canhganuongmuoiot80k.png',80000,'Cánh gà nướng muối ớt',1,7),(97,'Ngon','cang-cua-bach-hoa100k.png',100000,'Càng cua bách hoa',1,7),(96,'Ngon','camuhaphongkong210k.png',210000,'Cá mú hấp',1,7),(95,'Ngon','ca-dieu-hong-hap-tam-to100k.png',100000,'Cá diêu hồng hấp',1,7),(94,'Ngon','cachinhnuongmuoitot180k.png',180000,'Cá chình nướng',1,7),(93,'Ngon','mi-xao-hai-san100k.png',100000,'Mỳ xào hải sản',1,6),(92,'Giòn và thơm ngon','com-chien-duong-chau100k.png',100000,'Cơm chiên dương châu',1,6),(106,'Ngon','mucnuong120k.png',120000,'Mực nướng',1,4),(107,'Ngon','mucthamlam130k.png',130000,'Mực tham lam',1,4),(108,'Ngon','sasimitomhum400k.png',400000,'Sashimi tôm hùm',1,4),(109,'Ngon','tomalaskahap350k-kg.png',350000,'Tôm Alaska hấp',1,4),(110,'Ngon','tomhumhapbia1500k.png',1500000,'Tôm hùm hấp bia',1,4),(111,'Tuyệt vời !','goi-cu-hu-dưa-90k.png',90000,'Gỏi củ hủ dừa',1,5),(112,'Tuyệt vời','salad.png',100000,'Salad',1,5),(113,'Tuyệt !','saladtomtraicay100k.png',100000,'Salad tôm trái cây',1,5),(114,'Tuyệt !','suon-kinh-do120k.png',120000,'Sườn kinh đô',1,5),(115,'Tuyệt!','sup-chay-toc-tien40k.png',40000,'Súp tóc tiên chay',1,5),(116,'Tuyệt !','thit-nguoi-bat-buu120k.png',120000,'Thịt nguội bát bửu ',1,5),(117,'Tuyệt !','laucalangmangchua280k.png',280000,'Lẩu cá lăng ',1,2),(118,'Tuyệt!','laughechuacay300.png',300000,'Lẩu ghẹ chua cay',1,2),(119,'Tuyệt !','lau-thai250k.png',250000,'Lẩu thái',1,2),(120,'Tuyệt!','banh-tiramisu50k.png',50000,'Bánh Tiramisu',1,3),(121,'Tuyệt!','che-tuyet-giap50k.png',50000,'Chè Tuyết Giáp',1,3),(122,'Tuyệt','trai-cay-thap-cam130k.png',130000,'Trái cây thập cẩm',1,3),(123,'Nước có ga','7 up.jpg',10000,'7 up',1,1),(124,'Nước có ga','coca.jpg',10000,'Coca',1,1),(125,'Nước suối','Nước suối.png',5000,'Nước suối',1,1),(126,'Nước có ga','pepsi.jpg',10000,'Pepsi',1,1),(127,'Bia lon','bia-huda-330ml.jpg',15000,'Bia Huda',1,1),(128,'Bia','bia-saigon.jpg',15000,'Bia Sài Gòn',1,1);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -466,7 +466,7 @@ CREATE TABLE `tables` (
   `hidden` tinyint(1) DEFAULT '0',
   `table_name` varchar(255) NOT NULL,
   PRIMARY KEY (`table_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -475,7 +475,7 @@ CREATE TABLE `tables` (
 
 LOCK TABLES `tables` WRITE;
 /*!40000 ALTER TABLE `tables` DISABLE KEYS */;
-INSERT INTO `tables` VALUES (3,NULL,1,0,'Bàn số 3'),(4,NULL,1,0,'Bàn số 4'),(6,NULL,0,0,'Bàn số 6'),(7,NULL,1,0,'Bàn số 7'),(8,NULL,0,0,'Bàn số 8'),(9,NULL,0,0,'Bàn số 9'),(10,NULL,0,0,'Bàn số 10'),(12,NULL,0,0,'Bàn số 1');
+INSERT INTO `tables` VALUES (20,NULL,1,0,'Bàn số 7'),(21,NULL,1,0,'Bàn số 8'),(19,NULL,1,0,'Bàn số 6'),(18,NULL,1,0,'Bàn số 5'),(17,NULL,1,0,'Bàn số 4'),(16,NULL,1,0,'Bàn số 3'),(15,'17h 00',1,0,'Bàn số 2'),(14,NULL,0,0,'Bàn số 1'),(22,NULL,1,0,'Bàn số 9'),(23,NULL,1,0,'Bàn số 10'),(27,NULL,1,0,'Bàn số 13'),(25,NULL,0,0,'Bàn số 11'),(26,NULL,0,0,'Bàn số 12'),(28,NULL,0,0,'Bàn số 14');
 /*!40000 ALTER TABLE `tables` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -545,7 +545,7 @@ CREATE TABLE `vouchers` (
   `voucher_name` varchar(255) NOT NULL,
   `voucher_deleted` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`voucher_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -554,7 +554,7 @@ CREATE TABLE `vouchers` (
 
 LOCK TABLES `vouchers` WRITE;
 /*!40000 ALTER TABLE `vouchers` DISABLE KEYS */;
-INSERT INTO `vouchers` VALUES (1,'2021-08-11','2021-08-12','Giảm 20%',20,0,'Giảm 20%',0),(2,'2021-08-12','2021-08-20','Khách Vip',50,1,'Giảm 50%',0);
+INSERT INTO `vouchers` VALUES (1,'2021-08-11','2021-08-12','Giảm 20%',20,0,'Giảm 20%',0),(2,'2021-08-12','2021-08-20','Khách Vip',50,0,'Giảm 50%',0),(4,'2021-08-29','2021-09-16','Lễ Quốc Khánh',10,1,'Giảm 10%',0);
 /*!40000 ALTER TABLE `vouchers` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -567,4 +567,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-17 13:53:01
+-- Dump completed on 2021-08-29 16:51:46

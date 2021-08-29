@@ -11,7 +11,11 @@ public interface IEmployeeService extends UserDetailsService {
     Iterable<Employee> findAll();
     Employee createUser(Employee employee);
 
-    Optional<Employee> findEmployeeByPhone(Integer phoneNumber);
+    Optional<Employee> findEmployeeByPhone(String phoneNumber);
 
     UserPrincipal findByUsername(String username);
+
+    boolean isContainUsername(String username);
+
+    boolean isContainPhone(String phone);
 }

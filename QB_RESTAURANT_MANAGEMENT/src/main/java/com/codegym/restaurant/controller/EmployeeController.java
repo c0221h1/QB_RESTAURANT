@@ -11,7 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -72,12 +74,12 @@ public class EmployeeController {
     }
 
     @PostMapping("/createEmployee")
-    public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee){
-        Integer phoneNumber = employee.getPhone();
-        Optional<Employee> employee1 = employeeService.findEmployeeByPhone(phoneNumber);
-        if (!employee1.isPresent()){
-            employee.getPosition().setPositionName(positionService.findById(employee.getPosition().getPositionId()).get().getPositionName());
-            return new ResponseEntity<>(iEmployeeService.createUser(employee),HttpStatus.CREATED);
+    public ResponseEntity<Employee> createNewEmployee(@RequestBody Employee employee){
+        employee.setPosition(positionService.findById(employee.getPosition().getPositionId()).get());
+        employee.setPassword(new BCryptPasswordEncoder().encode(employee.getPassword()));
+        if (employeeService.isContainPhone(employee.getPhone()) && employeeService.isContainUsername(employee.getUsername())){
+            employeeService.createUser(employee);
+            return new ResponseEntity<>(HttpStatus.CREATED);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -100,6 +102,7 @@ public class EmployeeController {
 
     @PatchMapping("/editEmployee")
     public ResponseEntity<Employee> editEmployee(@RequestBody Employee employee){
+        employee.setId(employee.getId());
         employee.getPosition().setPositionName(positionService.findById(employee.getPosition().getPositionId()).get().getPositionName());
         return new ResponseEntity<>(employeeService.save(employee),HttpStatus.OK);
     }
