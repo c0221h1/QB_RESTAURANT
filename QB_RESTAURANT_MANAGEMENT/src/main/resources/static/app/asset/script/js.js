@@ -101,7 +101,7 @@ function getAllVoucherIsApply(){
         url: "/app/allItemVoucherIsApply"
     }).done(function (vouchers){
         let content =   "<a class=\"change-action\" href='#' onclick='showModalChange()'><i class=\"fas fa-exchange-alt\">Đổi bàn</i></a>" +
-                        "<a class=\"merge-action\" href=\"\"><i class=\"fas fa-object-ungroup\">Gộp bàn</i></a>";
+                        "<a class=\"merge-action\" href='#' onclick='getAllDeskMerge()'><i class=\"fas fa-object-ungroup\" >Gộp bàn</i></a>";
         for (let i = vouchers.length-1; i >= 0; i--) {
             content += `
                          <a class="merge-action" href=""><i class="fas fa-tags">Giảm ${vouchers[i].percent}%</i></a>
@@ -156,7 +156,10 @@ function drawListOrderDetail(id) {
         url: `/app/getOrderDetailByOrderID/${id}`,
     }).done(function (orderDetails){
         let content = ""
-        if (orderDetails.length > 0){
+        if (orderDetails == undefined) {
+            $(".bill-container").html("");
+        }
+        else if (orderDetails.length > 0){
             for (let i = orderDetails.length-1; i >= 0; i--) {
                 content += `
                        <div class="sub__bill">

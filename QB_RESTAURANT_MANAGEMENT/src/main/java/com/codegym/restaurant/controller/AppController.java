@@ -2,6 +2,7 @@ package com.codegym.restaurant.controller;
 
 import com.codegym.restaurant.model.*;
 import com.codegym.restaurant.service.category.ICategoryService;
+import com.codegym.restaurant.service.desk.IDeskService;
 import com.codegym.restaurant.service.order.IOrderService;
 import com.codegym.restaurant.service.orderDetail.IOrderDetailService;
 import com.codegym.restaurant.service.product.IProductService;
@@ -28,6 +29,9 @@ public class AppController {
 
     @Autowired
     private IVoucherService voucherService;
+
+    @Autowired
+    private IDeskService deskService;
 
     @Autowired
     private ICategoryService categoryService;
@@ -131,7 +135,7 @@ public class AppController {
         if (orderDetails.spliterator().getExactSizeIfKnown()>0){
             return new ResponseEntity<>(orderDetails, HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/deleteOrderDetail/{id}")
@@ -169,7 +173,6 @@ public class AppController {
             orderDetailOptional.get().setProductPrice(totalPrice-price);
             return new ResponseEntity<>(orderDetailService.save(orderDetailOptional.get()),HttpStatus.OK);
         }else {
-//            orderDetailService.remove(id);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

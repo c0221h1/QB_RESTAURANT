@@ -8,34 +8,33 @@ function getAllDesk(){
         let content = "";
         for (let i = 0; i < desks.length; i++) {
             content += `
-                    <div class="table-container">
-                    ${desks[i].hidden ?
-                    '' :
-                    `<div class="table-infor"><p>${desks[i].tableName}
-                       ${desks[i].book && desks[i].book !== (null +"h "+ null) ?
-                        `<span style="color: red">(Đặt lúc ${desks[i].book})</span>` :
-                        ''}
-                        </p>
-                    <div class="table-img">
-                    ${desks[i].custom ?
-                    '<img src="/app/asset/img/table1.jpg">' :
-                    '<img src="/app/asset/img/table2.jpg">'}
-                    <div class="portfolio-info">${desks[i].custom ?
-                    '<p style="color: red; font-weight:bold;">Exist</p>' :
-                    '<p style="color: blue; font-weight:bold;">Empty</p>'}
-                    <div class="portfolio-links">
-                    <a href="#" data-toggle="modal" onclick="getDesk(${desks[i].custom}, ${desks[i].tableId})"><i class="fas fa-eye fa-sm"></i></a>
+                    <div class="table-container">${desks[i].hidden ?
+                        '' :
+                        `<div class="table-infor"><p>${desks[i].tableName}
+                               ${desks[i].book && desks[i].book !== (null +"h "+ null) ?
+                                `<span style="color: red">(Đặt lúc ${desks[i].book})</span>` :
+                                ''}
+                                </p>
+                            <div class="table-img">${desks[i].custom ?
+                                '<img src="/app/asset/img/table1.jpg">' :
+                                '<img src="/app/asset/img/table2.jpg">'}
+                                        <div class="portfolio-info">${desks[i].custom ?
+                                        '<p style="color: red; font-weight:bold;">Exist</p>' :
+                                        '<p style="color: blue; font-weight:bold;">Empty</p>'}
+                                        <div class="portfolio-links">
+                                        <a href="#" data-toggle="modal" onclick="getDesk(${desks[i].custom}, ${desks[i].tableId})"><i class="fas fa-eye fa-sm"></i></a>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>`}
                     </div>
-                    </div>
-                    </div>
-                    </div>`}
-                        </div>
                 `;
         }
         $("#show").html(content);
     })
 }
 getAllDesk();
+//-------------Hiển thị bàn------------//
 
 function getDesk(custom, tableId) {
     $.ajax({
@@ -49,10 +48,11 @@ function getDesk(custom, tableId) {
         Swal.fire({
             title: 'Bạn có muốn đổi bàn thành có khách?',
             icon: 'warning',
-            showCancelButton: true,
+            showDenyButton: true,
             confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Vâng, hãy đổi!'
+            denyButtonColor: '#d33',
+            denyButtonText :`Hủy`,
+            confirmButtonText: 'Đồng ý!'
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
@@ -67,6 +67,7 @@ function getDesk(custom, tableId) {
                     ).then(() => {
                         $('#modalQuickView').modal('show');
                         $('#idTableChange').val(tableId);
+                        $('#idTableMerge').val(tableId);
                         $.ajax({
                             type: "GET",
                             url: `/tableBook/${tableId}`,
@@ -78,9 +79,21 @@ function getDesk(custom, tableId) {
                             type: "GET",
                             url: "/deskChange"
                         }).done(function (desks){
-                            let content = "";
+                            let content =   "";
                             for (let i = 0; i < desks.length; i++) {
-                                content += `<option value="${desks[i].tableId}">${desks[i].tableName}</option>`;
+                                if (desks[i].book === (null +"h "+ null) || desks[i].book == null){
+                                    content += `
+                                <div class="table-container">
+                                    <div class="table-infor">
+                                        <p>${desks[i].tableName}</p> 
+                                        <div class="table-image">
+                                            <input type="hidden" id="idTableNewChange" value="${desks[i].tableId}">
+                                            <a href="#" onclick="changeDesk()"><img src="/app/asset/img/table2.jpg"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                `;
+                                }
                             }
                             $("#tableNewChange").html(content);
                         });
@@ -111,6 +124,7 @@ function getDesk(custom, tableId) {
     } else {
         $('#modalQuickView').modal('show');
         $('#idTableChange').val(tableId);
+        $('#idTableMerge').val(tableId);
         $.ajax({
             type: "GET",
             url: `/app/getOrder/${tableId}`
@@ -128,7 +142,19 @@ function getDesk(custom, tableId) {
             }).done(function (desks){
                 let content = "";
                 for (let i = 0; i < desks.length; i++) {
-                    content += `<option value="${desks[i].tableId}">${desks[i].tableName}</option>`;
+                    if (desks[i].book === (null +"h "+ null) || desks[i].book == null){
+                        content += `
+                                <div class="table-container">
+                                    <div  class="table-infor">
+                                        <p>${desks[i].tableName}</p> 
+                                        <div class="table-image">
+                                            <input type="hidden" id="idTableNewChange" value="${desks[i].tableId}">
+                                            <a href="#" onclick="changeDesk(${desks[i].tableId})"><img src="/app/asset/img/table2.jpg"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                    }
                 }
                 $("#tableNewChange").html(content);
             });
@@ -139,20 +165,88 @@ function getDesk(custom, tableId) {
     }
 }
 
-function changeDesk() {
-    let idDeskChange = $('#idTableChange').val();
-    let idDeskNewChange = $('#tableNewChange').val();
+function changeDesk(idNewTableChange) {
+        let idDeskChange = $('#idTableChange').val();
+        Swal.fire({
+        title: 'Bạn có muốn đổi bàn ?',
+        icon: 'warning',
+        showDenyButton: true,
+        confirmButtonColor: '#3085d6',
+        denyButtonColor: '#d33',
+        denyButtonText :`Hủy`,
+        confirmButtonText: 'Đồng ý!'
+    }).then((result) => {
+        if (result.isConfirmed){
+            $.ajax({
+                type: "PUT",
+                data: {'id1': idDeskChange, 'id2': idNewTableChange},
+                url: "/deskChange"
+            }).done(function (){
+                getAllDesk();
+                App.showSuccessAlert("Đổi bàn thành công!!");
+                $('.bd-example-modal-sm').modal('hide');
+                $('#modalDeskChange').modal('hide');
+                $('#modalQuickView').modal('hide');
+            }).fail(function (){
+                App.showErrorAlert("Đã xảy ra lỗi!")
+            })
+        }
+    })
+}
+
+//----------------Show All Table Merge----------------//
+function getAllDeskMerge(){
+    let id = $('#idTableChange').val();
     $.ajax({
-        type: "PUT",
-        data: { 'id1' : idDeskChange, 'id2' : idDeskNewChange },
-        url: "/deskChange"
-    }).done(function () {
-        getAllDesk();
-        $('#modalDeskChange').modal('hide');
-        $('#modalQuickView').modal('hide');
-        App.showSuccessAlert("Đổi bàn thành công!!");
-    }).fail(()=>{
-        App.showErrorAlert("Lỗi ! Không đổi được!!");
+        type: "GET",
+        url: `/getAllDeskMerge/${id}`,
+    }).done(function (desks){
+        let content = "";
+        for (let i = 0; i < desks.length; i++) {
+            content += `
+                <div class="table-container">
+                    <div  class="table-infor">
+                        <p>${desks[i].tableName}</p> 
+                        <div class="table-image">
+                            <input type="hidden" id="idTableNewMerge" value="${desks[i].tableId}">
+                            <a href="#" onclick="mergeDesk(${desks[i].tableId})"><img src="/app/asset/img/table1.jpg"></a>
+                        </div>
+                    </div>
+                </div>
+                  `;
+            }
+        $('.bg-example-modal-sm').modal('show');
+        $("#tableNewMerge").html(content);
+    })
+}
+//----------------Show All Table Merge----------------//
+
+function mergeDesk(idNewDeskMerge) {
+    let idDeskMerge = $('#idTableChange').val();
+    Swal.fire({
+        title: 'Bạn có muốn gộp bàn ?',
+        icon: 'warning',
+        showDenyButton: true,
+        confirmButtonColor: '#3085d6',
+        denyButtonColor: '#d33',
+        denyButtonText :`Hủy`,
+        confirmButtonText: 'Đồng ý!'
+    }).then((result) => {
+        if (result.isConfirmed){
+            $.ajax({
+                type: "PUT",
+                data: {'id1': idDeskMerge, 'id2': idNewDeskMerge},
+                url: "/deskMerge"
+            }).done(function (){
+                getAllDesk();
+                App.showSuccessAlert("Gộp bàn thành  thành công!!");
+                $('.bg-example-modal-sm').modal('hide');
+                $('#modalDeskChange').modal('hide');
+                $('#modalQuickView').modal('hide');
+            }).fail(function (){
+                App.showErrorAlert("Đã xảy ra lỗi!")
+            })
+        }
     })
 }
 
@@ -164,9 +258,6 @@ function getToday(){
     let yyyy = today.getFullYear();
     return `${yyyy}-${mm}-${dd}`;
 }
-
-//-------------Hiển thị bàn------------//
-
 
 function up(max) {
     document.getElementById("myNumber").value = parseInt(document.getElementById("myNumber").value) + 1;
@@ -183,8 +274,10 @@ function down(min) {
 }
 
 function showModalChange() {
-    $('#modalDeskChange').modal('show');
+    $('.bd-example-modal-sm').modal('show');
 }
+
+
 
 
 

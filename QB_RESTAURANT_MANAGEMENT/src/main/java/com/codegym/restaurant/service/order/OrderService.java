@@ -1,6 +1,7 @@
 package com.codegym.restaurant.service.order;
 
 import com.codegym.restaurant.model.Order;
+import com.codegym.restaurant.model.OrderDetail;
 import com.codegym.restaurant.repository.IOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

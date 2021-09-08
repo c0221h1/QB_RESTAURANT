@@ -9,9 +9,7 @@
     <link rel="stylesheet" href="/app/asset/style/table.css">
     <link rel="stylesheet" href="/app/asset/style/test.css">
     <link rel="stylesheet" href="/app/asset/style/media.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-    <!-- Vendor CSS Files -->
     <link href="/app/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/app/vendor/icofont/icofont.min.css" rel="stylesheet">
     <link href="/app/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
@@ -153,8 +151,8 @@
 
             <!-- Menu display foods -->
             <div class="menu">
-                    <div class="page"><!-- 
-                        <h1>Table</h1> -->
+                    <div class="page">
+
                         <div id="show"></div>
                     </div>
             </div>
@@ -185,10 +183,8 @@
 
                         <div class="table-action" style="height: 45px">
                             <a href="#" class="change-action" onclick="showModalChange()"><i class="fas fa-exchange-alt">Đổi bàn</i></a>
-                            <a href="#" class="change-action" onclick="showModalChange1()"><i class="fas fa-exchange-alt">Đổi bàn</i></a>
-                            <a class="merge-action" href=""><i class="fas fa-object-ungroup">Gộp bàn</i></a>
+                            <a href="#" class="merge-action" onclick="getAllDeskMerge()"><i class="fas fa-object-ungroup">Gộp bàn</i></a>
                         </div>
-
                 </div>
 
                 <div class="modal-body modal-body1 mt-3">
@@ -199,10 +195,7 @@
                     <section class="payment">
                         <p>Hóa đơn</p>
                         <div class="bill-container overflow-auto" id="payment" style="scroll-behavior: smooth;">
-
                         </div>
-
-                            <!-- <div class="subtotal-text"><h5>Phương thức thanh toán</h5></div> -->
                             <button class="btn-bill mb-2">Thanh toán</button>
                     </section>
                 </div>
@@ -213,39 +206,28 @@
         <!-- End Modal: modalQuickView -->
       <!--Footer-->
     </div>
-    <!--Modal: modalConfirmDelete-->
-    <div class="modal fade" id="modalDeskChange" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
-            <!--Content-->
-            <div class="modal-content text-center" style="width: 30%; height: 30%; display: block; border: none; position: absolute; top: 25%; left: 50%; transform: translateX(-50%); background-color: darkgrey">
-                <!--Header-->
-                <div class="modal-header d-flex justify-content-center">
-                    <p class="heading">Bạn muốn đổi bàn ???</p>
-                </div>
 
-                <!--Body-->
-                <input type="hidden" id="idTableChange">
-                <div class="modal-body" style="border: none; color: red">
-                    <i class="fas fa-exchange-alt fa-4x"></i>
-                </div>
-                <div>
-                    <p>Đổi <span id="tableChange"></span> thành
-                    <select id="tableNewChange">
-                    </select>
-                    </p>
-                </div>
+    <!-- Small modal -->
 
-                <!--Footer-->
-                <div class="modal-footer flex-center" style="justify-content: center !important; background-color: darkgrey">
-                    <a href="#" class="btn btn-outline-danger" onclick="changeDesk()">Đổi</a>
-                    <a type="button" class="btn  btn-danger waves-effect" data-dismiss="modal">Không</a>
-                </div>
+    <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" >
+            <input type="hidden" id="idTableChange">
+            <div class="modal-content" id="tableNewChange" style="display: flex; flex-wrap: wrap">
+
             </div>
-            <!--/.Content-->
         </div>
     </div>
-    <!--Modal: modalConfirmDelete-->
+
+    <div class="modal fade bg-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" >
+            <input type="hidden" id="idTableMerge">
+            <div class="modal-content" id="tableNewMerge" style="display: flex; flex-wrap: wrap">
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
 </body>
 <script src="/app/assets/vendor/jquery/jquery.min.js"></script>
 <script src="/app/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
