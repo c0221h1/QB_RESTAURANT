@@ -43,11 +43,11 @@ function showBookDesk(tableId) {
             $('#upTableId').val(desk.tableId);
             $('#nameTable').text(desk.tableName);
             $('#upTableCustom').val(desk.custom);
+            $('#upTableHidden').val(desk.hidden);
+            $('#upTableName').val(desk.tableName);
             let times = desk.book.split("h ");
             $('#upTimeBook').val(times[0]);
             $('#upMinuteBook').val(times[1]);
-            $('#upTableHidden').val(desk.hidden);
-            $('#upTableName').val(desk.tableName);
         }
     });
     $('#deskBook').modal('show');

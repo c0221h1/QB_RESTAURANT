@@ -32,6 +32,11 @@ public class DeskService implements  IDeskService{
         deskRepository.deleteById(id);
     }
 
+    @Override
+    public Iterable<Desk> findAllByCustomIsTrue(Long id) {
+        return deskRepository.findAllByCustomIsTrue(id);
+    }
+
     public Optional<Desk> findByName(String name) {
         return deskRepository.findByTableName(name);
     }
