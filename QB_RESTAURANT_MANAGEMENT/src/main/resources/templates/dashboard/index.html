@@ -4,7 +4,7 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="/uploads/logoQBrestaurant/logo1.gif" alt="QBrestaurant" height="500" width="500" style="border-radius: 30px">
+    <img class="animation__shake" src="/uploads/logoQBrestaurant/logo1.gif" alt="QBrestaurant" height="200" width="200" style="border-radius: 30px">
 </div>
 <div class="wrapper">
     <th:block th:replace="/layout/nav :: navbar"></th:block>
@@ -81,7 +81,7 @@
                             <div class="icon">
                                 <i class="ion ion-pie-graph"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            <a th:href="@{/listProduct}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                 </div>

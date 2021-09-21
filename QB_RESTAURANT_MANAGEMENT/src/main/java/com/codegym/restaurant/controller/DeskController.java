@@ -181,6 +181,26 @@ public class DeskController {
         orderService.remove(idOrder1);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/getAllDeskSplit/{id}")
+    public ResponseEntity<Iterable<Desk>> listDeskSplit(@PathVariable Long id) {
+        return new ResponseEntity<>(deskService.findAllDeskSplit(id), HttpStatus.OK);
+    }
+
+    @PostMapping("/splitOrderDetail")
+    public ResponseEntity<OrderDetail> splitOrderDetail(@RequestBody OrderDetail orderDetail){
+        return new ResponseEntity<>(orderDetailService.save(orderDetail), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/deskSplitOrder")
+    public ResponseEntity   deskSplitOrder(@RequestParam Long id1, Long id2) {
+        Optional<Order> orderOptional = orderService.findById(id1);
+            Desk desk = deskService.findById(id2).get();
+            desk.setCustom(true);
+            deskService.save(desk);
+            orderOptional.get().setDesk(desk);
+            return new ResponseEntity<>(orderService.save(orderOptional.get()), HttpStatus.OK);
+    }
 }
 
 

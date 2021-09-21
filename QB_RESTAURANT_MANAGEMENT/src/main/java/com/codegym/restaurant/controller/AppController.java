@@ -1,6 +1,8 @@
 package com.codegym.restaurant.controller;
 
 import com.codegym.restaurant.model.*;
+import com.codegym.restaurant.service.bill.IBillService;
+import com.codegym.restaurant.service.billDetail.IBillDetailService;
 import com.codegym.restaurant.service.category.ICategoryService;
 import com.codegym.restaurant.service.desk.IDeskService;
 import com.codegym.restaurant.service.order.IOrderService;
@@ -38,6 +40,12 @@ public class AppController {
 
     @Autowired
     private IOrderDetailService orderDetailService;
+
+    @Autowired
+    private IBillService billService;
+
+    @Autowired
+    private IBillDetailService billDetailService;
 
     private String getPrincipal() {
         String userName = null;
@@ -135,7 +143,7 @@ public class AppController {
         if (orderDetails.spliterator().getExactSizeIfKnown()>0){
             return new ResponseEntity<>(orderDetails, HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/deleteOrderDetail/{id}")
@@ -175,5 +183,26 @@ public class AppController {
         }else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @PostMapping("/createBill")
+    public ResponseEntity<Bill> createBill(@RequestBody Bill bill) {
+        bill.setBillNote("Đã thanh toán");
+        return new ResponseEntity<>(billService.save(bill), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/createBillDetail/{id}")
+    public ResponseEntity<BillDetail> createBillDetail(@RequestBody BillDetail billDetail, @PathVariable Long id) {
+        billDetailService.save(billDetail);
+        Desk desk = deskService.findById(id).get();
+        desk.setCustom(false);
+        deskService.save(desk);
+        Optional<Order> orderOptional = orderService.findByTableId(id);
+        Iterable<OrderDetail> orderDetails = orderDetailService.findAllByOrderOrderId(orderOptional.get().getOrderId());
+        for (OrderDetail o : orderDetails) {
+            orderDetailService.remove(o.getOrderDetailId());
+        }
+        orderService.remove(orderOptional.get().getOrderId());
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

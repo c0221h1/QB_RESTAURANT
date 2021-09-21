@@ -41,4 +41,12 @@ public class OrderDetail {
         this.product = product;
         this.order = order;
     }
+
+    public OrderDetail(int amount, Double productPrice, boolean status, Product product, Order order) {
+        this.amount = amount;
+        this.productPrice = productPrice;
+        this.status = status;
+        this.product = product;
+        this.order = order;
+    }
 }

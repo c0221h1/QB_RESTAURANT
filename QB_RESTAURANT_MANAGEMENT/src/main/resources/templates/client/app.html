@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/app/asset/style/table.css">
     <link rel="stylesheet" href="/app/asset/style/test.css">
     <link rel="stylesheet" href="/app/asset/style/media.css">
+    <link rel="stylesheet" href="/app/asset/style/cutModal.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
     <link href="/app/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/app/vendor/icofont/icofont.min.css" rel="stylesheet">
@@ -39,7 +40,14 @@
           height: 100%;
           flex-direction: row;
         }
-
+        .panel-body{
+            position: relative;
+            bottom: 0;
+        }
+        .btn-bill{
+            position: relative;
+            bottom: 0;
+        }
         .col-sm-4 {
             height: 100%;
         }
@@ -114,7 +122,7 @@
             <div class="navbar">
                 <ul>
                     <div style="position: relative; right: 20px">
-                        <img class="logo" src="/app/asset/img/logo.png" alt="">
+                        <img class="logo" src="/uploads/logoQBrestaurant/logo1.gif" alt="" style="position: relative; bottom: 10rem">
                     </div>
                 </ul>
                 <div class="clas">
@@ -184,19 +192,24 @@
                         <div class="table-action" style="height: 45px">
                             <a href="#" class="change-action" onclick="showModalChange()"><i class="fas fa-exchange-alt">Đổi bàn</i></a>
                             <a href="#" class="merge-action" onclick="getAllDeskMerge()"><i class="fas fa-object-ungroup">Gộp bàn</i></a>
+                            <a href="#" class="merge-action" onclick="showCutModal()"><i class="fas fa-cut">Tách bàn</i></a>
+
                         </div>
                 </div>
 
-                <div class="modal-body modal-body1 mt-3">
+                <div class="modal-body modal-body1 mt-0">
                     <p class="first-text">Thông tin <span id="tableName"></span></p>
                     <div class="table_name">
 
                     </div>
                     <section class="payment">
                         <p>Hóa đơn</p>
-                        <div class="bill-container overflow-auto" id="payment" style="scroll-behavior: smooth;">
+                        <div class="bill-container overflow-auto" id="payment" style="scroll-behavior: smooth; height: 40vh;">
                         </div>
-                            <button class="btn-bill mb-2">Thanh toán</button>
+                        <div class="panel-body border mb-2">
+
+                        </div>
+                            <button class="btn-bill mb-2" onclick="createBill()">Thanh toán</button>
                     </section>
                 </div>
             </div>
@@ -221,12 +234,47 @@
     <div class="modal fade bg-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm" >
             <input type="hidden" id="idTableMerge">
-            <div class="modal-content" id="tableNewMerge" style="display: flex; flex-wrap: wrap">
+            <div class="modal-content menu pt-4" id="tableNewMerge" style="display: flex; flex-wrap: wrap">
 
             </div>
         </div>
     </div>
 
+    <!-- Central Modal Cut Table -->
+    <div class="modal fade" id="cutProductModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" style="flex-direction: column">
+                <div class="modal-header">
+                    <input type="hidden" id="idDeskSplit" value="">
+                    <input type="hidden" id="idOrderBefore" value="">
+                    <h4 class="modal-title w-100 mt-2" id="myModalLabel">Tách bàn</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mt-3">
+                    <table class="table" id="orderDetail-table" border="1">
+                        <input type="hidden" id="idNewOrder" value="">
+                        <thead>
+                        <tr>
+                            <th scope="col" style="width: 50%;">Tên món</th>
+                            <th scope="col" style="width: 30%;" class="quantity">Số lượng</th>
+                            <th scope="col" class="money">Thành tiền</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Thoát</button>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="getAllCutModal()">Đến<i class="fas fa-arrow-circle-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Central Modal Cut Table -->
     <!-- Modal -->
 </body>
 <script src="/app/assets/vendor/jquery/jquery.min.js"></script>

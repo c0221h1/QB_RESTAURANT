@@ -37,6 +37,11 @@ public class DeskService implements  IDeskService{
         return deskRepository.findAllByCustomIsTrue(id);
     }
 
+    @Override
+    public Iterable<Desk> findAllDeskSplit(Long id) {
+        return deskRepository.findAllDeskSplit(id);
+    }
+
     public Optional<Desk> findByName(String name) {
         return deskRepository.findByTableName(name);
     }
