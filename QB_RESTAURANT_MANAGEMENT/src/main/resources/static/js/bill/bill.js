@@ -12,12 +12,11 @@ bill.billList = function(){
             $.each(response, function(index, item){
                 $('.table-bill tbody').append(`
                     <tr id="row'+${item.billId}+'">     
-                        <td>HD${item.billId}</td>
-                        <td>${item.customerName}</td>
-                        <td class='text-right'>${item.billTotal}</td>
-                        <td class='text-right'>${item.billTime}</td>
-                        <td>${item.billNote}</td>
-                        <td class='text-center'>
+                        <td class=text-center>HD${item.billId}</td>
+                        <td class=text-center>${item.billTotal}</td>
+                        <td class=text-center>${item.billTime}</td>
+                        <td class=text-center>${item.billNote}</td>
+                        <td class=text-center>
                             <a href='javascript:;' class='btn btn-outline-success btn-sm' title='Chi tiết hóa đơn'
                                 onclick="bill.billDetal(${item.billId})">
                                 <i class="fas fa-info-circle"></i>

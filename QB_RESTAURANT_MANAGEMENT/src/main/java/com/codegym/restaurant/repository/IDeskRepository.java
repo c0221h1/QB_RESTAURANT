@@ -19,4 +19,7 @@ public interface IDeskRepository extends JpaRepository<Desk, Long> {
 
     @Query("SELECT d FROM Desk d WHERE d.custom = false")
     Iterable<Desk> findDeskChange();
+
+    @Query("SELECT d from Desk d where d.tableId <> :id")
+    Iterable<Desk> findAllDeskSplit(@Param("id") Long id);
 }

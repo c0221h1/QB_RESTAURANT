@@ -36,5 +36,12 @@ public class OrderService implements IOrderService{
     @Override
     public Optional<Order> findByTableId(Long id){
         return orderRepository.findByTableId(id);
-    };
+    }
+
+    @Override
+    public Optional<Order> findByOrderId(Long id) {
+        return orderRepository.findByOrderId(id);
+    }
+
+    ;
 }

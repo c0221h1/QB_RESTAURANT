@@ -101,10 +101,12 @@ function getAllVoucherIsApply(){
         url: "/app/allItemVoucherIsApply"
     }).done(function (vouchers){
         let content =   "<a class=\"change-action\" href='#' onclick='showModalChange()'><i class=\"fas fa-exchange-alt\">Đổi bàn</i></a>" +
-                        "<a class=\"merge-action\" href='#' onclick='getAllDeskMerge()'><i class=\"fas fa-object-ungroup\" >Gộp bàn</i></a>";
+                        "<a class=\"merge-action\" href='#' onclick='getAllDeskMerge()'><i class=\"fas fa-object-ungroup\" >Gộp bàn</i></a>"+
+                        "<a class=\"merge-action\" href='#' onclick='showCutModal()'><i class=\"fas fa-cut\">Tách bàn</i></a>";
         for (let i = vouchers.length-1; i >= 0; i--) {
             content += `
-                         <a class="merge-action" href=""><i class="fas fa-tags">Giảm ${vouchers[i].percent}%</i></a>
+                         <input id="discount-percent" type="hidden" value="${vouchers[i].percent}">
+                         <a class="merge-action" href="#" onclick="subDiscount()"><i class="fas fa-tags">Giảm ${vouchers[i].percent}%</i></a>
                 `;
         }
         $(".table-action").html(content);
@@ -150,20 +152,45 @@ function createOrderDetail(id,price) {
     })
 }
 
+
+//---------------Get All Order Detail-----------//
 function drawListOrderDetail(id) {
     $.ajax({
         type: "GET",
         url: `/app/getOrderDetailByOrderID/${id}`,
     }).done(function (orderDetails){
-        let content = ""
-        if (orderDetails == undefined) {
+        let content = "";
+        let content2 = `    
+                    <div class="d-flex justify-content-between pr-1 pl-1 pb-0">
+                        <p>Tạm tính</p>
+                        <p id="provisional">0 đ</p>
+                    </div>
+                    <div class="d-flex justify-content-between pr-1 pl-1 pb-0" style="height: 10px">
+                        <p>Khuyến mãi</p>
+                        <input type="hidden" id="voucher_id" value="">
+                        <p id="voucher-value">0 đ</p>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between pr-1 pl-1 pb-0">
+                            <p>Thành tiền</p>
+                            <input hidden id="total" value="">
+                            <p id="total-after-discount">0 đ</p>
+                    </div>
+            `;
+        if (orderDetails == undefined || orderDetails == null) {
             $(".bill-container").html("");
+            $(".panel-body").html(content2);
         }
         else if (orderDetails.length > 0){
+            let provisional = 0;
             for (let i = orderDetails.length-1; i >= 0; i--) {
                 content += `
                        <div class="sub__bill">
                             <input type="hidden" id="id-order-detail" value="${orderDetails[i].orderDetailId}">
+                            <input type="hidden" id="sub-id-product" value="${orderDetails[i].product.productId}"> 
+                            <input type="hidden" id="sub-product-price" value="${orderDetails[i].productPrice}">
+                            <input type="hidden" id="sub-product-name" value="${orderDetails[i].product.productName}">
+                            <input type="hidden" id="sub-product-amount" value="${orderDetails[i].amount}">
                             <div class="sub__bill--name">${orderDetails[i].product.productName}
                             </div>
                             <div class="sub__bill--quantity"><i class="fas fa-minus-circle" onclick="reduceProduct(${orderDetails[i].orderDetailId})"  style="color: darkgrey"></i>
@@ -175,13 +202,136 @@ function drawListOrderDetail(id) {
                             <div title="Xóa món" class="sub__bill-delIcon"><i class="fa fa-trash mb-1 text-danger" onclick="deleteOrderDetail(${orderDetails[i].orderDetailId})"></i></div>
                        </div>  
                 `;
+                provisional += parseInt(`${(orderDetails[i].productPrice)}`);
             }
+            let discount = $('#voucher_id').val();
+            if (!(discount > 0)) {
+                discount = 0;
+            }
+            let total = provisional-(provisional*discount/100);
+            let content1 = `    
+                    <div class="d-flex justify-content-between pr-1 pl-1 pb-0">
+                        <p>Tạm tính</p>
+                        <p id="provisional">${(provisional.toLocaleString('vi', {style : 'currency', currency : 'VND'}))}</p>
+                    </div>
+                    <div class="d-flex justify-content-between pr-1 pl-1 pb-0" style="height: 10px">
+                        <p>Khuyến mãi</p>
+                        <input type="hidden" id="voucher_id" value="">
+                        <p id="voucher-value"></p>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between pr-1 pl-1 pb-0" id="subTotal">
+                            <p>Thành tiền</p>
+                            <input type="hidden" id="clicks-value" value="">
+                            <input hidden id="total" value="${total}">
+                            <p id="total-after-discount">${(total.toLocaleString('vi', {style : 'currency', currency : 'VND'}))}</p>
+                    </div>
+            `;
             $(".bill-container").html(content);
+            $(".panel-body").html(content1);
         }
     }).fail(function (){
         $(".bill-container").html("");
     })
 }
+//---------------Get All Order Detail-----------//
+
+
+//--------------------Get discount-------------//
+let clicks = 0;
+function subDiscount(){
+    clicks += 1;
+    $('#clicks-value').val(clicks);
+    let count = $('#clicks-value').val(clicks);
+    let total = $('#total').val();
+    let discount = $('#discount-percent').val();
+    let discountMoney = discount*total/100;
+    let totalPrice = (total-discountMoney);
+    $('#voucher-value').text(`${(discountMoney.toLocaleString('vi', {style : 'currency', currency : 'VND'}))}`);
+    if (count >= 1) {
+        let content4 = `
+                <p>Thành tiền</p>
+                <input hidden id="total" value="${totalPrice}">
+                <p id="total-after-discount">${(totalPrice).toLocaleString('vi', {style: 'currency', currency: 'VND'})}</p>
+                `;
+        $('#subTotal').html(content4);
+    }
+}
+//--------------------Get discount-------------//
+
+
+
+//-------------------- Create Bill-------------//
+function createBill(){
+    let idOrder = $('#id-order').val();
+    let idTable = $('#idTableMerge').val();
+    let billTime = getToday();
+    let totalPrice = parseFloat($("#total-after-discount").text());
+    let newBill = {
+        billTime : billTime,
+        billTotal : totalPrice,
+    }
+    Swal.fire({
+        title: 'Xác nhận thanh toán ?',
+        icon: 'warning',
+        showDenyButton: true,
+        confirmButtonColor: '#3085d6',
+        denyButtonColor: '#d33',
+        denyButtonText :`Hủy`,
+        confirmButtonText: 'Đồng ý!'
+    }).then((result) => {
+        if (result.isConfirmed){
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type: "POST",
+                data: JSON.stringify(newBill),
+                url: `/app/createBill`,
+            }).done((resp) =>{
+                newBill = resp;
+                $.ajax({
+                    type: "GET",
+                    url: `/app/getOrderDetailByOrderID/${idOrder}`,
+                }).done(function (oderDetails){
+                    for (let i = 0; i < oderDetails.length; i++){
+                        let newBillDetail = {
+                            amount : oderDetails[i].amount,
+                            productPrice : oderDetails[i].productPrice,
+                            productName: oderDetails[i].product.productName,
+                            bill :{
+                                billId : newBill.billId
+                            },
+                        }
+                        $.ajax({
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                            type: "POST",
+                            data: JSON.stringify(newBillDetail),
+                            url: `/app/createBillDetail/${idTable}`,
+                        }).done(function (){
+                            getAllDesk();
+                            App.showSuccessAlert("Thanh toán thành công!!");
+                            $('#provisional').text("");
+                            $('#voucher-value').text("");
+                            $('#total-after-discount').text("");
+                            $('.bd-example-modal-sm').modal('hide');
+                            $('#modalDeskChange').modal('hide');
+                            $('#modalQuickView').modal('hide');
+                        })
+                    }
+                })
+            }).fail(function (){
+                App.showErrorAlert("Đã xảy ra lỗi!")
+            })
+        }
+    })
+}
+//-------------------- Create Bill-------------//
+
 
 //----------------Delete OrderDetail-----------//
 function deleteOrderDetail(orderDetailId) {
@@ -212,6 +362,7 @@ function deleteOrderDetail(orderDetailId) {
 }
 //----------------Delete OrderDetail-----------//
 
+
 //----------------Increase Product-------------//
 function increaseProduct(id){
     $.ajax({
@@ -226,6 +377,7 @@ function increaseProduct(id){
     })
 }
 //----------------Increase Product-------------//
+
 
 //----------------Reduce Product---------------//
 function reduceProduct(id){
@@ -282,7 +434,6 @@ function w3RemoveClass(element, name) {
 }
 
 
-// Add active class to the current button (highlight it)
 let header = document.getElementById("myDiv")
 let btns = header.getElementsByClassName("btn")
 for(let i = 0; i < btns.length; i++){
@@ -294,29 +445,20 @@ for(let i = 0; i < btns.length; i++){
 }
 
   $("a").on('click', function(event) {
-    // Make sure this.hash has a value before overriding default behavior
     if (this.hash !== "") {
-      // Prevent default anchor click behavior
       event.preventDefault();
 
-      // Store hash
       var hash = this.hash;
-
-      // Using jQuery's animate() method to add smooth page scroll
-      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
       $('html, body').animate({
         scrollTop: $(hash).offset().top
       }, 800, function(){
-   
-        // Add hash (#) to URL when done scrolling (default click behavior)
-        window.location.hash = hash;
+          window.location.hash = hash;
       });
     }
   });
 
 
 (function ($, window, document, underfined) {
-  /* Default Options */
     var defaults = {
         cart: [],
         addtoCartClass: '.sc-add-to-cart',

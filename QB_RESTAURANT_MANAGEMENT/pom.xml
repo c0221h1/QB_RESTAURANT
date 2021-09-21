@@ -94,6 +94,11 @@
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>CUSTOMER_MANAGEMENT_SPRING_BOOT</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

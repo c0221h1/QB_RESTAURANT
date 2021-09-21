@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
 --
--- Host: localhost    Database: qb-restaurant-management
+-- Host: localhost    Database: qb_restaurant_management
 -- ------------------------------------------------------
 -- Server version	8.0.25
 
@@ -24,13 +24,11 @@ DROP TABLE IF EXISTS `bill_details`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `bill_details` (
   `bill_detail_id` bigint NOT NULL AUTO_INCREMENT,
-  `bill_id` bigint DEFAULT NULL,
-  `order_detail_id` bigint DEFAULT NULL,
   `amount` int NOT NULL,
   `product_name` varchar(255) NOT NULL,
   `product_price` double NOT NULL,
+  `bill_id` bigint DEFAULT NULL,
   PRIMARY KEY (`bill_detail_id`),
-  KEY `FKklpmg9jyaabwwbdwfgaxt0mas` (`order_detail_id`),
   KEY `FKfwm4sko9p82ndh6belyxx12bj` (`bill_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -53,16 +51,12 @@ DROP TABLE IF EXISTS `bills`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `bills` (
   `bill_id` bigint NOT NULL AUTO_INCREMENT,
-  `bill_time` date NOT NULL,
-  `status` bit(1) NOT NULL,
-  `vat` int NOT NULL,
-  `order_id` bigint DEFAULT NULL,
   `bill_note` varchar(255) DEFAULT NULL,
+  `bill_time` date NOT NULL,
   `bill_total` double NOT NULL,
   `customer_name` varchar(255) DEFAULT NULL,
   `voucher_id` bigint DEFAULT NULL,
   PRIMARY KEY (`bill_id`),
-  KEY `FK2s1iwv6bgsmh8u9awhdd1aela` (`order_id`),
   KEY `FK1p232jm7oedinqkn0pmlj3upi` (`voucher_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -171,7 +165,7 @@ CREATE TABLE `employees` (
   `position_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKngcpgx7fx5kednw3m7u0u8of3` (`position_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=87 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=89 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -180,7 +174,7 @@ CREATE TABLE `employees` (
 
 LOCK TABLES `employees` WRITE;
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
-INSERT INTO `employees` VALUES (1,0,'Huế',NULL,NULL,'1995-07-23','Võ Hoàng Dương',0,'$2a$05$MqXCYVi79m7fqco0QHiSYeRWvNCuzbwDNsH.iWv3L4OZ7veH5GVVG','0904744408',_binary '\0','admin',1),(85,0,'Quảng Bình',NULL,NULL,'1991-02-21','Phạm Đăng Phong',0,'$2a$10$Ntmpvegg7uy9INrad/JSi.NmrRh2NBAvq5CQOem6Scm9uCoMFelDS','0384056894',_binary '\0','admin1',1),(86,0,'Huế',NULL,NULL,'1999-06-29','Nguyễn Văn A',0,'$2a$10$KhGgs/XR0kbbKF64kDcr..D1nsmGsyxlWdYOy3L9YK40XZXTFmDKq','0384056897',_binary '\0','TestUser',2);
+INSERT INTO `employees` VALUES (87,0,'Quảng Bình',NULL,NULL,'1995-08-16','Võ Hoàng Dương',0,'$2a$10$Qk27LSCZ18S1w.mBuMDNueYbU5O8XMkHOWB6eF/.6KJzbCEePBkFy','0904744408',_binary '\0','admin',1),(85,0,'Quảng Bình',NULL,NULL,'1991-02-21','Phạm Đăng Phong',0,'$2a$10$Ntmpvegg7uy9INrad/JSi.NmrRh2NBAvq5CQOem6Scm9uCoMFelDS','0384056894',_binary '\0','admin1',1),(88,0,'Huế',NULL,NULL,'2002-01-16','Nguyễn Văn A',0,'$2a$10$DWwxuLTMqX9YtjbnDcaYFe.Ty/veIyCN9frDGhOdPrBEFny4TFMZK','0384056897',_binary '\0','TestUser',2);
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -225,7 +219,7 @@ CREATE TABLE `order_details` (
   PRIMARY KEY (`order_detail_id`),
   KEY `FKjyu2qbqt8gnvno9oe9j2s2ldk` (`order_id`),
   KEY `FK4q98utpd73imf4yhttm3w0eax` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=218 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=262 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -234,7 +228,7 @@ CREATE TABLE `order_details` (
 
 LOCK TABLES `order_details` WRITE;
 /*!40000 ALTER TABLE `order_details` DISABLE KEYS */;
-INSERT INTO `order_details` VALUES (207,1,280000,0,31,117),(208,1,130000,0,31,122),(209,2,200000,0,30,112),(210,1,15000,0,31,128),(211,1,10000,0,31,126),(212,1,10000,0,31,124),(213,1,10000,0,32,126),(214,1,100000,0,32,97),(215,2,280000,0,34,103),(216,2,240000,0,34,102),(217,3,750000,0,34,101);
+INSERT INTO `order_details` VALUES (250,1,15000,0,57,128),(251,1,15000,0,57,127),(252,1,10000,0,57,126),(253,2,10000,0,57,125),(254,1,50000,0,58,121),(255,1,130000,0,58,122),(256,3,150000,0,59,120),(257,3,150000,0,59,121),(258,2,200000,0,61,113),(259,1,120000,0,61,116),(260,1,15000,0,60,127),(261,1,10000,0,60,126);
 /*!40000 ALTER TABLE `order_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -251,7 +245,7 @@ CREATE TABLE `orders` (
   `table_id` bigint DEFAULT NULL,
   PRIMARY KEY (`order_id`),
   KEY `FKrkhrp1dape261t3x3spj7l5ny` (`table_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -260,7 +254,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (27,'2021-08-17',21),(26,'2021-08-17',17),(25,'2021-08-17',19),(28,'2021-08-17',23),(29,'2021-08-17',22),(30,'2021-08-17',20),(31,'2021-08-18',18),(32,'2021-08-18',15),(33,'2021-08-24',16),(34,'2021-08-29',27);
+INSERT INTO `orders` VALUES (57,'2021-09-03',1),(58,'2021-09-03',2),(59,'2021-09-03',3),(60,'2021-09-03',4),(61,'2021-09-03',5);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -463,10 +457,10 @@ CREATE TABLE `tables` (
   `table_id` bigint NOT NULL AUTO_INCREMENT,
   `book` varchar(255) DEFAULT NULL,
   `custom` tinyint(1) DEFAULT '0',
-  `hidden` tinyint(1) DEFAULT '0',
+  `hidden` tinyint(1) DEFAULT '1',
   `table_name` varchar(255) NOT NULL,
   PRIMARY KEY (`table_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -475,7 +469,7 @@ CREATE TABLE `tables` (
 
 LOCK TABLES `tables` WRITE;
 /*!40000 ALTER TABLE `tables` DISABLE KEYS */;
-INSERT INTO `tables` VALUES (20,NULL,1,0,'Bàn số 7'),(21,NULL,1,0,'Bàn số 8'),(19,NULL,1,0,'Bàn số 6'),(18,NULL,1,0,'Bàn số 5'),(17,NULL,1,0,'Bàn số 4'),(16,NULL,1,0,'Bàn số 3'),(15,'17h 00',1,0,'Bàn số 2'),(14,NULL,0,0,'Bàn số 1'),(22,NULL,1,0,'Bàn số 9'),(23,NULL,1,0,'Bàn số 10'),(27,NULL,1,0,'Bàn số 13'),(25,NULL,0,0,'Bàn số 11'),(26,NULL,0,0,'Bàn số 12'),(28,NULL,0,0,'Bàn số 14');
+INSERT INTO `tables` VALUES (1,NULL,1,0,'Bàn số 1'),(2,NULL,1,0,'Bàn số 2'),(3,NULL,1,0,'Bàn số 3'),(4,NULL,1,0,'Bàn số 4'),(5,NULL,1,0,'Bàn số 6'),(6,NULL,0,0,'Bàn số 5'),(7,'nullh null',0,0,'Bàn số 7'),(8,NULL,0,0,'Bàn số 8'),(9,NULL,0,0,'Bàn số 9'),(10,NULL,0,0,'Bàn số 10'),(11,NULL,0,0,'Bàn số 11');
 /*!40000 ALTER TABLE `tables` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -567,4 +561,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-29 16:51:46
+-- Dump completed on 2021-09-11  4:17:48

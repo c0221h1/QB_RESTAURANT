@@ -34,6 +34,8 @@ function getAllDesk(){
     })
 }
 getAllDesk();
+
+
 //-------------Hiển thị bàn------------//
 
 function getDesk(custom, tableId) {
@@ -115,8 +117,26 @@ function getDesk(custom, tableId) {
                         url: "/app/createOrder",
                         data: JSON.stringify(newOrder),
                     }).done(function (order){
+                        let content2 = `    
+                                    <div class="d-flex justify-content-between pr-1 pl-1 pb-0">
+                                        <p>Tạm tính</p>
+                                        <p id="provisional">0 đ</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between pr-1 pl-1 pb-0" style="height: 10px">
+                                        <p>Khuyến mãi</p>
+                                        <input type="hidden" id="voucher_id" value="">
+                                        <p id="voucher-value">0 đ</p>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex justify-content-between pr-1 pl-1 pb-0">
+                                            <p>Thành tiền</p>
+                                            <input hidden id="total" value="">
+                                            <p id="total-after-discount">0 đ</p>
+                                    </div>
+                                    `;
                         $('#id-order').val(order.orderId);
-                        $(".bill-container").html(" ");
+                        $(".bill-container").html("");
+                        $(".panel-body").html(content2);
                     })
                 });
             }
@@ -134,6 +154,25 @@ function getDesk(custom, tableId) {
                 url: `/tableBook/${tableId}`,
                 success: function (desk) {
                     $('#tableChange').text(desk.tableName);
+                    let content2 = `    
+                                    <div class="d-flex justify-content-between pr-1 pl-1 pb-0">
+                                        <p>Tạm tính</p>
+                                        <p id="provisional">0 đ</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between pr-1 pl-1 pb-0" style="height: 10px">
+                                        <p>Khuyến mãi</p>
+                                        <input type="hidden" id="voucher_id" value="">
+                                        <p id="voucher-value">0 đ</p>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex justify-content-between pr-1 pl-1 pb-0">
+                                            <p>Thành tiền</p>
+                                            <input hidden id="total" value="">
+                                            <p id="total-after-discount">0 đ</p>
+                                    </div>
+                                    `;
+                    $(".bill-container").html("");
+                    $(".panel-body").html(content2);
                 }
             });
             $.ajax({
@@ -194,7 +233,7 @@ function changeDesk(idNewTableChange) {
     })
 }
 
-//----------------Show All Table Merge----------------//
+//----------------Hiển thị bàn muốn gộp----------------//
 function getAllDeskMerge(){
     let id = $('#idTableChange').val();
     $.ajax({
@@ -219,7 +258,7 @@ function getAllDeskMerge(){
         $("#tableNewMerge").html(content);
     })
 }
-//----------------Show All Table Merge----------------//
+//----------------Hiển thị bàn muốn gộp----------------//
 
 function mergeDesk(idNewDeskMerge) {
     let idDeskMerge = $('#idTableChange').val();
@@ -250,6 +289,38 @@ function mergeDesk(idNewDeskMerge) {
     })
 }
 
+//---------------Tách bàn----------------//
+function showCutModal(){
+    let idOrder = $('#id-order').val();
+    $.ajax({
+        type: "GET",
+        url: `/app/getOrderDetailByOrderID/${idOrder}`,
+    }).done(function (orderDetails){
+        let content = "";
+         if (orderDetails.length > 0){
+            for (let i = orderDetails.length-1; i >= 0; i--) {
+                content += `
+                     <tr>
+                        <input type="hidden" id="productIdSplit-${i}" value="${orderDetails[i].product.productId}">
+                        <td scope="row">${orderDetails[i].product.productName}</td>
+                        <td class="quantity">
+                            <button><i class="fa fa-minus-circle" onclick=minusProduct(${i},${orderDetails[i].product.price})></i></button>
+                            <span class="split-quantity" id="split-quantity-${i}" >0</span>
+                            <button><i class="fa fa-plus-circle" onclick=plusProduct(${i},${orderDetails[i].amount},${orderDetails[i].product.price})></i></button><span>  /${orderDetails[i].amount}</span>
+                        </td>
+                        <td class="money"><span id="total-price-${i}" >0</span></td>
+                    </tr>
+                `;
+            }
+            $('#cutProductModal').modal('show');
+            $("#orderDetail-table tbody").html(content);
+            $('#idOrderBefore').val(idOrder);
+        }
+    }).fail(function (){
+        App.showErrorAlert("Bàn này chưa có món!")
+    })
+}
+//----------------------Tách bàn------------//
 
 function getToday(){
     let today = new Date();
@@ -275,6 +346,137 @@ function down(min) {
 
 function showModalChange() {
     $('.bd-example-modal-sm').modal('show');
+}
+
+function minusProduct(i,price){
+    let quantity = $(`#split-quantity-${i}`).text();
+    if (quantity <= 0 ){
+        App.showErrorAlert("Số lượng không thể nhỏ hơn 0");
+        $(`#split-quantity-${i}`).text(0);
+    }else{
+        --quantity;
+    }
+    let totalPrice = quantity*price;
+    $(`#split-quantity-${i}`).text(quantity);
+    $(`#total-price-${i}`).text(totalPrice);
+}
+
+function plusProduct(i,max,price){
+    let quantity = $(`#split-quantity-${i}`).text();
+    if (max <= quantity ){
+        App.showErrorAlert("Số lượng không thể lớn hơn " + max );
+        $(`#split-quantity-${i}`).text(max);
+    }else{
+        ++quantity;
+    }
+    let totalPrice = quantity*price;
+    $(`#split-quantity-${i}`).text(quantity);
+    $(`#total-price-${i}`).text(totalPrice);
+}
+
+function getAllCutModal(){
+    let idOrderBefore =  $('#idOrderBefore').val();
+    let newDesk = {
+        tableId : 10000
+    }
+    let time = new Date();
+    let newOrder = {
+        orderTime : time,
+        desk : newDesk
+    }
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "POST",
+        url: "/app/createOrder",
+        data: JSON.stringify(newOrder),
+    }).done(function (order){
+        let orderId = order.orderId;
+        $('#idNewOrder').val(orderId);
+        let rowTr = $("#orderDetail-table tbody tr").length;
+        for (let i = 0; i < rowTr; i++){
+            let amount = $(`#split-quantity-${i}`).text();
+            let productId = $(`#productIdSplit-${i}`).val();
+            let productPrice = $(`#total-price-${i}`).text();
+            if (amount > 0) {
+                let newOrderDetail = {
+                    amount: amount,
+                    product: {
+                        productId: productId,
+                    },
+                    status: false,
+                    order: {
+                      orderId: orderId
+                    },
+                    productPrice: productPrice,
+                }
+                $.ajax({
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    type: "POST",
+                    url: "/splitOrderDetail",
+                    data: JSON.stringify(newOrderDetail),
+                }).done(function (){
+                    let idTable = $('#idTableChange').val();
+                    $.ajax({
+                        type: "GET",
+                        url: `/getAllDeskSplit/${idTable}`,
+                    }).done(function (desks){
+                        let content = "";
+                        for (let i = 0; i < desks.length; i++) {
+                            if (desks[i].book === (null +"h "+ null) || desks[i].book == null){
+                                content += `
+                                <div class="table-container">${desks[i].hidden ?
+                                    '' :
+                                    `<div class="table-infor"><p>${desks[i].tableName}</p>
+                                        <div class="table-img">${desks[i].custom ?
+                                        `<a href="#" onclick="deskForwardToDeskExist(${idTable},${desks[i].tableId})"><img src="/app/asset/img/table1.jpg"></a>` :
+                                        `<a href="#" onclick="deskForwardToDeskEmpty(${orderId},${desks[i].tableId})"><img src="/app/asset/img/table2.jpg"></a>`}
+                                        </div>
+                                    </div>`}
+                                </div>`;
+                            }
+                        }
+                        $('#cutProductModal').modal('hide');
+                        $("#tableNewMerge").html(content);
+                        $('.bg-example-modal-sm').modal('show');
+                    })
+                })
+            }
+        }
+    });
+}
+
+function deskForwardToDeskExist(id1,id2){
+
+}
+
+function deskForwardToDeskEmpty(id1,id2){
+    Swal.fire({
+        title: 'Bạn có muốn tách bàn ?',
+        icon: 'warning',
+        showDenyButton: true,
+        confirmButtonColor: '#3085d6',
+        denyButtonColor: '#d33',
+        denyButtonText :`Hủy`,
+        confirmButtonText: 'Đồng ý!'
+    }).then((result) => {
+        if (result.isConfirmed){
+            $.ajax({
+                type: "PUT",
+                data: {'id1': id1, 'id2': id2},
+                url: "/deskSplitOrder"
+            }).done(function (){
+               alert("123456");
+            }).fail(function (){
+                App.showErrorAlert("Đã xảy ra lỗi!")
+            })
+        }
+    })
 }
 
 
